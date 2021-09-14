@@ -1,6 +1,6 @@
-# Surveyther-Frontend-Template Project
+# Surveyther-Frontend-Main Project
 
-이더리움 기반의 서베이 거래 플랫폼의 개발용 템플릿입니다.   
+이더리움 기반의 서베이 거래 플랫폼의 개발용 저장소입니다.   
 적용 대상은 Vue 기반 웹 프론트엔드 파트입니다.
 
 ## Our team
