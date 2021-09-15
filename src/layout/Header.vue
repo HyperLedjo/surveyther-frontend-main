@@ -32,7 +32,7 @@
           target="_blank"
         >
           <!-- <i class="now-ui-icons arrows-1_cloud-download-93"></i> -->
-          <p>About</p>
+          <p>About?</p>
         </a>
       </li>
       <!-- <drop-down
