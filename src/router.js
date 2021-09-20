@@ -5,7 +5,7 @@ import Landing from './pages/Landing.vue';
 import Login from './pages/Login.vue';
 import Profile from './pages/Profile.vue';
 import MainNavbar from './layout/MainNavbar.vue';
-import MainFooter from './layout/MainFooter.vue';
+// import MainFooter from './layout/MainFooter.vue';
 
 import Header from './layout/Header.vue';
 import Footer from './layout/Footer.vue';
@@ -14,6 +14,7 @@ import Main from './pages/main.vue';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   linkExactActiveClass: 'active',
   routes: [
     {

@@ -29,5 +29,17 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "description": "이더리움 기반의 서베이 거래 플랫폼의 개발용 저장소입니다.   \r 적용 대상은 Vue 기반 웹 프론트엔드 파트입니다.",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyperLedjo/surveyther-frontend-main.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HyperLedjo/surveyther-frontend-main/issues"
+  },
+  "homepage": "https://github.com/HyperLedjo/surveyther-frontend-main#readme"
 }
