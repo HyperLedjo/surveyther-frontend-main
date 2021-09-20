@@ -4,11 +4,7 @@ module.exports = {
       target: 'http://localhost:8082',
       changeOrigin: true
     },
-    'login': {
-      target: 'http://localhost:8082',
-      changeOrigin: true
-    },
-    'logout': {
+    'oauth': {
       target: 'http://localhost:8082',
       changeOrigin: true
     }
