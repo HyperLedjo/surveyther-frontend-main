@@ -1,12 +1,16 @@
 module.exports = {
-  proxy: {
-    'api': {
-      target: 'http://localhost:8082',
-      changeOrigin: true
-    },
-    'oauth': {
-      target: 'http://localhost:8082',
-      changeOrigin: true
+  devServer: {
+    host: 'localhost',
+    port: 8081,
+    proxy: {
+      'api': {
+        target: 'http://localhost:8082',
+        changeOrigin: true
+      },
+      'oauth': {
+        target: 'http://localhost:8082',
+        changeOrigin: true
+      }
     }
   },
   css: {
