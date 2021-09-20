@@ -10,6 +10,10 @@ import MainFooter from './layout/MainFooter.vue';
 import Header from './layout/Header.vue';
 import Footer from './layout/Footer.vue';
 import Main from './pages/main.vue';
+import SurveyCreate from './pages/SurveyCreate.vue';
+import SurveyList from './pages/SurveyList.vue';
+import SurveyClosedList from './pages/SurveyClosedList.vue';
+import SurveyDetailOngoing from './pages/SurveyDetailOngoing.vue';
 
 Vue.use(Router);
 
@@ -20,6 +24,42 @@ export default new Router({
       path: '/',
       name: 'index2',
       components: { default: Main, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_create',
+      name: 'survey_create',
+      components: { default: SurveyCreate, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_ongoing',
+      name: 'survey_ongoing',
+      components: { default: SurveyList, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_ongoing/detail',
+      name: 'survey_ongoing_detail',
+      components: { default: SurveyDetailOngoing, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_closed',
+      name: 'survey_closed',
+      components: { default: SurveyClosedList, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

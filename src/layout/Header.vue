@@ -28,11 +28,11 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="/"
+          href=""
           target="_blank"
         >
           <!-- <i class="now-ui-icons arrows-1_cloud-download-93"></i> -->
-          <p>About?</p>
+          <p>About</p>
         </a>
       </li>
       <!-- <drop-down
@@ -59,28 +59,28 @@
               icon="now-ui-icons files_paper"
               class="nav-item"
       >
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing">
             부동산
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_2">
             유통
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_3">
             식음료
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_4">
             관광
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_5">
             금융
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_6">
             정보통신
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_7">
             보건의료
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_ongoing_8">
             공공정책
         </nav-link>
       </drop-down>
@@ -91,28 +91,28 @@
               icon="now-ui-icons education_paper"
               class="nav-item"
       >
-        <nav-link to="/#">
+        <nav-link to="/survey_closed">
             부동산
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_2">
             유통
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_3">
             식음료
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_4">
             관광
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_5">
             금융
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_6">
             정보통신
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_7">
             보건의료
         </nav-link>
-        <nav-link to="/#">
+        <nav-link to="/survey_closed_8">
             공공정책
         </nav-link>
       </drop-down>

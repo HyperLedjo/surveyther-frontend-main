@@ -3,13 +3,13 @@
       <div class="mybox red">
             <img class="left-box img-info" src="img/bg7.jpg" alt="" />
             <div class="right-box">
-                    <h4><b> 서베이참여</b></h4>
+                    <h4><b> 서베이작성</b></h4>
                     <p>
                         I think that’s a responsibility that I have, to push
                         possibilities, to show people, this is the level that things
                         could be at.
                     </p>
-                    <button class="btn btn-round btn-primary">보러가기</button>
+                    <a href="#/survey_create"><button class="btn btn-round btn-primary">보러가기</button></a>
             </div>    
                 
       </div>

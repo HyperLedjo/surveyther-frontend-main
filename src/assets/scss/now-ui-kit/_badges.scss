@@ -42,6 +42,7 @@
     @include badge-color($danger-color);
 }
 .badge-neutral{
-    @include badge-color($white-color);
+    @include badge-color($tag-color);
+    // @include badge-color($white-color);
     color: inherit !important;
 }
