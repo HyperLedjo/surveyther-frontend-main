@@ -8,5 +8,22 @@
   </div>
 </template>
 <script>
-export default {};
+import {mapState} from 'vuex';
+
+export default {
+  name: 'app',
+  data(){
+    return {
+
+    };
+  },
+  computed:{
+    ...mapState({
+      //json객체를 리턴함
+    })
+  },
+  mounted(){
+    console.log(this.$store);
+  }
+};
 </script>

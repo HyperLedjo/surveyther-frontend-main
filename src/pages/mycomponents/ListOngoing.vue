@@ -136,6 +136,13 @@
                   </div>
               </card>
             </a>
+            <v-list-tile
+            v-for="(user, index) in $store.state.tests"
+            :key="user"
+            >
+            <h5>index: {{index}}------id: {{user.id}}-------sample: {{user.sample}}</h5>
+            </v-list-tile>
+
           
 
         </div>
@@ -143,6 +150,8 @@
 </template>
 <script>
 import { Card } from '@/components';
+import {EventBus} from '@/main.js'
+
 import {
   Button,
   Checkbox,
@@ -162,7 +171,23 @@ export default {
     // [Switch.name]: Switch,
     // [Option.name]: Option,
     // Slider
+  },
+  data(){
+    return{
+      // tests:[
+      //   {id: 1, sample:'one'},
+      //   {id: 2, sample:'two'},
+      //   {id: 3, sample:'three'}
+      // ]
+
+    }
+  },
+  mounted(){
+    // EventBus.$on('signUp',  sample => {
+    //   this.$store.state.tests.push(sample)
+    // })
   }
+  
 };
 </script>
 <style>
