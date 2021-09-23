@@ -10,29 +10,30 @@
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
         </div>
-        <h3 class="title">Ryan Scheinder</h3>
-        <p class="category">Photographer</p>
+        <h3 class="title">My Page</h3>
+        <p class="category">user_id</p>
         <div class="content">
           <div class="social-description">
-            <h2>26</h2>
-            <p>Comments</p>
+            <h2>0</h2>
+            <p>등록한서베이</p>
           </div>
           <div class="social-description">
-            <h2>26</h2>
-            <p>Comments</p>
+            <h2>0</h2>
+            <p>보유서베이</p>
           </div>
           <div class="social-description">
-            <h2>48</h2>
-            <p>Bookmarks</p>
+            <h2>0</h2>
+            <p>보유상품권</p>
           </div>
+          
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="button-container">
-          <a href="#button" class="btn btn-primary btn-round btn-lg">Follow</a>
-          <a
+          <a href="#button" class="btn btn-primary btn-round btn-lg">로그아웃</a>
+          <!-- <a
             href="#button"
             class="btn btn-default btn-round btn-lg btn-icon"
             rel="tooltip"
@@ -47,9 +48,85 @@
             title="Follow me on Instagram"
           >
             <i class="fab fa-instagram"></i>
-          </a>
+          </a> -->
         </div>
-        <h3 class="title">About me</h3>
+        <div class="container">
+          <card>
+            <div>
+              <h3 class=""><b>My Wallet</b></h3>
+              <!-- <hr> -->
+              <h6>지갑주소: 0xNJ0R8M5SR8FGSRNYH08SR8NSFS0RY8</h6> 
+              <h4>보유토큰    <b>2000</b></h4>
+            </div>
+          </card>
+          <div class="row">
+            <div class="col-md-3 mr-auto ">
+              <card>
+                <h6 class="my-4">내정보보기</h6>
+                <h6 class="my-4">등록한서베이</h6>
+                <h6 class="my-4">보유서베이</h6>
+                <h6 class="my-4">보유상품권</h6>
+              </card>
+            </div>
+
+            <div class="col-md-9 ml-auto ">
+              <card>
+                <h5 class="mt-3"><b>기본정보</b></h5>  
+                <hr>
+                <div class="row ">
+                  <div class="col-md-3 mr-auto ">
+                    <h6 class="my-3">이메일</h6>
+                    <h6 class="my-3">생일</h6>
+                    <h6 class="my-3">성별</h6>
+
+                  </div>
+                  <div class="col-md-9 ml-auto ">
+                    <b>
+                      <h6 class="my-3">sample@email.com</h6>
+                      <h6 class="my-3">01/01</h6>
+                      <h6 class="my-3">F</h6>
+                    </b>
+                  </div>
+                </div>
+
+                <h5 class="mt-4"><b>추가정보</b></h5>
+                <hr>
+                <div class="row ">
+                  <div class="col-md-3 mr-auto ">
+                    <h6 class="my-3">실명</h6>
+                    <h6 class="my-3">출생년도</h6>
+                    <h6 class="my-3">전화번호</h6>
+                    <h6 class="my-3">지역</h6>
+                    <h6 class="my-3">직업</h6>
+                    <h6 class="my-3">결혼유무</h6>
+                    <h6 class="my-3">최종학력</h6>
+                    <h6 class="my-3">소득수준</h6>
+
+                  </div>
+                  <div class="col-md-9 ml-auto ">
+                    <b>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">-</h6>
+                    </b>
+                  </div>
+                </div>
+
+
+              </card>
+            </div>
+
+          </div>
+          
+        </div>
+        
+
+        <!-- <h3 class="title">About me</h3>
         <h5 class="description">
           An artist of considerable range, Ryan — the name taken by
           Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
@@ -118,20 +195,23 @@
               </div>
             </tab-pane>
           </tabs>
-        </div>
+          
+        </div> -->
+
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Tabs, TabPane } from '@/components';
+import { Card, Tabs, TabPane } from '@/components';
 
 export default {
   name: 'profile',
   bodyClass: 'profile-page',
   components: {
-    Tabs,
-    TabPane
+    // Tabs,
+    // TabPane,
+    Card
   }
 };
 </script>

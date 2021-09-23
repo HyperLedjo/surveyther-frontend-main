@@ -8,7 +8,13 @@
 
           </card>
           <!-- card -->
-            <a href="#/survey_ongoing/detail">
+            
+
+            <v-list-tile
+            v-for="(survey,index) in $store.state.ongoingList"
+            :key="survey"
+            >
+                <a href="">
               <card >
                   <div >
 
@@ -16,15 +22,15 @@
                         <div class="row card-form">
 
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-success mr-1">진행중</span>
-                                <span class="badge badge-warning">120</span>
-                                <span><b> 서베이 타이틀입니다</b></span> 
+                              <span class="badge badge-success mr-1">{{index}}진행중</span>
+                                <span class="badge badge-warning">{{survey.reward}}</span>
+                                <span><b> {{survey.title}}</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
                                 <b> <h6>서베이 타이틀입니다</h6></b>
                             </div> -->
                             <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                                <h6>서베이에 대한 간단한 설명입니다. 서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.</h6>
+                                <h6> {{survey.subtitle}}</h6>
                             <hr style="border: solid 1px rgb(200,200,200);">
                             </div>
                             <div class="col-sm-6 col-lg-5">
@@ -34,15 +40,15 @@
                               <span class="badge badge-neutral mr-1">#sample</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">남은보상<b>3</b></span>
-                                <span>마감 <b>5</b> 일전</span>
+                                <span class="mr-4">남은보상<b>{{survey.remainRe}}</b></span>
+                                <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-3">2021.09.06</span> 
+                                <span class="ml-3">{{survey.regDate}}</span> 
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-4 now-ui-icons ui-2_chat-round"> 3</span> 
-                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> 3</span> 
+                                <span class="ml-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
+                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> {{survey.likeCount}}</span> 
                             </div>
                         </div>
                     </div>
@@ -50,92 +56,9 @@
                   </div>
               </card>
             </a>
+            </v-list-tile>
 
-            <a href="">
-              <card >
-                  <div >
-
-                    <div id="inputs">
-                        <div class="row card-form">
-
-                            <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-success mr-1">진행중</span>
-                                <span class="badge badge-warning">120</span>
-                                <span><b> 서베이 타이틀입니다</b></span> 
-                            </div>
-                            <!-- <div class="col-sm-6 col-lg mt-1">
-                                <b> <h6>서베이 타이틀입니다</h6></b>
-                            </div> -->
-                            <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                                <h6>서베이에 대한 간단한 설명입니다. 서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.</h6>
-                            <hr style="border: solid 1px rgb(200,200,200);">
-                            </div>
-                            <div class="col-sm-6 col-lg-5">
-                              <span class="badge badge-neutral mr-1">#태그</span>
-                              <span class="badge badge-neutral mr-1">#서베이</span>
-                              <span class="badge badge-neutral mr-1">#tag</span>
-                              <span class="badge badge-neutral mr-1">#sample</span>
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">남은보상<b>3</b></span>
-                                <span>마감 <b>5</b> 일전</span>
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-3">2021.09.06</span> 
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-4 now-ui-icons ui-2_chat-round"> 3</span> 
-                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> 3</span> 
-                            </div>
-                        </div>
-                    </div>
-
-                  </div>
-              </card>
-            </a>
-
-            <a href="">
-              <card >
-                  <div >
-
-                    <div id="inputs">
-                        <div class="row card-form">
-
-                            <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-success mr-1">진행중</span>
-                                <span class="badge badge-warning">120</span>
-                                <span><b> 서베이 타이틀입니다</b></span> 
-                            </div>
-                            <!-- <div class="col-sm-6 col-lg mt-1">
-                                <b> <h6>서베이 타이틀입니다</h6></b>
-                            </div> -->
-                            <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                                <h6>서베이에 대한 간단한 설명입니다. 서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.</h6>
-                            <hr style="border: solid 1px rgb(200,200,200);">
-                            </div>
-                            <div class="col-sm-6 col-lg-5">
-                              <span class="badge badge-neutral mr-1">#태그</span>
-                              <span class="badge badge-neutral mr-1">#서베이</span>
-                              <span class="badge badge-neutral mr-1">#tag</span>
-                              <span class="badge badge-neutral mr-1">#sample</span>
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">남은보상<b>3</b></span>
-                                <span>마감 <b>5</b> 일전</span>
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-3">2021.09.06</span> 
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-4 now-ui-icons ui-2_chat-round"> 3</span> 
-                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> 3</span> 
-                            </div>
-                        </div>
-                    </div>
-
-                  </div>
-              </card>
-            </a>
+<!-- teste -->
             <v-list-tile
             v-for="(user, index) in $store.state.tests"
             :key="user"

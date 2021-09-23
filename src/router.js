@@ -50,7 +50,7 @@ export default new Router({
     },
     {
       path: '/survey_ongoing/detail',
-      name: 'survey_ongoing_detail',
+      name: 'survey_ongoing/detail',
       components: { default: SurveyDetailOngoing, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
