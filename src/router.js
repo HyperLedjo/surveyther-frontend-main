@@ -14,6 +14,7 @@ import SurveyCreate from './pages/SurveyCreate.vue';
 import SurveyList from './pages/SurveyList.vue';
 import SurveyClosedList from './pages/SurveyClosedList.vue';
 import SurveyDetailOngoing from './pages/SurveyDetailOngoing.vue';
+import About from './pages/About.vue';
 
 Vue.use(Router);
 
@@ -23,8 +24,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index2',
+      name: 'main',
       components: { default: Main, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/about',
+      name: 'about',
+      components: { default: About, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

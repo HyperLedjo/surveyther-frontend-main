@@ -28,7 +28,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href=""
+          href="/about"
           target="_blank"
         >
           <!-- <i class="now-ui-icons arrows-1_cloud-download-93"></i> -->
@@ -157,9 +157,9 @@
               icon="now-ui-icons users_circle-08"
               class="nav-item"
       >
-        <nav-link to="/landing">
+        <!-- <nav-link to="/landing">
           Landing
-        </nav-link>
+        </nav-link> -->
         <nav-link to="/login">
           Login
         </nav-link>
