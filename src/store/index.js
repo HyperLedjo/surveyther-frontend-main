@@ -12,10 +12,12 @@ const store = new Vuex.Store({
             {id: 3, sample:'three'}
             ],
             userInfo:{
-                id: '1234', 
-                birthday: '0101', 
-                gender: 'm', 
-                email: 'sample@gmail.com'
+                id: 'abc1234', 
+                birthday: '01/01', 
+                gender: 'M/F', 
+                email: 'sample@gmail.com',
+                wallet: '0xNJ0R8M5SR8FGSRNYH08SR8NSFS0RY8',
+                tokenAmount: 2000
                     // private String id;
                     // private String birthday;
                     // private String gender; 
@@ -27,13 +29,12 @@ const store = new Vuex.Store({
                 phone1: null,
                 phone2: null,
                 phone3: null,
-                zipCode: null,
+                // zipCode: null,
                 residence: null,
                 job: null,
                 married: null,
                 academic: null,
                 income: null,
-                wallet: null,
                 regDate: null
             },
             ongoingList:[

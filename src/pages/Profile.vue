@@ -11,7 +11,7 @@
           <img src="img/ryan.jpg" alt="" />
         </div>
         <h3 class="title">My Page</h3>
-        <p class="category">user_id</p>
+        <p class="category">{{$store.state.userInfo.id}}</p>
         <div class="content">
           <div class="social-description">
             <h2>0</h2>
@@ -50,13 +50,15 @@
             <i class="fab fa-instagram"></i>
           </a> -->
         </div>
-        <div class="container">
+
+
+        <div class="container mt-4">
           <card>
             <div>
               <h3 class=""><b>My Wallet</b></h3>
               <!-- <hr> -->
-              <h6>지갑주소: 0xNJ0R8M5SR8FGSRNYH08SR8NSFS0RY8</h6> 
-              <h4>보유토큰    <b>2000</b></h4>
+              <h6>지갑주소: {{$store.state.userInfo.wallet}}</h6> 
+              <h4>보유토큰    <b>{{$store.state.userInfo.tokenAmount}}</b></h4>
             </div>
           </card>
           <div class="row">
@@ -82,9 +84,9 @@
                   </div>
                   <div class="col-md-9 ml-auto ">
                     <b>
-                      <h6 class="my-3">sample@email.com</h6>
-                      <h6 class="my-3">01/01</h6>
-                      <h6 class="my-3">F</h6>
+                      <h6 class="my-3">{{$store.state.userInfo.email}}</h6>
+                      <h6 class="my-3">{{$store.state.userInfo.birthday}}</h6>
+                      <h6 class="my-3">{{$store.state.userInfo.gender}}</h6>
                     </b>
                   </div>
                 </div>
@@ -105,7 +107,7 @@
                   </div>
                   <div class="col-md-9 ml-auto ">
                     <b>
-                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.name}}-</h6>
                       <h6 class="my-3">-</h6>
                       <h6 class="my-3">-</h6>
                       <h6 class="my-3">-</h6>
@@ -204,6 +206,8 @@
 </template>
 <script>
 import { Card, Tabs, TabPane } from '@/components';
+import {EventBus} from '@/main.js';
+
 
 export default {
   name: 'profile',

@@ -73,7 +73,7 @@
 </template>
 <script>
 import { Card } from '@/components';
-import {EventBus} from '@/main.js'
+import {EventBus} from '@/main.js';
 
 import {
   Button,
