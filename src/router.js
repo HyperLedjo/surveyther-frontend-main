@@ -12,8 +12,12 @@ import Footer from './layout/Footer.vue';
 import Main from './pages/main.vue';
 import SurveyCreate from './pages/SurveyCreate.vue';
 import SurveyList from './pages/SurveyList.vue';
+import SurveyFreeList from './pages/SurveyFreeList.vue';
 import SurveyClosedList from './pages/SurveyClosedList.vue';
 import SurveyDetailOngoing from './pages/SurveyDetailOngoing.vue';
+import SurveyDetailClosed from './pages/SurveyDetailClosed.vue';
+import SurveyDetailFree from './pages/SurveyDetailFree.vue';
+import RewardShop from './pages/RewardShop.vue';
 import About from './pages/About.vue';
 
 Vue.use(Router);
@@ -60,7 +64,7 @@ export default new Router({
     },
     {
       path: '/survey_ongoing/detail',
-      name: 'survey_ongoing/detail',
+      name: 'survey_ongoing_detail',
       components: { default: SurveyDetailOngoing, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
@@ -71,6 +75,42 @@ export default new Router({
       path: '/survey_closed',
       name: 'survey_closed',
       components: { default: SurveyClosedList, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_closed/detail',
+      name: 'survey_closed_detail',
+      components: { default: SurveyDetailClosed, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_free',///
+      name: 'survey_free',
+      components: { default: SurveyFreeList, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/survey_free/detail',///
+      name: 'survey_free_detail',
+      components: { default: SurveyDetailFree, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/rewardshop',///
+      name: 'rewardshop',
+      components: { default: RewardShop, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

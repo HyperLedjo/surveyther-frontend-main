@@ -9,7 +9,7 @@
                         possibilities, to show people, this is the level that things
                         could be at.
                     </p>
-                    <a href="#/survey_create"><button class="btn btn-round btn-primary">보러가기</button></a>
+                    <a href="/survey_create"><button class="btn btn-round btn-primary">보러가기</button></a>
             </div>    
                 
       </div>

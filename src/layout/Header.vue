@@ -120,8 +120,7 @@
         <li class="nav-item">
         <a
           class="nav-link"
-          href="/"
-          target="_blank"
+          href="/survey_free"
         >
         <i class="now-ui-icons objects_globe"></i>
           <p>커뮤니티</p>
@@ -134,7 +133,7 @@
               icon="now-ui-icons shopping_cart-simple"
               class="nav-item"
       >
-        <nav-link to="/#">
+        <nav-link to="/rewardshop">
             아이스크림
         </nav-link>
         <nav-link to="/#">

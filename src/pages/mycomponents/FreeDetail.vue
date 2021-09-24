@@ -8,9 +8,7 @@
                 <div id="inputs">
                     <div class="row card-form ">
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">부동산</span>
-                              <span class="badge badge-success mr-1">진행중</span>
-                                <span class="badge badge-warning">120</span>
+                              <span class="badge badge-primary mr-1">커뮤니티</span>
                                 <span><b> 서베이 타이틀입니다</b></span> 
                             </div>
                             <!-- 프사 -->
@@ -82,7 +80,7 @@
                                     <span class="mr-4 now-ui-icons ui-2_chat-round"> 3</span> 
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> 3</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
-                                    <a href="" class="btn btn-primary btn-round btn-lg"> 서베이 참여 </a>
+                                    <a href="" class="btn btn-primary btn-round btn-lg"> 참여후 결과보기 </a>
                                 </div>
                             </div>
                             
@@ -92,8 +90,9 @@
               </div>
           </card>
 
-        <!-- <comment-box></comment-box> -->
-<!-- TempCommnetBox!!!!!!!!!!!!!!!! -->
+        
+
+            <!-- TempCommnetBox!!!!!!!!!!!!!!!! -->
           <card>
               <div class="">
 
@@ -138,6 +137,7 @@
           </card>
 <!-- TempCommnetBox!!!!!!!!!!!!!!!! -->
 
+
         </div>
       
     </div>
@@ -146,8 +146,6 @@
 import { Card, Tabs, TabPane } from '@/components';
 // import { Button, Modal, FormGroupInput } from '@/components';
 import { Popover, Tooltip, DatePicker } from 'element-ui';
-// import CommentBox from './mycomponents/CommentBox.vue';
-
 
 import {
   Button,
@@ -155,7 +153,7 @@ import {
   Radio,
   FormGroupInput,
   Slider,
-  Switch,
+  Switch
   
 } from '@/components';
 
@@ -210,17 +208,30 @@ export default {
 };
 </script>
 <style lang="scss">
+// .question-location{
+//     position: absolute;
+//     top:400px;
+//     /* align-content:center; */
+//     width:100%;
+//     background: rgb(82, 82, 82, 0);
+//     /* opacity: 0.5; */
+//     padding-left: 300px;
+//     padding-right: 300px;
+
+// }
+// .question-card{
+//     padding-top:100px;
+// }
 .one-block{
     padding-top:60px
 }
-
-.commnet-box{
-  border: 2px solid rgb(221, 221, 221)!important;
-  border-radius:16px;
-  // margin: 20px;
-  // padding-right: 13px;
-}
-.commnet-button{
-
-}
+// #javascriptComponents {
+//   .modal-buttons,
+//   .popover-buttons,
+//   .tooltip-buttons {
+//     .btn + .btn {
+//       margin-left: 3px;
+//     }
+//   }
+// }
 </style>

@@ -77,7 +77,7 @@ export default {
 .space{
     /* height:2000px; */
     /* background: red; */
-    padding-bottom:1000px;
+    padding-bottom:1400px;
     
 
 }

@@ -8,7 +8,7 @@
 
           </card>
           <!-- card -->
-            <a href="/survey_closed/detail">
+            <a href="/survey_free/detail">
               <card >
                   <div >
 
@@ -16,8 +16,7 @@
                         <div class="row card-form">
 
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">부동산</span>
-                              <span class="badge badge-default mr-1">마감</span>
+                              <span class="badge badge-primary mr-1">커뮤니티</span>
                                 <span class="bt-1"><b> 서베이 타이틀입니다</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -34,7 +33,6 @@
                               <span class="badge badge-neutral mr-1">#sample</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">참여인원<b>2000</b>명</span>
                                 <!-- <span>마감 <b>5</b> 일전</span> -->
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
@@ -59,8 +57,7 @@
                         <div class="row card-form">
 
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">부동산</span>
-                              <span class="badge badge-default mr-1">마감</span>
+                              <span class="badge badge-primary mr-1">커뮤니티</span>
                                 <span class="bt-1"><b> 서베이 타이틀입니다</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -77,7 +74,6 @@
                               <span class="badge badge-neutral mr-1">#sample</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">참여인원<b>2000</b>명</span>
                                 <!-- <span>마감 <b>5</b> 일전</span> -->
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
@@ -102,8 +98,7 @@
                         <div class="row card-form">
 
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">부동산</span>
-                              <span class="badge badge-default mr-1">마감</span>
+                              <span class="badge badge-primary mr-1">커뮤니티</span>
                                 <span class="bt-1"><b> 서베이 타이틀입니다</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -120,7 +115,6 @@
                               <span class="badge badge-neutral mr-1">#sample</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">참여인원<b>2000</b>명</span>
                                 <!-- <span>마감 <b>5</b> 일전</span>  -->
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">

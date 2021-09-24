@@ -26,9 +26,7 @@
 
     
     <div class="space">
-            <ongoing-detail></ongoing-detail>    
-            <!-- <comment-box></comment-box> -->
-            
+            <closed-detail></closed-detail>    
     </div>
 
   </div>
@@ -36,8 +34,7 @@
 <script>
 import { Button, FormGroupInput } from '@/components';
 
-import OngoingDetail from './mycomponents/OngoingDetail.vue';
-import CommentBox from './mycomponents/CommentBox.vue';
+import ClosedDetail from './mycomponents/ClosedDetail.vue';
 
 
 export default {
@@ -46,9 +43,7 @@ export default {
   components: {
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
-    OngoingDetail,
-    // CommentBox,
-
+    ClosedDetail
   },
   data() {
     return {

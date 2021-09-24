@@ -11,10 +11,10 @@
             
 
             <v-list-tile
-            v-for="(survey,index) in $store.state.ongoingList"
+            v-for="(survey) in $store.state.ongoingList"
             :key="survey"
             >
-                <a href="">
+                <a href="/survey_ongoing/detail">
               <card >
                   <div >
 
@@ -22,7 +22,8 @@
                         <div class="row card-form">
 
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-success mr-1">{{index}}진행중</span>
+                              <span class="badge badge-primary mr-1">부동산</span>
+                              <span class="badge badge-success mr-1">진행중</span>
                                 <span class="badge badge-warning">{{survey.reward}}</span>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
@@ -59,12 +60,12 @@
             </v-list-tile>
 
 <!-- teste -->
-            <v-list-tile
+            <!-- <v-list-tile
             v-for="(user, index) in $store.state.tests"
             :key="user"
             >
             <h5>index: {{index}}------id: {{user.id}}-------sample: {{user.sample}}</h5>
-            </v-list-tile>
+            </v-list-tile> -->
 
           
 
