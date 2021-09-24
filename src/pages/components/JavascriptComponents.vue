@@ -11,6 +11,9 @@
           <n-button type="warning" @click.native="modals.mini = true">
             Launch Modal Mini
           </n-button>
+          <n-button type="primary" @click.native="modals.login = true">
+            Launch Modal Mini
+          </n-button>
         </div>
         <div class="col-md-6 popover-buttons">
           <h4>Popovers</h4>
@@ -169,6 +172,30 @@
         >
       </template>
     </modal>
+
+    <modal
+      :show.sync="modals.login"
+      class="modal-primary"
+      :show-close="false"
+      headerClasses="justify-content-center"
+      type="mini"
+    >
+      <div slot="header" class="modal-profile">
+        <i class="now-ui-icons users_circle-08"></i>
+      </div>
+      <p>Always have an access to your profile</p>
+      <p>Always have an access to your profile</p>
+      <p>Always have an access to your profile</p>
+      <p>Always have an access to your profile</p>
+      <p>Always have an access to your profile</p>
+      <template slot="footer">
+        <n-button type="neutral" link>Back</n-button>
+        <n-button type="neutral" link @click.native="modals.login = false"
+          >Close</n-button
+        >
+      </template>
+    </modal>
+
   </div>
 </template>
 <script>
@@ -188,7 +215,8 @@ export default {
     return {
       modals: {
         classic: false,
-        mini: false
+        mini: false,
+        login: false
       },
       pickers: {
         datePicker: ''
