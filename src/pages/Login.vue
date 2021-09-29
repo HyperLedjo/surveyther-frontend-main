@@ -34,10 +34,17 @@
                   >Get Started</a
                 >
                 <a
-                  href="https://kauth.kakao.com/oauth/authorize?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&redirect_uri=http://localhost:8082/oauth&response_type=code"
+                  href="https://kauth.kakao.com/oauth/authorize?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&redirect_uri=http://localhost:8082/oauth2/login&response_type=code"
                   class="btn btn-warning btn-round btn-lg btn-block"
                   style="color:black"
                   >Kakao Login</a
+                >
+
+                <a
+                  href="https://kauth.kakao.com/oauth/logout?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&logout_redirect_uri=http://localhost:8082/oauth2/logout"
+                  class="btn btn-primary btn-round btn-lg btn-block"
+                  style="color:black"
+                  >로그아웃</a
                 >
               </div>
               <div class="pull-left">

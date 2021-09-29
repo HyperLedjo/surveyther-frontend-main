@@ -11,7 +11,7 @@
           <img src="img/ryan.jpg" alt="" />
         </div>
         <h3 class="title">My Page</h3>
-        <p class="category">{{$store.state.userInfo.id}}</p>
+        <p class="category">ID : {{$store.state.userInfo.id}}</p>
         <div class="content">
           <div class="social-description">
             <h2>0</h2>
@@ -32,7 +32,9 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-          <a href="#button" class="btn btn-primary btn-round btn-lg">로그아웃</a>
+          <a 
+          href="https://kauth.kakao.com/oauth/logout?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&logout_redirect_uri=http://localhost:8082/oauth2/logout"
+          class="btn btn-primary btn-round btn-lg">로그아웃</a>
           <!-- <a
             href="#button"
             class="btn btn-default btn-round btn-lg btn-icon"

@@ -24,7 +24,7 @@
       </el-popover> -->
 
     </template>
-    <template slot="navbar-menu">
+    <template slot="navbar-menu" id="signIn()">
       <li class="nav-item">
         <a
           class="nav-link"
@@ -35,23 +35,6 @@
           <p>About</p>
         </a>
       </li>
-      <!-- <drop-down
-        tag="li"
-        title="서베이참여"
-        icon="now-ui-icons files_paper"
-        class="nav-item"
-      >
-        <nav-link to="/">
-          <i class="now-ui-icons business_chart-pie-36"></i> 부동산
-        </nav-link>
-        <a
-          href="/"
-          target="_blank"
-          class="dropdown-item"
-        >
-          <i class="now-ui-icons design_bullet-list-67"></i> Documentation
-        </a>
-      </drop-down> -->
 
       <drop-down
               tag="li"
@@ -150,33 +133,19 @@
         </nav-link>
       </drop-down>
 
-      <drop-down
-              tag="li"
-              title="마이페이지"
-              icon="now-ui-icons users_circle-08"
-              class="nav-item"
-      >
-        <!-- <nav-link to="/landing">
-          Landing
-        </nav-link> -->
-        <nav-link to="/login" >
-          Login
-        </nav-link>
-        <nav-link to="/profile">
-          Profile
-        </nav-link>
-      </drop-down>
+      
 
-      <!-- <li class="nav-item">
+      <li class="nav-item" v-if="isUser">
         <a
-          class="nav-link btn btn-neutral"
-          href="https://www.creative-tim.com/product/vue-now-ui-kit-pro"
-          target="_blank"
+          class="nav-link"
+          href="/profile"
         >
-          <i class="now-ui-icons arrows-1_share-66"></i>
-          <p>Upgrade to PRO</p>
+        <i class="now-ui-icons users_circle-08"></i>
+          <p>마이페이지</p>
         </a>
-      </li> -->
+      </li>
+
+
 
       <drop-down
               tag="li"
@@ -189,84 +158,97 @@
         </nav-link>
       </drop-down>
 
-      <!-- <li class="nav-item">
-        <a
-          class="nav-link"
-          href="/"
-          @click.native="modals.login = true"
-        >
-        <i class="now-ui-icons objects_globe"></i>
-          <p>popup</p>
-        </a>
+      <li class="nav-item" v-if="isUser">
+        <n-button 
+          class="nav-link btn btn-neutral" 
+          type="neutral" 
+          @click.native="modals.logout = true">
+              로그아웃
+        </n-button>
       </li>
-      <n-button type="primary" @click.native="modals.login = true">
-            test
-      </n-button> -->
+      <li class="nav-item" v-else>
+        <n-button 
+          class="nav-link btn btn-neutral" 
+          type="neutral" 
+          @click.native="modals.login = true">
+              로그인
+        </n-button>
+      </li>
+    
 
-    <modal
-      :show.sync="modals.login"
-      class="modal-primary"
-      :show-close="false"
-      headerClasses="justify-content-center"
-      type="mini"
-    >
-      <card class="card-signup" header-classes="text-center" color="orange">
-          <template slot="header">
-            <h3 class="card-title title-up">Sign Up</h3>
-            <div class="social-line">
-              <a
-                href="#pablo"
-                class="btn btn-neutral btn-facebook btn-icon btn-round"
-              >
-                <i class="fab fa-facebook-square"></i>
-              </a>
-              <a
-                href="#pablo"
-                class="btn btn-neutral btn-twitter btn-icon btn-lg btn-round"
-              >
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a
-                href="#pablo"
-                class="btn btn-neutral btn-google btn-icon btn-round"
-              >
-                <i class="fab fa-google-plus"></i>
-              </a>
-            </div>
+    <!-- Login model -->
+    <modal :show.sync="modals.login" headerClasses="justify-content-center" class="modal-primary" >
+      <h4 slot="header" class="title title-up">로그인</h4>
+      <div class="mx-5 ">
+        
+        <card class="card-signup" header-classes="text-center" >
+          <template>
+            <fg-input
+                    class="no-border"
+                    placeholder="Your ID"
+                    addon-left-icon="now-ui-icons users_circle-08"
+                  >
+            </fg-input>
           </template>
           <template>
             <fg-input
-              class="no-border"
-              placeholder="First Name..."
-              addon-left-icon="now-ui-icons users_circle-08"
-            >
-            </fg-input>
-
-            <fg-input
-              class="no-border"
-              placeholder="Last Name..."
-              addon-left-icon="now-ui-icons text_caps-small"
-            >
-            </fg-input>
-
-            <fg-input
-              class="no-border"
-              placeholder="Email"
-              addon-left-icon="now-ui-icons ui-1_email-85"
-            >
+                    class="no-border mb-0"
+                    placeholder="Your Password"
+                    addon-left-icon="now-ui-icons users_circle-08"
+                  >
             </fg-input>
           </template>
-          <div class="card-footer text-center">
-            <n-button type="neutral" round size="lg" >
-              Start
-              </n-button>
-          </div>
         </card>
+        <div class="row h6">
+          <div class="col-md-6 mr-auto ">
+            <n-checkbox class="mt-0" v-model="checkboxes.unchecked">아이디 저장</n-checkbox>
+          </div>
+          <div class="col-md-2 ml-auto mt-1 p-0">
+            <a href="" class="text-right">회원가입</a>
+          </div>
+          <div class="col-md-12 ml-auto mt-3">
+            <button type="button" class="btn btn-round btn-block btn-neutral btn-lg "><b>로그인</b></button>
+          </div>
+                                                    <!-- --------- -->
+        </div>
+        <div class="row h6">
+            <div class="col-md-3 mr-auto p-0">
+              <hr>
+            </div>
+            <div class="col-md-6 mr-auto text-center p-0 pt-2">
+              <small>또는 다른계정으로 로그인하기</small>
+            </div>
+            <div class="col-md-3 mr-auto p-0">
+              <hr>
+            </div>
+            <div class="col-md-12 ml-auto">
+            <button type="button" 
+              @click="kakaoLogin"
+              class="btn btn-round btn-block btn-warning btn-lg"
+              style="color:black"
+              >
+              <b>카카오로 로그인</b> 
+            </button>
+          </div>
+         </div>
+      </div>
+    </modal>
+
+    <!-- Logout model -->
+    <modal :show.sync="modals.logout" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
+      <h5 slot="header" class="title title-up pb-0">로그아웃</h5>
+        <h6 class="text-center">
+          로그아웃 하시겠습니까?
+        </h6>
       <template slot="footer">
-        <n-button type="neutral" link>Back</n-button>
-        <n-button type="neutral" link @click.native="modals.login = false"
-          >Close</n-button
-        >
+        <n-button class="btn btn-round btn-block btn-primary btn" @click.native="modals.logout = false">
+          취소
+        </n-button>
+        <button  class="btn btn-round btn-block btn-neutral btn col-md-6" 
+          type="button"
+          @click="kakaoLogout" >
+          로그아웃
+        </button>
       </template>
     </modal>
 
@@ -275,10 +257,10 @@
 </template>
 
 <script>
-import { Button, DropDown, Navbar, NavLink, Modal } from '@/components';
+import { Button, DropDown, Navbar, NavLink, Modal,FormGroupInput, Checkbox } from '@/components';
 import { Popover } from 'element-ui';
 export default {
-  name: 'main-navbar',
+  name: 'main-header',
   props: {
     transparent: Boolean,
     colorOnScroll: Number
@@ -286,17 +268,39 @@ export default {
   components: {
     Modal,
     [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
     DropDown,
     Navbar,
     NavLink,
-    [Popover.name]: Popover
+    [Popover.name]: Popover,
+    [Checkbox.name]: Checkbox
+  },
+  methods:{
+    kakaoLogin() {
+            this.$store.commit('kakaoLogin');
+    },
+    kakaoLogout(){
+            this.$store.commit('kakaoLogout');
+    }
   },
   data() {
     return {
       modals: {
-        login: false
-      }
+        login: false,
+        logout: false
+      },
+      checkboxes: {
+        unchecked: false,
+      },
     };
+  },
+  mounted() {
+    this.$store.dispatch('logIn');
+  },
+  computed: {
+    isUser(){
+      return this.$store.state.isUser;
+    }
   }
 };
 </script>
