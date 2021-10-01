@@ -7,18 +7,18 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     // strict: true,
     state: {
-        testCount: 1,
-        tests: [
+        testCount: 1, //테스트용 
+        tests: [ //테스트용 
             { id: 1, sample: 'one' },
             { id: 2, sample: 'two' },
             { id: 3, sample: 'three' }
         ],
         isUser: null,
         userInfo: {
-            id: 'abc1234',
-            birthday: '01/01',
-            gender: 'M/F',
-            email: 'sample@gmail.com',
+            id: 'abc1234',  //완료
+            birthday: '01/01',   //완료
+            gender: 'M/F',  //완료
+            email: 'sample@gmail.com',  //완료
             wallet: '0xNJ0R8M5SR8FGSRNYH08SR8NSFS0RY8',
             tokenAmount: 2000
             // private String id;
@@ -53,29 +53,43 @@ const store = new Vuex.Store({
             // private String wallet; #지갑주소
             // private Timestamp regDate; #등록일
         },
-        ongoingList: [//Temp!!!!
+        ongoingList: [//Temp!!!! 샘플임!!!
             { reward: 120, title: '첫번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 5, tillClose: 7, regDate: '2021.09.23', commentCount: 11, likeCount: 33 },
             { reward: 110, title: '두번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 3, tillClose: 2, regDate: '2021.09.23', commentCount: 12, likeCount: 32 },
             { reward: 100, title: '세번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 15, tillClose: 4, regDate: '2021.09.23', commentCount: 1, likeCount: 3 },
         ],
-        surveyData: [
+        surveyData: {//Temp!!!! 샘플
+                surveyId: 1,
+                userId: 'user_id_1',
+                category: '부동산',    //Done
+                title: '첫 서베이 샘플 입니다',    //Done
+                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',    //Done
+                form : "자유양식",
+                targetAmount: 100,    //Done
+                particAmount: 0,    //Done
+                regDate: '2021.09.24',    //Done
+                closingDate: '2021.10.01',
+                paymAmount: 1000,
+                commentCount: 0,     //Done
+                likeCount: 0,     //Done
+                status: '진행중',     //Done ---
+        },
+        surveyDatas: [
             {
                 surveyId: 1,
-                state: '진행중',
-                regDate: '2021.09.24',
                 userId: 'user_id_1',
                 category: '부동산',
                 title: '첫 서베이 샘플 입니다',
                 subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-                quesCount: 2,
-                question: '---------',
-                tag: '---------',
+                form : "자유양식",
                 targetAmount: 100,
                 particAmount: 0,
+                regDate: '2021.09.24',
                 closingDate: '2021.10.01',
                 paymAmount: 1000,
                 commentCount: 0,
-                likeCount: 0
+                likeCount: 0,
+                status: '진행중',//---
             },
             {
                 surveyId: 2,
@@ -116,7 +130,16 @@ const store = new Vuex.Store({
 
 
         ],
-        rewardshop: [
+        questionData:[
+            {questionId: 1, surveyId: null, content: null},
+            // {questionId: 2, surveyId: 1, content: null}
+        ],
+        choiceData:[
+            {choiceId: 1, questionId: 1, content: null},
+            {choiceId: 2, questionId: 1, content: null},
+        ],
+        
+        rewardshop: [//Temp!!!! 샘플
             { Id: 1, img: 'img/reward.jpg', comp: '스타벅스', product: '아이스 아메리카노 T', price: 4100 },
             { Id: 2, img: 'img/reward.jpg', comp: '이디야커피', product: '카페아메리카노 ICED(Extra)', price: 3200 },
             { Id: 3, img: 'img/reward.jpg', comp: '투썸플레이스', product: '아메리카노 (L)', price: 4600 },
@@ -146,7 +169,8 @@ const store = new Vuex.Store({
         },
         testCountUp(state, num) {
             state.testCount = (state.testCount + num) % 10;
-        }
+        },
+        
     },
     actions: {
         increment(context) {

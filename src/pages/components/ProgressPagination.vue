@@ -7,6 +7,8 @@
           <n-progress :value="25" label="Default" show-value> </n-progress>
           <n-progress type="primary" :value="60" label="Default" show-value>
           </n-progress>
+
+
           <h4>Navigation Pills</h4>
           <tabs pills tab-nav-classes="nav-pills-just-icons" type="primary">
             <tab-pane>
@@ -22,7 +24,10 @@
               <i slot="label" class="fa fa-exclamation"></i>
             </tab-pane>
           </tabs>
+
+
         </div>
+        
         <div class="col-md-6">
           <h4>Pagination</h4>
           <n-pagination

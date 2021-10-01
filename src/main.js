@@ -21,11 +21,14 @@ import store from './store';
 import router from './router';
 import NowUiKit from './plugins/now-ui-kit';
 // import VueCookie from 'vue-cookie';
+import VueRadioToggleButtons from 'vue-radio-toggle-buttons';
+import 'vue-radio-toggle-buttons/dist/vue-radio-toggle-buttons.css';
 
 Vue.config.productionTip = false;
 
 Vue.use(NowUiKit);
 // Vue.use(VueCookie);
+Vue.use(VueRadioToggleButtons);
 
 new Vue({
   store,

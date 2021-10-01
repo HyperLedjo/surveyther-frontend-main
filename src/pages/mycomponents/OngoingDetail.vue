@@ -1,17 +1,14 @@
 <template>
-    <div class="question-location ">
-        <div class="container" >
-          <!-- card -->
-          <card>
+    <card>
               <div class="">
 
                 <div id="inputs">
                     <div class="row card-form ">
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">부동산</span>
-                              <span class="badge badge-success mr-1">진행중</span>
+                              <span class="badge badge-primary mr-1">{{$store.state.surveyData.category}}</span>
+                              <span class="badge badge-success mr-1">{{$store.state.surveyData.status}}</span>
                                 <span class="badge badge-warning">120</span>
-                                <span><b> 서베이 타이틀입니다</b></span> 
+                                <span><b> {{$store.state.surveyData.title}}</b></span> 
                             </div>
                             <!-- 프사 -->
                             <div class="col-sm-1 col-lg-1">
@@ -22,24 +19,24 @@
                                 />
                             </div>
                             <div class="col-sm-1 col-lg-5">
-                                <span><b class="mr-3">user_id</b> </span>
-                                <span class="surv-disc">2021.08.27</span>
+                                <span><b class="mr-3">{{this.$store.state.surveyData.userId}}</b> </span>
+                                <span class="surv-disc">{{this.$store.state.surveyData.regDate}}</span>
 
                             </div>
                             <div class="col-sm-6 col-lg-10">
-                                <span class="mr-3 surv-disc">참여한 인원 1843</span> 
+                                <span class="mr-3 surv-disc">참여한 인원 {{this.$store.state.surveyData.particAmount}}</span> 
                                 <span class="mr-3 surv-disc">마감까지 5일 4시간 27분</span>
-                                <span class="mr-3 surv-disc">남은보상 <b>157</b></span>
+                                <span class="mr-3 surv-disc">남은보상 <b>{{remainAmount}}</b></span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-4 now-ui-icons ui-2_chat-round"> 3</span> 
-                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> 3</span> 
+                                <span class="ml-4 now-ui-icons ui-2_chat-round"> {{$store.state.surveyData.commentCount}} </span> 
+                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> {{$store.state.surveyData.likeCount}} </span> 
                             </div>
                             <div class="col-sm-6 col-lg-12">
                                 <hr style="background:rgb(200,200,200); "> 
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                                <h6>서베이에 대한 간단한 설명입니다. 서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.서베이에 대한 간단한 설명입니다.</h6>
+                                <h6>{{$store.state.surveyData.subtitle}}</h6>
                             </div>
 
                             <!-- <div class="col-sm-6 col-lg-12">
@@ -79,8 +76,8 @@
 
                             <div class="container one-block">
                                 <div class="">
-                                    <span class="mr-4 now-ui-icons ui-2_chat-round"> 3</span> 
-                                    <span class="mr-4 now-ui-icons ui-2_favourite-28"> 3</span> 
+                                    <span class="mr-4 now-ui-icons ui-2_chat-round"> {{$store.state.surveyData.commentCount}}</span> 
+                                    <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{$store.state.surveyData.likeCount}}</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
                                     <a href="" class="btn btn-primary btn-round btn-lg"> 서베이 참여 </a>
                                 </div>
@@ -91,56 +88,6 @@
                 </div>
               </div>
           </card>
-
-        <!-- <comment-box></comment-box> -->
-<!-- TempCommnetBox!!!!!!!!!!!!!!!! -->
-          <card>
-              <div class="">
-
-                <div id="inputs">
-                    <div class="row card-form ">
-
-                        <div class="col-md-12">
-                          <h5><b>댓글</b> </h5>
-                          <hr>
-                        </div>
-
-                        <div class="col-md-12">
-                          <h7><b class="col-md-3">user_id</b> 2021.08.27 </h7>
-                          <div>
-                          <h8 class="col-md-12"> 댓글입니다 댓글입니다 댓글입니다 댓글입니다</h8> 
-                          </div>
-                          <hr style="border:0px">
-                        </div>
-
-                        <div class="col-md-12">
-                          <h7><b class="col-md-3">user_id</b> 2021.08.27 </h7>
-                          <div>
-                          <h8 class="col-md-12"> 댓글입니다 댓글입니다 댓글입니다</h8> 
-                          </div>
-                          <hr style="border:0px">
-                        </div>
-
-                        <div class="textarea-container col-md-12 mr-auto p-4 commnet-box">
-                          <h7><b>user_id</b> </h7>
-                          <textarea name="commnet" id="comment" cols="100%" rows="100%" placeholder="댓글을 남겨보세요..."
-                          class="form-control "></textarea>
-                          <!-- <button type="button" class="btn btn-primary btn-round btn-lg"> 댓글등록</button> -->
-                          <!-- <a href="" class="btn btn-primary btn-round btn-lg commnet-button">댓글등록</a> -->
-
-                        </div>
-
-                        
-                        
-                    </div>
-                </div>
-              </div>
-          </card>
-<!-- TempCommnetBox!!!!!!!!!!!!!!!! -->
-
-        </div>
-      
-    </div>
 </template>
 <script>
 import { Card, Tabs, TabPane } from '@/components';
@@ -206,6 +153,11 @@ export default {
         datePicker: ''
       }
     };
+  },
+  computed:{
+    remainAmount(){
+      return this.$store.state.surveyData.targetAmount - this.$store.state.surveyData.particAmount;
+    }
   }
 };
 </script>

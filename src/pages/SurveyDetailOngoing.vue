@@ -1,5 +1,5 @@
 <template>
-  <div class="" >
+  <div>
     <div class="page-header page-header-small">
       <parallax
         class="page-header-image"
@@ -9,32 +9,26 @@
       <div class="content-center">
         <div class="container">
           <h1 class="title">Survey Detail</h1>
-          <!-- <div class="text-center">
-            <a href="#pablo" class="btn btn-primary btn-icon btn-round">
-              <i class="fab fa-facebook-square"></i>
-            </a>
-            <a href="#pablo" class="btn btn-primary btn-icon btn-round">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#pablo" class="btn btn-primary btn-icon btn-round">
-              <i class="fab fa-google-plus"></i>
-            </a>
-          </div> -->
         </div>
       </div>
     </div>
 
     
     <div class="space">
+      <div class="question-location ">
+        <div class="container" >
+
             <ongoing-detail></ongoing-detail>    
-            <!-- <comment-box></comment-box> -->
-            
+            <comment-box></comment-box>
+
+        </div>
+      </div>
     </div>
 
   </div>
 </template>
 <script>
-import { Button, FormGroupInput } from '@/components';
+import { Card, Button, FormGroupInput } from '@/components';
 
 import OngoingDetail from './mycomponents/OngoingDetail.vue';
 import CommentBox from './mycomponents/CommentBox.vue';
@@ -44,10 +38,11 @@ export default {
   name: 'landing',
   bodyClass: 'landing-page',
   components: {
+    // Card,
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
     OngoingDetail,
-    // CommentBox,
+    CommentBox,
 
   },
   data() {
