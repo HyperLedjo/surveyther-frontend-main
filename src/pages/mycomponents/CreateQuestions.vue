@@ -2,15 +2,15 @@
     <div class="question-location ">
         <div class="container" >
           <!-- card -->
-          <card>
+          <card class="col-md-11 mx-5">
               <div class="">
 
                 <div id="inputs">
                     <div class="row card-form ">
                         <div class="col-sm-6 col-lg-3">
                             <!-- <fg-input placeholder="카테고리선택"></fg-input> -->
-                            <select name="" id="" class="selectpicker" data-style="btn-primary">
-                                    <option disabled value="">Please select one</option>
+                            <select name="" id="" class="selectpicker" data-style="btn-primary" v-model="selectCategory">
+                                    <!-- <option disabled value="">카테고리선택</option> -->
                                 <optgroup label="Blockchain">
                                     <option>부동산</option>
                                     <option>유통</option>
@@ -25,15 +25,16 @@
                                     <option>커뮤니티</option>
                                 </optgroup>
                             </select>
+                            <!-- ??---{{this.selectCategory}} //// {{$store.state.category}} -->
 
                             
 
                         </div>
                         <div class="col-sm-6 col-lg-9 ">
-                            <fg-input class="card-maxline" placeholder="타이틀을 입력해주세요."></fg-input>
+                            <fg-input class="card-maxline" placeholder="타이틀을 입력해주세요." v-model="inputTitle"></fg-input>
                         </div>
                         <div class="col-sm-6 col-lg ">
-                            <fg-input class="card-maxline" placeholder="서베이에 대한 간단한 설명을 입력해주세요."></fg-input>
+                            <fg-input class="card-maxline" placeholder="서베이에 대한 간단한 설명을 입력해주세요." v-model="inputSubtitle"></fg-input>
                         </div>
                     </div>
                 </div>
@@ -54,7 +55,10 @@
                 <template slot="label">
                    자유양식{{this.QuestCount}}
                 </template>
-
+<!-- {{$store.state.questionData}}
+<hr>
+{{$store.state.choiceData}}
+<hr> -->
                             <!-- <a href="" @click="dddddddddddd"> testtesttesttesttesttesttesttest-->
                           
                         <!-- <button
@@ -76,23 +80,28 @@
                         </button> -->
                             <!-- <a href="" @click="dddddddddddd"> testtesttesttesttesttesttesttest-->
                             
-                                       Box:  {{selectedBox}} ------- Choice:  {{selectedChoice}}
+                                       <!-- Box:  {{selectedBox}} ------- Choice:  {{selectedChoice}} -->
                 <button  
-                @click="selectQuestion(quest.questionId)"
+                @mousedown ="selectQuestion(quest.questionId)"
                 class="card"
                 v-for="(quest, index) in $store.state.questionData" :key="quest" 
-                v-bind:style="selectedBox==quest.questionId ? {'border': '4px solid red'}:{'': ''}"
+                v-bind:style="selectedBox==quest.questionId ? 
+                {'border-left': '10px solid #fff2c8'
+                , 'border-right' : '10px solid #fff2c8'
+                }:{'': ''}"
                 >
                         <div id="inputs">
-                            <!-- <div class="col-sm-6 col-lg-1">
-                                <span class="badge badge-primary mr-1">질문 1</span>
-                            </div> -->
+                            <!-- index: {{index}}---- -->
+                            
                             <div class="row card-form pb-0">
                                 <div class="col-sm-6 col-lg-1  d-flex align-items-center">
-                                    <span class="badge badge-primary mr-1 py-2">질문 {{quest.questionId}}</span>
+                                    <span class="badge badge-primary mr-1 py-2">질문 {{index+1}}</span>
                                 </div>
                                 <div class="col-sm-6 col-lg-8">
-                                    <fg-input placeholder="자유양식입니다. 질문을 입력해주세요." v-model="title"></fg-input>
+                                    <fg-input placeholder="자유양식입니다. 질문을 입력해주세요." 
+                                    v-model="questionContents" 
+                                    ></fg-input>
+                                    <!-- title:{{title}}-------{{quest.content}} -->
                                 </div>
                                 <div class="col-sm-6 col-lg-3 p-0 d-flex flex-row-reverse align-items-center">
                                     <n-switch
@@ -104,29 +113,25 @@
                                     <small class="px-1 pb-2"><b>복수선택</b></small>
                                     
                                 </div>
-
+<!-- 선택 -->
                                 <div class="col-sm-6 col-lg-9 pr-0 row"  
                                 v-for="(choice, index) in $store.state.choiceData" :key="choice"
                                 v-show="quest.questionId==choice.questionId"
-                                >{{quest.questionId}}/{{choice.choiceId}}
-                                    <div class="col-sm-6 col-lg-10 pr-0" @mouseover="selectChoice(choice.choiceId)">
-                                        <fg-input class="card-maxline" placeholder="선택" v-model="choiceCnt"></fg-input>
+                                >
+               <!-- {{quest.questionId}}/{{choice.choiceId}} -->
+                                    <div class="col-sm-6 col-lg-10 pr-0" @mousedown="selectChoice(choice.choiceId)">
+                                        <fg-input class="card-maxline" 
+                                        placeholder="선택" 
+                                        @click="ChoiceContent(index)" 
+                                        @input="title"
+                                        ></fg-input>
                                     </div>
-                                    <div class="col-sm-6 col-lg-1 p-0" @mouseover="selectChoice(choice.choiceId)">
+                                    <div class="col-sm-6 col-lg-1 p-0" @mousedown="selectChoice(choice.choiceId)">
                                         <button type="button" @click="deleteChoice(index)" class="btn btn-icon btn-round btn-neutral m-0">
                                             <i class="now-ui-icons ui-1_simple-remove"></i>
                                         </button>
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-sm-6 col-lg-8 pr-0">
-                                    <fg-input class="card-maxline" placeholder="선택2"></fg-input>
-                                </div>
-                                <div class="col-sm-6 col-lg-1 p-0">
-                                    <button type="button" class="btn btn-icon btn-round btn-neutral m-0">
-                                        <i class="now-ui-icons ui-1_simple-remove"></i>
-                                    </button>
-                                </div> -->
 
                                 <div class="col-sm-6 col-lg-9 ">
                                     <button type="button"  @click="addChoice" class="btn btn-icon btn-round btn-primary">
@@ -142,13 +147,7 @@
                         </div>
                         
                 </button>
-                <!-- <RadioToggleButtons
-		v-model='currentValue'
-		:values='values'
-		color='purple'
-		textColor='#000'
-		selectedTextColor='#fff'
-	/> -->
+
               </tab-pane>
               <tab-pane>
                 <template slot="label">
@@ -310,7 +309,6 @@
                 </card>
               </tab-pane>
             </tabs>
-          <!-- </card> -->
         </div>
 
         <!-- tool box -->
@@ -343,44 +341,82 @@
 
     </div>
 
-            <card>
+            <card  class="col-md-11 mx-5">
               <div class="">
 
                 <div id="inputs">
                     <div class="row card-form ">
                         <div class="col-sm-6 col-lg-6">
-                            <fg-input placeholder="태그를 입력해주세요."></fg-input>
-                            <span class="badge badge-neutral">#태그</span>
-                            <span class="badge badge-neutral">#이런저런</span>
-                            <span class="badge badge-neutral">#태그들</span>
+                            <fg-input placeholder="태그를 입력해주세요." v-model="inputTag"></fg-input>
+                            <span v-for="(tag, index) in $store.state.tags" :key="tag" >
+                                <span class="badge badge-neutral mr-1">
+                                    # {{tag.content}}
+                                    <i type="button" class="now-ui-icons ui-1_simple-remove align-middle" @click="deleteTag(index)"
+                                    ></i>
+                                </span>
+                            </span>
                         </div>
-                        <div class="col-sm-6 col-lg-6 ">
-                            <fg-input class="card-maxline" placeholder="목표인원수"></fg-input>
+                        <div class="col-sm-6 col-lg-6" v-if="selectCategory != '커뮤니티'">
+                            <fg-input class="card-maxline" v-model="inputTargetAmount" placeholder="목표인원수"></fg-input>
+                            <div class="px-3 row">
+                                <div class="col-sm-6 col-lg-6 ">
+                                    <small>
+                                        <h6>
+                                            참여인 보상
+                                        </h6>
+                                        <h6>
+                                            목표달성 보상
+                                        </h6>
+                                        <h6>
+                                            수수료
+                                        </h6>
+                                    </small>
+                                </div>
+                                <div class="col-sm-6 col-lg-6 ">
+                                    <small>
+                                        <h6>
+                                            {{firstReward}}
+                                        </h6> 
+                                        <h6>
+                                            {{secReward}}
+                                        </h6>
+                                        <h6>
+                                            {{fee}}
+                                        </h6>   
+                                    </small>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col-sm-6 col-lg-6 ">
-                            <fg-input class="card-maxline" placeholder="결제할 금액을 입력해주세요."></fg-input>
-                        </div>
+                        
         <!-- datepick -->
-                        <div class="col-sm-6 col-lg-6 ">
+                        <div class="col-sm-6 col-lg-6 " v-if="selectCategory != '커뮤니티'">
                             <fg-input class="card-maxline" >
                                 <el-date-picker
                                                     type="date"
                                                     popper-class="date-picker date-picker-primary"
                                                     placeholder="Date Time Picker"
-                                                    v-model="pickers.datePicker"
+                                                    v-model="datePicker"
                                                 >
                                 </el-date-picker>
+        <!-- {{$store.state.closingDate}}===={{datePicker}} -->
                             </fg-input>
                         </div>
                         
+                        <div class="col-sm-6 col-lg-6 " v-if="selectCategory != '커뮤니티'">
+                            <fg-input class="card-maxline" v-model="inputPaymAmount" @input="rewardCalculator" placeholder="결제할 금액을 입력해주세요."></fg-input>
+                        </div>
+<!-- <hr class="col-sm-11 mt-2"> -->
+                        <div class="col-sm-6 col-lg-12 d-flex justify-content-center mt-3">
+                            <div class="col-lg-8 d-flex justify-content-center">
+                                <!-- <button type="button" class="btn btn-simple btn-round btn-primary px-5 mx-3 btn-block" >
+                                    결제하기
+                                </button> -->
+                                <button type="button" class="btn btn-round btn-round btn-primary px-5 mx-3 btn-block">
+                                    서베이 등록
+                                </button>
 
-                        <div class="col-sm-6 col-lg-10 ">
-                            <button type="button" class="btn btn-round btn-round btn-primary">
-                                서베이 등록
-                            </button>
-                            <button type="button" class="btn btn-simple btn-round btn-primary">
-                                결제하기
-                            </button>
+                            </div>
                         </div>
                         
                     </div>
@@ -443,93 +479,132 @@ export default {
     //     classic: false,
     //     mini: false
     //   },
-      pickers: {
-        datePicker: ''
-      },
-      values: [
-				{ label: 'Value 1', value: '1' },
-				{ label: 'Value 2', value: '2' },
-				{ label: 'Value 3', value: '3' },
-				{ label: 'Value 5', value: '4' },
-			],
-			// currentValue: '',
-            selectedBox: '',
-            selectedChoice: '',
-            isSelected: false,
+    //   pickers: {
+        datePicker: '',
+    //   },
+        isSelected: false,//quest
 
-            title:'',
-            choiceCnt: '',
-            testq:'',
-            testc:'',
-    //   QuestCount: this.$store.state.questionData.length,
+        selectedBox: '',//quest
+        selectedChoice: '',
+        selectedTag:'',
 
-      //-------------
-    //   newTodoText: '',
-    //   todos: [
-    //     {
-    //       id: 1,
-    //       title: 'Do the dishes'
-    //     },
-    //     {
-    //       id: 2,
-    //       title: 'Take out the trash'
-    //     },
-    //     {
-    //       id: 3,
-    //       title: 'Mow the lawn'
-    //     }
-    //   ],
-    //   nextTodoId: 4
-        //---------------
+        lastNumOfQues: 1,//quest
+        lastNumOfchoi: 2,
+        // editChoice:'aaaaaaaaaaaaaaaa',
+
+        currentQuestion:'',
+        choiceCnt: '',
+
+
+        inputTitle:'',
+        inputSubtitle:'',
+        selectCategory: null,
+
+        inputTag:'',
+        inputTargetAmount:'',
+        inputPaymAmount:'',
+        //closingDate
+
+        CurrentAmount:'',
+
+        firstReward: 0,
+        secReward:0,
+        fee:0,
     };
   },
   methods:{
-      addQuestion(){
+      //ADD
+      addQuestion(){ 
+          //질문추가와 동시에 선택 2개도 추가 
           this.$store.state.questionData.push({
-              questionId: this.QuestCount+1, 
+              questionId: this.lastNumOfQues+1, 
               surveyId: null, 
-              content: ''
+              content: null,
+              isMultyple: false
           });
           this.$store.state.choiceData.push({
-              choiceId: this.ChoiceCount+1,
-              questionId: this.QuestCount,
-              content:''
+              choiceId: this.lastNumOfchoi+1,
+              questionId: this.lastNumOfQues+1,
+              content:null
           });
+          this.lastNumOfchoi++;
           this.$store.state.choiceData.push({
-              choiceId: this.ChoiceCount+1,
-              questionId: this.QuestCount,
-              content:''
+              choiceId: this.lastNumOfchoi+1,
+              questionId: this.lastNumOfQues+1,
+              content:null
           });
-          
-        console.log(this.$store.state.questionData.length + ' ---------------' + this.QuestCount);
+          this.lastNumOfQues++;
+          this.lastNumOfchoi++;
+
+        // console.log(this.$store.state.questionData.length + ' ---------------' + this.QuestCount);
       },
       addChoice(){
+          //선택추가
           this.$store.state.choiceData.push({
-              choiceId: this.ChoiceCount+1, 
-              questionId: this.selectedBox//호버로 바꿀것@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+              choiceId: this.lastNumOfchoi+1, 
+              questionId: this.selectedBox,
+              content:null
           });
+          this.lastNumOfchoi++;
+
       },
+      //SELECT
       selectQuestion(val){
+          //선택한 질문박스의 질문아이디를 저장
           this.selectedBox = val;
-          console.log(this.QuestCount + ' worked!!!!!!!!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@' + val);
       },
       selectChoice(val){
+          //선택한 선택사항의 선택아이디를 저장
           this.selectedChoice = val;
       },
+      selectTag(val){
+          this.selectedTag = val;
+      },
+      //DELETE
       deleteQuestion(val){
+          //질문을 삭제
           this.$store.state.questionData.splice(val,1);
-          //선택 같이
+          let num = val;
+          let count= this.ChoiceCount;
+          //해당 질문아이디를 가지고있는 선택사항들을 삭제
+          for(let i = 0; i < count; i++){
+              if(this.$store.state.choiceData[i].questionId == this.selectedBox){
+                  this.deleteChoice(i);
+                  i--;
+              }
+          }
       },
       deleteChoice(val){
+          //선택 삭제
           this.$store.state.choiceData.splice(val,1);
       },
-    //   addNewTodo() {
-    //   this.todos.push({
-    //     id: this.nextTodoId++,
-    //     title: this.newTodoText
-    //   })
-    //   this.newTodoText = ''
-    // }
+      deleteTag(val){
+          //태그 삭제
+          this.$store.state.tags.splice(val,1);
+      },
+
+      rewardCalculator(){
+          this.fee = this.inputPaymAmount * 0.02;
+          this.firstReward = (this.inputPaymAmount - this.fee) * 0.4 / this.inputTargetAmount;
+          this.secReward = (this.inputPaymAmount - this.fee) * 0.6 / this.inputTargetAmount;
+      },
+    //   choiceContent(val){
+    //         //   console.log("it works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + val);
+    //   },
+    //   updateTitle(val){
+    //     // this.$store.state.questionData[val].questionId
+    //       if(this.$store.state.questionData[val].questionId == this.selectedBox){
+    //         //   this.title = this.QuestFromStore;
+    //         //   this.title = this.QuestFromStore;
+    //           this.$store.commit('mutatTitle', val, text);
+    //         //   this.$store.commit({type: 'mutatTitle',val: 0, text: 'ha'});
+
+    //       }
+    //     console.log( this.$store.state.questionData[val].questionId+ "it works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + val);
+
+    //   },
+
+      //-----------------------------------------------------------TEST---------------------------------------------------------------
     
   },
   computed:{
@@ -539,45 +614,100 @@ export default {
     ChoiceCount(){
         return this.$store.state.choiceData.length;
     },
-    // test(){
-    //     return (val) =>{
-    //         return val;
-    //     };
-    // }
+    ChoiceContentUpdate(){
+        // return this.$store.state.choiceData[this.selectedChoice].content;
+        // return this.editChoice;
+        return this.$store.state.choiceData[index].content;
+    },
     
+      //-----------------------------------------------------------TEST---------------------------------------------------------------
+    
+    questionContents:{
+        get() {
+                // let num = parseInt(this.selectedBox);
+            if(Number.isInteger(this.selectedBox)){
+                return this.$store.state.questionData[0].content;//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            }
+            else{
+                return this.$store.state.questionData[0].content;
+                // return this.$store.state.questionData[num].content;
+                // return this.$store.state.questionData[parseInt(this.selectedBox)].content;
+            }
+            // console.log(typeof(this.selectedBox)+"??");
+            // console.log(typeof(num)+"---------now ? " + num);
+        },
+        set(content){
+            this.$store.commit('updateQuestion', content);
+        }
+    },
     
   },
+    inputTitle:{
+        get(){
+            return this.$store.state.title;
+        },
+        set(content){
+            this.$store.commit('updateTitle', content);
+        }
+    },
+    inputSubtitle:{
+        get(){
+            return this.$store.state.subtitle;
+        },
+        set(content){
+            this.$store.commit('updateSubtitle', content);
+        }
+    },
+    selectCategory:{
+        get(){
+            return this.$store.state.category;
+        },
+        set(content){
+            this.$store.commit('updateCategory', content);
+        }
+    },
+
+    inputTag:{
+        //수정이 필요한게 아님 스페이스나 , 기준 생성
+        // get(){
+        //     return this.$store.state.tags[0].content;//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // },
+        // set(content){
+        //     this.$store.commit('updateTag', content);
+        // }
+    },
+    inputTargetAmount:{
+        get(){
+            return this.$store.state.targetAmount;
+        },
+        set(content){
+            this.$store.commit('updateTargetAmount', content);
+        }
+    },
+    inputPaymAmount:{
+        get(){
+            return this.$store.state.paymAmount;
+        },
+        set(content){
+            this.$store.commit('updatePaymAmount', content);
+        }
+    },
+    datePicker:{  //xx
+        get(){
+            return this.$store.state.closingDate;
+        },
+        set(content){
+            this.$store.commit('updateClosingDate', content);
+        }
+    },
+
+
 
   
 };
-// app.component('todo-item', {
-//   template: `
-//           <li>
-//             {{ title }}
-//             <button v-on:click="$emit('remove')">Remove</button>
-//           </li>
-//         `,
-//   props: ['title'],
-//   emits: ['remove']
-// })
 
-// app.mount('#todo-list-example')
 </script>
 <style lang="scss">
-// .question-location{
-//     position: absolute;
-//     top:400px;
-//     /* align-content:center; */
-//     width:100%;
-//     background: rgb(82, 82, 82, 0);
-//     /* opacity: 0.5; */
-//     padding-left: 300px;
-//     padding-right: 300px;
-
-// }
-// .question-card{
-//     padding-top:100px;
-// }
 #javascriptComponents {
   .modal-buttons,
   .popover-buttons,
