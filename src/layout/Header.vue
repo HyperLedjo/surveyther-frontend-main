@@ -42,71 +42,75 @@
               icon="now-ui-icons files_paper"
               class="nav-item"
       >
-        <nav-link to="/survey_ongoing">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('부동산','진행중')">
             부동산
         </nav-link>
-        <nav-link to="/survey_ongoing_2">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('유통','진행중')">
             유통
         </nav-link>
-        <nav-link to="/survey_ongoing_3">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('식음료','진행중')">
             식음료
         </nav-link>
-        <nav-link to="/survey_ongoing_4">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('관광','진행중')">
             관광
         </nav-link>
-        <nav-link to="/survey_ongoing_5">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('금융','진행중')">
             금융
         </nav-link>
-        <nav-link to="/survey_ongoing_6">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('정보통신','진행중')">
             정보통신
         </nav-link>
-        <nav-link to="/survey_ongoing_7">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('보건의료','진행중')">
             보건의료
         </nav-link>
-        <nav-link to="/survey_ongoing_8">
+        <nav-link to="/survey_ongoing" @mousedown="currentFilter('공공정책','진행중')">
             공공정책
+        </nav-link>
+        <nav-link to="/survey_free" @mousedown="currentFilter('커뮤니티','진행중')">
+            커뮤니티
         </nav-link>
       </drop-down>
 
       <drop-down
               tag="li"
               title="서베이구매"
-              icon="now-ui-icons education_paper"
+              icon="now-ui-icons business_chart-bar-32"
               class="nav-item"
       >
         <nav-link to="/survey_closed">
             부동산
         </nav-link>
-        <nav-link to="/survey_closed_2">
+        <nav-link to="/survey_closed">
             유통
         </nav-link>
-        <nav-link to="/survey_closed_3">
+        <nav-link to="/survey_closed">
             식음료
         </nav-link>
-        <nav-link to="/survey_closed_4">
+        <nav-link to="/survey_closed">
             관광
         </nav-link>
-        <nav-link to="/survey_closed_5">
+        <nav-link to="/survey_closed">
             금융
         </nav-link>
-        <nav-link to="/survey_closed_6">
+        <nav-link to="/survey_closed">
             정보통신
         </nav-link>
-        <nav-link to="/survey_closed_7">
+        <nav-link to="/survey_closed">
             보건의료
         </nav-link>
-        <nav-link to="/survey_closed_8">
+        <nav-link to="/survey_closed">
             공공정책
         </nav-link>
       </drop-down>
 
-        <li class="nav-item">
+      <li class="nav-item">
         <a
           class="nav-link"
-          href="/survey_free"
+          href="/survey_create"
         >
-        <i class="now-ui-icons objects_globe"></i>
-          <p>커뮤니티</p>
+        <!-- design-2_ruler-pencil -->
+        <i class="now-ui-icons business_bulb-63"></i>
+          <p>서베이작성</p>
         </a>
       </li>
 
@@ -153,7 +157,7 @@
               icon="now-ui-icons ui-1_zoom-bold"
               class="nav-item"
       >
-        <nav-link to="/landing">
+        <nav-link to="/search">
           검색
         </nav-link>
       </drop-down>
@@ -281,6 +285,10 @@ export default {
     },
     kakaoLogout(){
             this.$store.commit('kakaoLogout');
+    },
+    currentFilter(selected,state){
+      this.$store.commit('updateCurrentFilter',selected,state);
+      console.log(selected + "---" + state);
     }
   },
   data() {
@@ -300,7 +308,7 @@ export default {
   computed: {
     isUser(){
       return this.$store.state.isUser;
-    }
+    },
   }
 };
 </script>

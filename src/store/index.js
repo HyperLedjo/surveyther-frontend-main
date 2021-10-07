@@ -67,20 +67,87 @@ const store = new Vuex.Store({
         ],
 
         tags:[
-            {tagId: 1, surveyId: null, content: '태그입니다'},
-            {tagId: 2, surveyId: null, content: '태그2'},
-            {tagId: 3, surveyId: null, content: 'js는'},
-            {tagId: 4, surveyId: null, content: '어렵다'},
-            {tagId: 5, surveyId: null, content: '어어어'},
-            {tagId: 6, surveyId: null, content: '어렵다'},
-            {tagId: 7, surveyId: null, content: '어아ㅏ'},
-            {tagId: 8, surveyId: null, content: '어렵다'},
+            // {tagId: 1, surveyId: null, content: '태그입니다'},
+            // {tagId: 2, surveyId: null, content: '태그2'},
+            // {tagId: 3, surveyId: null, content: 'js는'},
+            // {tagId: 4, surveyId: null, content: '어렵다'},
+            // {tagId: 5, surveyId: null, content: '어어어'},
+            // {tagId: 6, surveyId: null, content: '어렵다'},
+            // {tagId: 7, surveyId: null, content: '어아ㅏ'},
+            // {tagId: 8, surveyId: null, content: '어렵다'},
         ],
         targetAmount:'',
         paymAmount:'',
         closingDate:'',
-
-        currentAmount:'',
+        //---------------------서베이 데이터(샘플)-------------------------
+        selectedCategory:'',
+        surveyAllData:[
+            {
+                surveyId: 1,
+                userId: 'user_id_1',
+                category: '부동산',
+                title: '첫 부동산 서베이 샘플 입니다',
+                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
+                targetAmount: 100,
+                currentAmount: 0,
+                regDate: '2021.09.24',
+                closingDate: '2021.10.01',
+                paymAmount: 1000,
+                commentCount: 0,
+                likeCount: 0,
+                status: '진행중',//---
+                isMine: false,
+            },
+            {
+                surveyId: 2,
+                userId: 'user_id_1',
+                category: '부동산',
+                title: '첫 부동산 서베이 샘플 입니다',
+                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
+                targetAmount: 100,
+                currentAmount: 0,
+                regDate: '2021.09.14',
+                closingDate: '2021.09.21',
+                paymAmount: 1000,
+                commentCount: 0,
+                likeCount: 0,
+                status: '마감',//---
+                isMine: false,
+            },
+            {
+                surveyId: 3,
+                userId: 'user_id_1',
+                category: '부동산',
+                title: '첫 부동산 서베이 샘플 입니다',
+                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
+                targetAmount: 100,
+                currentAmount: 0,
+                regDate: '2021.09.24',
+                closingDate: '2021.10.01',
+                paymAmount: 1000,
+                commentCount: 0,
+                likeCount: 0,
+                status: '진행중',//---
+                isMine: false,
+            },
+            {
+                surveyId: 4,
+                userId: 'user_id_1',
+                category: '유통',
+                title: '첫 부동산 서베이 샘플 입니다',
+                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
+                targetAmount: 100,
+                currentAmount: 0,
+                regDate: '2021.09.24',
+                closingDate: '2021.10.01',
+                paymAmount: 1000,
+                commentCount: 0,
+                likeCount: 0,
+                status: '진행중',//---
+                isMine: false,
+            },
+        ],
+        // currentAmount:'',
         //---------------------이하 샘플-------------------------
         ongoingList: [//TempTempTemp 서베이 참여페이지 리스트
             { reward: 120, title: '첫번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 5, tillClose: 7, regDate: '2021.09.23', commentCount: 11, likeCount: 33 },
@@ -108,17 +175,18 @@ const store = new Vuex.Store({
                 surveyId: 1,
                 userId: 'user_id_1',
                 category: '부동산',
-                title: '첫 서베이 샘플 입니다',
+                title: '첫 부동산 서베이 샘플 입니다',
                 subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-                form : "자유양식",
+                // form : "자유양식",
                 targetAmount: 100,
-                particAmount: 0,
+                currentAmount: 0,
                 regDate: '2021.09.24',
                 closingDate: '2021.10.01',
                 paymAmount: 1000,
                 commentCount: 0,
                 likeCount: 0,
                 status: '진행중',//---
+                isMine: false,
             },
             {
                 surveyId: 2,
@@ -126,7 +194,7 @@ const store = new Vuex.Store({
                 regDate: '2021.09.14',
                 userId: 'user_id_1',
                 category: '부동산',
-                title: '첫 서베이 샘플 입니다',
+                title: '부동산222 서베이 샘플 입니다',
                 subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
                 quesCount: 2,
                 question: '---------',
@@ -136,7 +204,8 @@ const store = new Vuex.Store({
                 closingDate: '2021.09.21',
                 paymAmount: 1000,
                 commentCount: 0,
-                likeCount: 0
+                likeCount: 0,
+                isMine: false,
             },
             {
                 surveyId: 3,
@@ -144,7 +213,7 @@ const store = new Vuex.Store({
                 regDate: '2021.09.24',
                 userId: 'user_id_1',
                 category: '부동산',
-                title: '첫 서베이 샘플 입니다',
+                title: '부동산333 서베이 샘플 입니다',
                 subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
                 quesCount: 2,
                 question: '---------',
@@ -154,7 +223,8 @@ const store = new Vuex.Store({
                 closingDate: '2021.10.01',
                 paymAmount: 1000,
                 commentCount: 0,
-                likeCount: 0
+                likeCount: 0,
+                isMine: false,
             },
 
 
@@ -204,13 +274,15 @@ const store = new Vuex.Store({
                 state.choiceData[i].choiceId = i+1;
             }
         },
-        mutatTitle(state, val, text){
+        mutatTitle(state, val,text){//안먹음
+            console.log(val + "----");
             state.questionData[val].content = text;
         },
 
       //-----------------------------------------------------------동기화---------------------------------------------------------------
         updateQuestion(state, content){
             state.questionData[0].content = content;
+            
         },
         updateTitle(state, content){
             state.title = content;
@@ -222,9 +294,9 @@ const store = new Vuex.Store({
             state.category = content;
         },
 
-        updateTag(){
-            //----
-        },
+        // updateTag(){
+        //     //----
+        // },
         updateTargetAmount(state, content){
             state.targetAmount = content;
         },
@@ -233,10 +305,12 @@ const store = new Vuex.Store({
         },
         updatePaymAmount(state, content){
             state.paymAmount = content;
-        }
+        },
 
       //-----------------------------------------------------------TEST---------------------------------------------------------------
-        
+        updateCurrentFilter(state, selected){
+            state.selectedCategory = selected;
+        }
     },
     actions: {
         

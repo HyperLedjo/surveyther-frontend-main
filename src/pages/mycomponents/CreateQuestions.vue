@@ -53,7 +53,8 @@
             >
               <tab-pane>
                 <template slot="label">
-                   자유양식{{this.QuestCount}}
+                   자유양식
+                   <!-- {{this.QuestCount}} -->
                 </template>
 <!-- {{$store.state.questionData}}
 <hr>
@@ -99,14 +100,14 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-8">
                                     <fg-input placeholder="자유양식입니다. 질문을 입력해주세요." 
-                                    v-model="questionContents" 
+                                    v-model="quest.content"
                                     ></fg-input>
                                     <!-- title:{{title}}-------{{quest.content}} -->
                                 </div>
                                 <div class="col-sm-6 col-lg-3 p-0 d-flex flex-row-reverse align-items-center">
                                     <n-switch
                                         class=""
-                                        v-model="switches.defaultOff"
+                                        v-model="quest.isMultyple"
                                         on-text="On"
                                         off-text="Off"
                                     ></n-switch>
@@ -122,8 +123,8 @@
                                     <div class="col-sm-6 col-lg-10 pr-0" @mousedown="selectChoice(choice.choiceId)">
                                         <fg-input class="card-maxline" 
                                         placeholder="선택" 
-                                        @click="ChoiceContent(index)" 
-                                        @input="title"
+                                        v-model="choice.content"
+                                        
                                         ></fg-input>
                                     </div>
                                     <div class="col-sm-6 col-lg-1 p-0" @mousedown="selectChoice(choice.choiceId)">
@@ -347,7 +348,7 @@
                 <div id="inputs">
                     <div class="row card-form ">
                         <div class="col-sm-6 col-lg-6">
-                            <fg-input placeholder="태그를 입력해주세요." v-model="inputTag"></fg-input>
+                            <fg-input placeholder="태그를 입력해주세요." v-model="inputTag" @input="tagCreator"></fg-input>
                             <span v-for="(tag, index) in $store.state.tags" :key="tag" >
                                 <span class="badge badge-neutral mr-1">
                                     # {{tag.content}}
@@ -584,25 +585,43 @@ export default {
       },
 
       rewardCalculator(){
+      //리워드계산기
           this.fee = this.inputPaymAmount * 0.02;
           this.firstReward = (this.inputPaymAmount - this.fee) * 0.4 / this.inputTargetAmount;
           this.secReward = (this.inputPaymAmount - this.fee) * 0.6 / this.inputTargetAmount;
       },
+      tagCreator(){
+          //태그 생성기
+          let tags = this.inputTag.split(" ");
+        //   console.log("tagCreator===" + tags + "end--" + tags[tags.length-1]);
+
+          if(tags[0] != "" && tags[tags.length-1]  == ""){
+              this.$store.state.tags.push({
+                  surveyId: null,
+                  content: tags[0],
+              });
+              this.inputTag = '';
+          }
+          if(tags[0] == ""){
+              this.inputTag = '';
+          }
+
+      },
     //   choiceContent(val){
     //         //   console.log("it works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + val);
     //   },
-    //   updateTitle(val){
-    //     // this.$store.state.questionData[val].questionId
-    //       if(this.$store.state.questionData[val].questionId == this.selectedBox){
-    //         //   this.title = this.QuestFromStore;
-    //         //   this.title = this.QuestFromStore;
-    //           this.$store.commit('mutatTitle', val, text);
-    //         //   this.$store.commit({type: 'mutatTitle',val: 0, text: 'ha'});
+      updateTitle(val, text){
+        // this.$store.state.questionData[val].questionId
+          if(this.$store.state.questionData[val].questionId == this.selectedBox){
+            //   this.title = this.QuestFromStore;
+            //   this.title = this.QuestFromStore;
+              this.$store.commit('mutatTitle', val, text);
+            //   this.$store.commit({type: 'mutatTitle',val: 0, text: 'ha'});
 
-    //       }
-    //     console.log( this.$store.state.questionData[val].questionId+ "it works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + val);
+          }
+        console.log( this.$store.state.questionData[val].questionId+ "it works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + val);
 
-    //   },
+      },
 
       //-----------------------------------------------------------TEST---------------------------------------------------------------
     
@@ -624,9 +643,10 @@ export default {
     
     questionContents:{
         get() {
+            console.log("dddd")
                 // let num = parseInt(this.selectedBox);
             if(Number.isInteger(this.selectedBox)){
-                return this.$store.state.questionData[0].content;//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                return this.$store.state.questionData[this.selectedBox].content;//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             }
             else{
                 return this.$store.state.questionData[0].content;
@@ -637,6 +657,7 @@ export default {
             // console.log(typeof(num)+"---------now ? " + num);
         },
         set(content){
+            console.log("dddd")
             this.$store.commit('updateQuestion', content);
         }
     },

@@ -8,7 +8,7 @@
       </parallax>
       <div class="content-center">
         <div class="container">
-          <h1 class="title">Create your own survey.</h1>
+          <h1 class="title">Create your own survey</h1>
           
         </div>
       </div>

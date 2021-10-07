@@ -19,6 +19,7 @@ import SurveyDetailClosed from './pages/SurveyDetailClosed.vue';
 import SurveyDetailFree from './pages/SurveyDetailFree.vue';
 import RewardShop from './pages/RewardShop.vue';
 import About from './pages/About.vue';
+import Search from './pages/Search.vue';
 
 Vue.use(Router);
 
@@ -111,6 +112,15 @@ export default new Router({
       path: '/rewardshop',///
       name: 'rewardshop',
       components: { default: RewardShop, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/search',///
+      name: 'search',
+      components: { default: Search, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
