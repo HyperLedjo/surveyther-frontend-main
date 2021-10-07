@@ -51,22 +51,22 @@ const store = new Vuex.Store({
             // private Timestamp regDate; #등록일
         },
         //서베이 작성 관련
-        category:'',
-        title:'',
-        subtitle:'',
+        category: '',
+        title: '',
+        subtitle: '',
 
-        questionData:[
+        questionData: [
             //서베이 작성시 질문들
-            {questionId: 1, surveyId: null, content: null, isMultyple: false}, //제출시 서베이 아이디
+            { questionId: 1, surveyId: null, content: null, isMultyple: false }, //제출시 서베이 아이디
             // {questionId: 2, surveyId: 1, content: null}
         ],
-        choiceData:[
+        choiceData: [
             //서베이 작성시 선택사항들
-            {choiceId: 1, questionId: 1, content: null},
-            {choiceId: 2, questionId: 1, content: null},
+            { choiceId: 1, questionId: 1, content: null },
+            { choiceId: 2, questionId: 1, content: null },
         ],
 
-        tags:[
+        tags: [
             // {tagId: 1, surveyId: null, content: '태그입니다'},
             // {tagId: 2, surveyId: null, content: '태그2'},
             // {tagId: 3, surveyId: null, content: 'js는'},
@@ -76,12 +76,12 @@ const store = new Vuex.Store({
             // {tagId: 7, surveyId: null, content: '어아ㅏ'},
             // {tagId: 8, surveyId: null, content: '어렵다'},
         ],
-        targetAmount:'',
-        paymAmount:'',
-        closingDate:'',
+        targetAmount: '',
+        paymAmount: '',
+        closingDate: '',
         //---------------------서베이 데이터(샘플)-------------------------
-        selectedCategory:'',
-        surveyAllData:[
+        selectedCategory: '',
+        surveyAllData: [
             {
                 surveyId: 1,
                 userId: 'user_id_1',
@@ -155,20 +155,20 @@ const store = new Vuex.Store({
             { reward: 100, title: '세번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 15, tillClose: 4, regDate: '2021.09.23', commentCount: 1, likeCount: 3 },
         ],
         surveyData: {//Temp 서베이 상세페이지
-                surveyId: 1,
-                userId: 'user_id_1',
-                category: '부동산',    //Done
-                title: '첫 서베이 샘플 입니다',    //Done
-                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',    //Done
-                form : "자유양식",
-                targetAmount: 100,    //Done
-                particAmount: 0,    //Done
-                regDate: '2021.09.24',    //Done
-                closingDate: '2021.10.01',
-                paymAmount: 1000,
-                commentCount: 0,     //Done
-                likeCount: 0,     //Done
-                status: '진행중',     //Done ---
+            surveyId: 1,
+            userId: 'user_id_1',
+            category: '부동산',    //Done
+            title: '첫 서베이 샘플 입니다',    //Done
+            subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',    //Done
+            form: "자유양식",
+            targetAmount: 100,    //Done
+            particAmount: 0,    //Done
+            regDate: '2021.09.24',    //Done
+            closingDate: '2021.10.01',
+            paymAmount: 1000,
+            commentCount: 0,     //Done
+            likeCount: 0,     //Done
+            status: '진행중',     //Done ---
         },
         surveyDatas: [//Temp 서베이 리스트 테스트
             {
@@ -235,7 +235,7 @@ const store = new Vuex.Store({
             { id: 2, sample: 'two' },
             { id: 3, sample: 'three' }
         ],
-                rewardshop: [//Temp!!!! 샘플
+        rewardshop: [//Temp!!!! 샘플
             { Id: 1, img: 'img/reward.jpg', comp: '스타벅스', product: '아이스 아메리카노 T', price: 4100 },
             { Id: 2, img: 'img/reward.jpg', comp: '이디야커피', product: '카페아메리카노 ICED(Extra)', price: 3200 },
             { Id: 3, img: 'img/reward.jpg', comp: '투썸플레이스', product: '아메리카노 (L)', price: 4600 },
@@ -263,57 +263,57 @@ const store = new Vuex.Store({
         logOut(state) {
             state.isUser = false;
         },
-        rePushingQuestionId(state){
-            for (let i = 0; i < state.questionData.length; i++){
-                  state.questionData[i].questionId = i+1;
-              }
+        rePushingQuestionId(state) {
+            for (let i = 0; i < state.questionData.length; i++) {
+                state.questionData[i].questionId = i + 1;
+            }
             // console.log("---------@@@@@@@@@@@@-------" + state.questionData.length + "---------@@@@@@@@@@@@-------");
         },
-        rePushingChoiceId(state){
-            for (let i = 0; i < state.choiceData.length; i++){
-                state.choiceData[i].choiceId = i+1;
+        rePushingChoiceId(state) {
+            for (let i = 0; i < state.choiceData.length; i++) {
+                state.choiceData[i].choiceId = i + 1;
             }
         },
-        mutatTitle(state, val,text){//안먹음
+        mutatTitle(state, val, text) {//안먹음
             console.log(val + "----");
             state.questionData[val].content = text;
         },
 
-      //-----------------------------------------------------------동기화---------------------------------------------------------------
-        updateQuestion(state, content){
+        //-----------------------------------------------------------동기화---------------------------------------------------------------
+        updateQuestion(state, content) {
             state.questionData[0].content = content;
-            
+
         },
-        updateTitle(state, content){
+        updateTitle(state, content) {
             state.title = content;
         },
-        updateSubtitle(state, content){
+        updateSubtitle(state, content) {
             state.subtitle = content;
         },
-        updateCategory(state, content){
+        updateCategory(state, content) {
             state.category = content;
         },
 
         // updateTag(){
         //     //----
         // },
-        updateTargetAmount(state, content){
+        updateTargetAmount(state, content) {
             state.targetAmount = content;
         },
-        updateClosingDate(state, content){ //xx
+        updateClosingDate(state, content) { //xx
             state.closingDate = content;
         },
-        updatePaymAmount(state, content){
+        updatePaymAmount(state, content) {
             state.paymAmount = content;
         },
 
-      //-----------------------------------------------------------TEST---------------------------------------------------------------
-        updateCurrentFilter(state, selected){
+        //-----------------------------------------------------------TEST---------------------------------------------------------------
+        updateCurrentFilter(state, selected) {
             state.selectedCategory = selected;
         }
     },
     actions: {
-        
+
         logIn(context) {
             fetch("/oauth2/me").then(response => response.json()).then(
                 data => {
@@ -322,8 +322,8 @@ const store = new Vuex.Store({
                     } else {
                         context.commit('logIn', data);
                         fetch("/api/member/" + data.id)
-                            .catch((error) => {
-                                console.log(error);
+                            .then(response => response.json())
+                            .catch(err => {
                                 const new_member = {
                                     id: data.id,
                                     birthDay: data.birthDay,
@@ -337,7 +337,11 @@ const store = new Vuex.Store({
                                     },
                                     body: JSON.stringify(new_member)
                                 }
-                                fetch("/api/member", request).then(response => response.json())
+                                console.log(new_member);
+                                fetch("/api/member", request)
+                                    .then(response => {
+                                        response.json();
+                                    })
                                     .then(data => console.log(data))
                                     .catch(error => console.log(error));
                             })
