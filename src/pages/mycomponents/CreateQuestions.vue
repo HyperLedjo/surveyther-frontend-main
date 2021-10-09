@@ -413,7 +413,8 @@
                                 <!-- <button type="button" class="btn btn-simple btn-round btn-primary px-5 mx-3 btn-block" >
                                     결제하기
                                 </button> -->
-                                <button type="button" class="btn btn-round btn-round btn-primary px-5 mx-3 btn-block">
+                                <button type="button" class="btn btn-round btn-round btn-primary px-5 mx-3 btn-block"
+                                @click="$store.dispatch('postSurvey')">
                                     서베이 등록
                                 </button>
 
@@ -623,6 +624,9 @@ export default {
 
       },
 
+    postSurvey(){
+        this.$store.dispatch('postSurvey');
+    }
       //-----------------------------------------------------------TEST---------------------------------------------------------------
     
   },
@@ -661,6 +665,7 @@ export default {
             this.$store.commit('updateQuestion', content);
         }
     },
+    
     
   },
     inputTitle:{
@@ -721,7 +726,17 @@ export default {
             this.$store.commit('updateClosingDate', content);
         }
     },
-
+    // mounted:{
+    //     postSurvey(){
+    //         this.$store.dispatch('postSurvey');
+    //     },
+    
+    // },
+    // updated:{
+    //     postSurvey(){
+    //         this.$store.dispatch('postSurvey');
+    //     },
+    // }
 
 
   

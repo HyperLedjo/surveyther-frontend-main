@@ -3,16 +3,16 @@
         <div class="container" >
           <card>
             <div>
-               
+               ""에 대한 결과입니다
             </div>
 
           </card>
           <!-- card -->
             
 
-            <v-list-tile
-            v-for="(survey) in $store.state.surveyAllData"
-            :key="survey"
+            <v-list-tile 
+            v-for="(survey) in $store.state.surveyAllData "  
+            :key="survey" 
             >
                 <a href="/survey_ongoing/detail">
               <card >
@@ -22,9 +22,12 @@
                         <div class="row card-form">
 
                             <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">부동산</span>
-                              <span class="badge badge-success mr-1">진행중</span>
-                                <span class="badge badge-warning">{{survey.paymAmount*0.98}}</span>
+                              <span class="badge badge-primary mr-1">{{survey.category}}</span>
+                              <span class="badge  mr-1"
+                                    v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
+                                >{{survey.status}}</span>
+                              <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
+                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4}}</span>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -41,8 +44,10 @@
                               <span class="badge badge-neutral mr-1">#sample</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
-                                <span class="mr-4">남은보상<b>{{survey.targetAmount-survey.currentAmount}}</b></span>
-                                <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
+                                <div  v-if="survey.status == '진행중'">
+                                    <span class="mr-4">남은보상<b>{{survey.targetAmount-survey.currentAmount}}</b></span>
+                                    <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
+                                </div>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-3">{{survey.regDate}}</span> 
@@ -58,16 +63,6 @@
               </card>
             </a>
             </v-list-tile>
-
-<!-- teste -->
-            <!-- <v-list-tile
-            v-for="(user, index) in $store.state.tests"
-            :key="user"
-            >
-            <h5>index: {{index}}------id: {{user.id}}-------sample: {{user.sample}}</h5>
-            </v-list-tile> -->
-
-          
 
         </div>
     </div>
@@ -98,6 +93,7 @@ export default {
   },
   data(){
     return{
+        // id: null,
       // tests:[
       //   {id: 1, sample:'one'},
       //   {id: 2, sample:'two'},
@@ -110,6 +106,8 @@ export default {
     // EventBus.$on('signUp',  sample => {
     //   this.$store.state.tests.push(sample)
     // })
+    this.$store.dispatch('allSurvey');
+
   }
   
 };
