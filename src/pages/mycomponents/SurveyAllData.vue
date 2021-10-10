@@ -1,19 +1,10 @@
 <template>
     <div class="">
-        <div class="container" >
-          <card>
-            <div>
-               ""에 대한 결과입니다
-            </div>
-
-          </card>
-          <!-- card -->
-            
-
-            <v-list-tile 
-            v-for="(survey) in $store.state.surveyAllData "  
-            :key="survey" 
+          <v-list-tile
+            v-for="(survey) in $store.state.surveyAllData"
+            :key="survey"
             >
+            <template v-if="survey.category == $route.params.category && survey.status == $route.params.status">
                 <a href="/survey_ongoing/detail">
               <card >
                   <div >
@@ -62,9 +53,11 @@
                   </div>
               </card>
             </a>
-            </v-list-tile>
+            </template>
 
-        </div>
+
+
+          </v-list-tile>
     </div>
 </template>
 <script>
@@ -106,9 +99,13 @@ export default {
     // EventBus.$on('signUp',  sample => {
     //   this.$store.state.tests.push(sample)
     // })
-    this.$store.dispatch('allSurvey');
+    // this.$store.dispatch('allSurvey',this.$store.state.selectedCategory);
 
-  }
+  },
+  beforeCreate(){
+      // console.log('eeeeeeeeebeforecreate')
+        // this.$store.dispatch('allSurvey');
+    },
   
 };
 </script>

@@ -1,7 +1,6 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import Axios from 'axios';
-// import { isFinite } from 'core-js/library/fn/number';
 
 Vue.use(Vuex);
 
@@ -68,174 +67,17 @@ const store = new Vuex.Store({
         ],
 
         tags: [
-            // {tagId: 1, surveyId: null, content: '태그입니다'},
-            // {tagId: 2, surveyId: null, content: '태그2'},
-            // {tagId: 3, surveyId: null, content: 'js는'},
-            // {tagId: 4, surveyId: null, content: '어렵다'},
-            // {tagId: 5, surveyId: null, content: '어어어'},
-            // {tagId: 6, surveyId: null, content: '어렵다'},
-            // {tagId: 7, surveyId: null, content: '어아ㅏ'},
-            // {tagId: 8, surveyId: null, content: '어렵다'},
+            
         ],
         targetAmount: '',
         paymAmount: '',
         closingDate: '',
         //---------------------서베이 데이터(샘플)-------------------------
-        selectedCategory: '',
         surveyAllData: [
-            // {
-            //     surveyId: 1,
-            //     userId: 'user_id_1',
-            //     category: '부동산',
-            //     title: '첫 부동산 서베이 샘플 입니다',
-            //     subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-            //     targetAmount: 100,
-            //     currentAmount: 0,
-            //     regDate: '2021.09.24',
-            //     closingDate: '2021.10.01',
-            //     paymAmount: 1000,
-            //     commentCount: 0,
-            //     likeCount: 0,
-            //     status: '진행중',//---
-            //     isMine: false,
-            // },
-            // {
-            //     surveyId: 2,
-            //     userId: 'user_id_1',
-            //     category: '부동산',
-            //     title: '두번째 마감된 부동산 서베이 샘플 입니다',
-            //     subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-            //     targetAmount: 100,
-            //     currentAmount: 0,
-            //     regDate: '2021.09.14',
-            //     closingDate: '2021.09.21',
-            //     paymAmount: 1000,
-            //     commentCount: 0,
-            //     likeCount: 0,
-            //     status: '마감',//---
-            //     isMine: false,
-            // },
-            // {
-            //     surveyId: 3,
-            //     userId: 'user_id_1',
-            //     category: '부동산',
-            //     title: '세번째 부동산 서베이 샘플 입니다',
-            //     subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-            //     targetAmount: 100,
-            //     currentAmount: 0,
-            //     regDate: '2021.09.24',
-            //     closingDate: '2021.10.01',
-            //     paymAmount: 1000,
-            //     commentCount: 0,
-            //     likeCount: 0,
-            //     status: '진행중',//---
-            //     isMine: false,
-            // },
-            // {
-            //     surveyId: 4,
-            //     userId: 'user_id_1',
-            //     category: '유통',
-            //     title: '유통 서베이 샘플 입니다',
-            //     subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-            //     targetAmount: 100,
-            //     currentAmount: 0,
-            //     regDate: '2021.09.24',
-            //     closingDate: '2021.10.01',
-            //     paymAmount: 1000,
-            //     commentCount: 0,
-            //     likeCount: 0,
-            //     status: '진행중',//---
-            //     isMine: false,
-            // },
+            
         ],
-        // currentAmount:'',
         //---------------------이하 샘플-------------------------
-        ongoingList: [//TempTempTemp 서베이 참여페이지 리스트
-            { reward: 120, title: '첫번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 5, tillClose: 7, regDate: '2021.09.23', commentCount: 11, likeCount: 33 },
-            { reward: 110, title: '두번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 3, tillClose: 2, regDate: '2021.09.23', commentCount: 12, likeCount: 32 },
-            { reward: 100, title: '세번째 서베이의 타이틀', subtitle: '서베이에대한 간단한 설명', remainRe: 15, tillClose: 4, regDate: '2021.09.23', commentCount: 1, likeCount: 3 },
-        ],
-        surveyData: {//Temp 서베이 상세페이지
-            surveyId: 1,
-            userId: 'user_id_1',
-            category: '부동산',    //Done
-            title: '첫 서베이 샘플 입니다',    //Done
-            subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',    //Done
-            form: "자유양식",
-            targetAmount: 100,    //Done
-            particAmount: 0,    //Done
-            regDate: '2021.09.24',    //Done
-            closingDate: '2021.10.01',
-            paymAmount: 1000,
-            commentCount: 0,     //Done
-            likeCount: 0,     //Done
-            status: '진행중',     //Done ---
-        },
-        surveyDatas: [//Temp 서베이 리스트 테스트
-            {
-                surveyId: 1,
-                userId: 'user_id_1',
-                category: '부동산',
-                title: '첫 부동산 서베이 샘플 입니다',
-                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-                // form : "자유양식",
-                targetAmount: 100,
-                currentAmount: 0,
-                regDate: '2021.09.24',
-                closingDate: '2021.10.01',
-                paymAmount: 1000,
-                commentCount: 0,
-                likeCount: 0,
-                status: '진행중',//---
-                isMine: false,
-            },
-            {
-                surveyId: 2,
-                state: '마감',
-                regDate: '2021.09.14',
-                userId: 'user_id_1',
-                category: '부동산',
-                title: '부동산222 서베이 샘플 입니다',
-                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-                quesCount: 2,
-                question: '---------',
-                tag: '---------',
-                targetAmount: 100,
-                particAmount: 0,
-                closingDate: '2021.09.21',
-                paymAmount: 1000,
-                commentCount: 0,
-                likeCount: 0,
-                isMine: false,
-            },
-            {
-                surveyId: 3,
-                state: '진행중',
-                regDate: '2021.09.24',
-                userId: 'user_id_1',
-                category: '부동산',
-                title: '부동산333 서베이 샘플 입니다',
-                subtitle: '서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다 서베이에 대한 간단한 소개내용입니다',
-                quesCount: 2,
-                question: '---------',
-                tag: '---------',
-                targetAmount: 100,
-                particAmount: 0,
-                closingDate: '2021.10.01',
-                paymAmount: 1000,
-                commentCount: 0,
-                likeCount: 0,
-                isMine: false,
-            },
-
-
-        ],
-        //testCount: 1, //테스트용 
-        tests: [ //테스트용 
-            { id: 1, sample: 'one' },
-            { id: 2, sample: 'two' },
-            { id: 3, sample: 'three' }
-        ],
+        
         rewardshop: [//Temp!!!! 샘플
             { Id: 1, img: 'img/reward.jpg', comp: '스타벅스', product: '아이스 아메리카노 T', price: 4100 },
             { Id: 2, img: 'img/reward.jpg', comp: '이디야커피', product: '카페아메리카노 ICED(Extra)', price: 3200 },
@@ -343,38 +185,8 @@ const store = new Vuex.Store({
             state.questionData[val].content = text;
         },
 
-        //-----------------------------------------------------------동기화---------------------------------------------------------------
-        updateQuestion(state, content) {
-            state.questionData[0].content = content;
-
-        },
-        updateTitle(state, content) {
-            state.title = content;
-        },
-        updateSubtitle(state, content) {
-            state.subtitle = content;
-        },
-        updateCategory(state, content) {
-            state.category = content;
-        },
-
-        // updateTag(){
-        //     //----
-        // },
-        updateTargetAmount(state, content) {
-            state.targetAmount = content;
-        },
-        updateClosingDate(state, content) { //xx
-            state.closingDate = content;
-        },
-        updatePaymAmount(state, content) {
-            state.paymAmount = content;
-        },
-
         //-----------------------------------------------------------TEST---------------------------------------------------------------
-        updateCurrentFilter(state, selected) {
-            state.selectedCategory = selected;
-        }
+        
     },
     actions: {
 
@@ -413,34 +225,41 @@ const store = new Vuex.Store({
                 }
             );
         },
+
         allSurvey(context){
-            fetch("/api/survey").then(response => response.json()).then(
+            fetch(`/api/survey`).then(response => response.json()).then(
                 data => {
                     // console.log("a", data)
                     context.commit('updateSurveyData', data);
                 }
             );
         },
-        postSurvey({commit, state}){
-            fatch("/api/survey").them(response => response.json()).then(
+        
+        postSurvey({state}){
+            // fatch("/api/survey").them(response => response.json()).then(
                 
-            );
+            // );
 
-            console.log("clicked");
-            console.log(state.questionData + "--");
-            console.log(this.state.questionData + "-?-");
-            // console.log(getters.getQuestion + "-----");
-            // let temp = getters.getQuestion;
-            // console.log(getters.getTargetAmount + "-----" + temp);
+            console.log( "title: " + state.title );
+            console.log( "content: " + state.subtitle );
+            console.log( "category: " + state.category );
+            console.log( "questions: " + JSON.stringify(state.questionData));
+            console.log( "choice: " + JSON.stringify(state.choiceData));
+            console.log( "tags: " + JSON.stringify(state.tags));
+            console.log( "targetAmount: " + state.targetAmount );
+            console.log( "paymAmount: " + state.paymAmount );
+            console.log( "closingDate: " + state.closingDate );
+
+            
         }
 
 
 
     },
-    getters:{
-        getQuestion (state) { return state.questionData},
-        getTargetAmount (state) { return state.targetAmount},
-    }
+    // getters:{
+    //     getQuestion (state) { return state.questionData},
+    //     getTargetAmount (state) { return state.targetAmount},
+    // }
 });
 
 export default store;

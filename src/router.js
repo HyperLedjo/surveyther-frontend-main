@@ -12,8 +12,6 @@ import Footer from './layout/Footer.vue';
 import Main from './pages/main.vue';
 import SurveyCreate from './pages/SurveyCreate.vue';
 import SurveyList from './pages/SurveyList.vue';
-import SurveyFreeList from './pages/SurveyFreeList.vue';
-import SurveyClosedList from './pages/SurveyClosedList.vue';
 import SurveyDetailOngoing from './pages/SurveyDetailOngoing.vue';
 import SurveyDetailClosed from './pages/SurveyDetailClosed.vue';
 import SurveyDetailFree from './pages/SurveyDetailFree.vue';
@@ -55,8 +53,8 @@ export default new Router({
       }
     },
     {
-      path: '/survey_ongoing',
-      name: 'survey_ongoing',
+      path: '/survey/:status/:category',
+      name: 'survey_list',
       components: { default: SurveyList, header: Header, footer: Footer },
       props: {
         header: { colorOnScroll: 400 },
@@ -72,15 +70,7 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       }
     },
-    {
-      path: '/survey_closed',
-      name: 'survey_closed',
-      components: { default: SurveyClosedList, header: Header, footer: Footer },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
+    
     {
       path: '/survey_closed/detail',
       name: 'survey_closed_detail',
@@ -90,15 +80,7 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       }
     },
-    {
-      path: '/survey_free',///
-      name: 'survey_free',
-      components: { default: SurveyFreeList, header: Header, footer: Footer },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
+    
     {
       path: '/survey_free/detail',///
       name: 'survey_free_detail',

@@ -208,30 +208,9 @@ export default {
 };
 </script>
 <style lang="scss">
-// .question-location{
-//     position: absolute;
-//     top:400px;
-//     /* align-content:center; */
-//     width:100%;
-//     background: rgb(82, 82, 82, 0);
-//     /* opacity: 0.5; */
-//     padding-left: 300px;
-//     padding-right: 300px;
 
-// }
-// .question-card{
-//     padding-top:100px;
-// }
 .one-block{
     padding-top:60px
 }
-// #javascriptComponents {
-//   .modal-buttons,
-//   .popover-buttons,
-//   .tooltip-buttons {
-//     .btn + .btn {
-//       margin-left: 3px;
-//     }
-//   }
-// }
+
 </style>

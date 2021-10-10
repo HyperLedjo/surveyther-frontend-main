@@ -14,8 +14,27 @@
         </div>
         </div>
 
-    <div class="space">
-            <list-ongoing></list-ongoing>    
+    <div class="">
+            <div class="section">
+                <div class="container">
+                    <div class="button-container">
+                        <!-- <div class="btn btn-primary btn-round btn-lg">
+                            test
+                        </div> -->
+
+                        <div class="">
+                          <div class="container" >
+                            
+                                  <survey-all-data></survey-all-data>
+
+                            
+
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
     </div>
   </div>
 </template>
@@ -23,15 +42,18 @@
 import { Button, FormGroupInput } from '@/components';
 
 import ListOngoing from './mycomponents/ListOngoing.vue';
+import SurveyAllData from './mycomponents/SurveyAllData.vue';
 
 
 export default {
-  name: 'landing',
-  bodyClass: 'landing-page',
+  // name: 'landing',
+  // bodyClass: 'landing-page',
   components: {
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
-    ListOngoing,
+    // ListOngoing,
+    SurveyAllData
+
   },
   data() {
     return {
@@ -41,7 +63,11 @@ export default {
         message: ''
       }
     };
-  }
+  },
+  beforeCreate(){
+      // console.log('eeeeeeeeebeforecreate')
+        // this.$store.dispatch('partOfSurvey');
+  },
 };
 </script>
 <style>

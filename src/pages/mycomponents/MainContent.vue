@@ -1,9 +1,9 @@
 <template>
-  <div class="container black">
+  <div class="container black" style="padding-top:300px">
       <div class="mybox red">
             <img class="left-box img-info" src="img/bg7.jpg" alt="" />
             <div class="right-box">
-                    <h4><b> 서베이작성</b></h4>
+                    <h4><b> 서베이참여</b></h4>
                     <p>
                         I think that’s a responsibility that I have, to push
                         possibilities, to show people, this is the level that things

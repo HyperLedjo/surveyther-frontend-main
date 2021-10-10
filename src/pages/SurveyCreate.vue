@@ -14,24 +14,51 @@
       </div>
     </div>
 
-    <!-- <div class="block-title">
-        <div class="container">
-            <create-title></create-title>
-        </div>
 
-    </div>
-    <div class="container">
-        <div class="black">
-            
+
+    <div class="" style="padding-bottom:100px">
+      <div class="question-location">
+        <div class="container">
+            <card class="col-md-11 mx-5">
+              <div class="">
+                <div id="inputs">
+                    <div class="row card-form ">
+                        <div class="col-sm-6 col-lg-3">
+                            <select name="" id="" class="selectpicker" data-style="btn-primary" v-model="$store.state.category">
+                                    <!-- <option disabled value="">카테고리선택</option> -->
+                                <optgroup label="Blockchain">
+                                    <option>부동산</option>
+                                    <option>유통</option>
+                                    <option>식음료</option>
+                                    <option>관광</option>
+                                    <option>금융</option>
+                                    <option>정보통신</option>
+                                    <option>보건의료</option>
+                                    <option>공공정책</option>
+                                </optgroup>
+                                <optgroup label="Free">
+                                    <option>커뮤니티</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-lg-9 ">
+                            <fg-input class="card-maxline" placeholder="타이틀을 입력해주세요." v-model="$store.state.title"></fg-input>
+                        </div>
+                        <div class="col-sm-6 col-lg ">
+                            <fg-input class="card-maxline" placeholder="서베이에 대한 간단한 설명을 입력해주세요." v-model="$store.state.subtitle"></fg-input>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </card>
         </div>
-    </div> -->
-    <div class="space">
+      </div>
             <create-questions></create-questions>    
     </div>
   </div>
 </template>
 <script>
-import { Button, FormGroupInput } from '@/components';
+import { Card, Button, FormGroupInput } from '@/components';
 
 import CreateQuestions from './mycomponents/CreateQuestions.vue';
 
@@ -42,7 +69,8 @@ export default {
   components: {
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
-    CreateQuestions
+    CreateQuestions,
+    Card
   },
   data() {
     return {
@@ -78,8 +106,8 @@ export default {
     width:100%;
     background: rgb(82, 82, 82, 0);
     /* opacity: 0.5; */
-    padding-left: 200px;
-    padding-right: 200px;
+    /* padding-left: 200px;
+    padding-right: 200px; */
 }
 .question-card{
     padding-top:100px;

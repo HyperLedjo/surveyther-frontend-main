@@ -42,33 +42,44 @@
               icon="now-ui-icons files_paper"
               class="nav-item"
       >
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('부동산','진행중')">
-            부동산
+        
+        <nav-link to="/survey/진행중/부동산"> 부동산
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '부동산' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('유통','진행중')">
-            유통
+        <nav-link to="/survey/진행중/유통"> 유통
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '유통' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('식음료','진행중')">
-            식음료
+        <nav-link to="/survey/진행중/식음료"> 식음료
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '식음료' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('관광','진행중')">
-            관광
+        <nav-link to="/survey/진행중/관광"> 관광
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '관광' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('금융','진행중')">
-            금융
+        <nav-link to="/survey/진행중/금융"> 금융
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '금융' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('정보통신','진행중')">
-            정보통신
+        <nav-link to="/survey/진행중/정보통신"> 정보통신
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '정보통신' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('보건의료','진행중')">
-            보건의료
+        <nav-link to="/survey/진행중/보건의료"> 보건의료
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '보건의료' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_ongoing" @mousedown="currentFilter('공공정책','진행중')">
-            공공정책
+        <nav-link to="/survey/진행중/공공정책"> 공공정책
+            <router-link :to="{name: 'survey_list', params: { status:'진행중', category: '공공정책' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_free" @mousedown="currentFilter('커뮤니티','진행중')">
-            커뮤니티
+        <nav-link to="/survey/진행중/커뮤니티"> 커뮤니티
+            <router-link :to="{name: 'survey_list', params: { status: null, category: '커뮤니티' } }">
+            </router-link>
         </nav-link>
+
       </drop-down>
 
       <drop-down
@@ -77,29 +88,37 @@
               icon="now-ui-icons business_chart-bar-32"
               class="nav-item"
       >
-        <nav-link to="/survey_closed">
-            부동산
+        <nav-link to="/survey/마감/부동산"> 부동산
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '부동산' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            유통
+        <nav-link to="/survey/마감/유통"> 유통
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '유통' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            식음료
+        <nav-link to="/survey/마감/식음료"> 식음료
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '식음료' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            관광
+        <nav-link to="/survey/마감/관광"> 관광
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '관광' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            금융
+        <nav-link to="/survey/마감/금융"> 금융
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '금융' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            정보통신
+        <nav-link to="/survey/마감/정보통신"> 정보통신
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '정보통신' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            보건의료
+        <nav-link to="/survey/마감/보건의료"> 보건의료
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '보건의료' } }">
+            </router-link>
         </nav-link>
-        <nav-link to="/survey_closed">
-            공공정책
+        <nav-link to="/survey/마감/공공정책"> 공공정책
+            <router-link :to="{name: 'survey_list', params: { status:'마감', category: '공공정책' } }">
+            </router-link>
         </nav-link>
       </drop-down>
 
@@ -150,6 +169,7 @@
       </li>
 
 
+              <!-- @mousedown="$commit.updateCurrentFilter('금융')" -->
 
       <drop-down
               tag="li"
@@ -157,7 +177,8 @@
               icon="now-ui-icons ui-1_zoom-bold"
               class="nav-item"
       >
-        <nav-link to="/search">
+        <nav-link to="/search" >
+        <!-- v-on:click.native="currentFilter('부동산')" -->
           검색
         </nav-link>
       </drop-down>
@@ -286,9 +307,10 @@ export default {
     kakaoLogout(){
             this.$store.commit('kakaoLogout');
     },
-    currentFilter(selected,state){
-      this.$store.commit('updateCurrentFilter',selected,state);
-      console.log(selected + "---" + state);
+
+    currentFilter(selected){
+      this.$store.commit('updateCurrentFilter',selected);
+      this.$store.dispatch('allSurvey')
     }
   },
   data() {
@@ -305,6 +327,10 @@ export default {
   mounted() {
     this.$store.dispatch('logIn');
   },
+  beforeCreate(){
+      // console.log('eeeeeeeeebeforecreate')
+        this.$store.dispatch('allSurvey');
+    },
   computed: {
     isUser(){
       return this.$store.state.isUser;

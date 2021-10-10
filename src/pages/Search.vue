@@ -8,8 +8,8 @@
       </parallax>
       <div class="content-center">
         <div class="container">
-          <h1 class="title" style="margin-top:80px">Search</h1>
-            <card class="rounded-pill" style="height: 88px; width:800px; margin-top:20px">
+          <h1 class="title" style="margin-top:80px">Search </h1>
+          <card class="rounded-pill" style="height: 88px; width:800px; margin-top:20px">
                 <div class="row" style="margin:-10px; margin-left:-30px; margin-right:-30px;">
                     <fg-input
                         class="input-lg col-md-9"
@@ -24,7 +24,7 @@
 
                     </div>
                 </div>
-            </card>
+          </card>
         </div>
       </div>
     </div>
@@ -35,7 +35,6 @@
                 <!-- <div class="btn btn-primary btn-round btn-lg">
                     test
                 </div> -->
-                <!-- <survey-all-data></survey-all-data> -->
 
                 <div class="">
         <div class="container" >
@@ -45,13 +44,14 @@
             </div>
 
           </card>
-          <!-- card -->
-           <!-- {{$store.state.surveyAllData}}---- -->
+                
 
-            <v-list-tile
+                <v-list-tile
             v-for="(survey) in $store.state.surveyAllData"
             :key="survey"
             >
+             <!-- v-if="survey.category == $route.params.category" -->
+            <template>
                 <a href="/survey_ongoing/detail">
               <card >
                   <div >
@@ -100,7 +100,13 @@
                   </div>
               </card>
             </a>
-            </v-list-tile>
+            </template>
+
+
+
+          </v-list-tile>
+
+           
 
         </div>
     </div>
@@ -127,7 +133,7 @@ export default {
   },
   data() {
     return {
-        id: this.$route.params.id,
+        // id: this.$route.params.id,
       form: {
         firstName: '',
         email: '',
@@ -135,9 +141,10 @@ export default {
       }
     };
   },
-    beforeCreate(){
-        this.$store.dispatch('allSurvey');
-    },
+    // beforeCreate(){
+    //   // console.log('eeeeeeeeebeforecreate')
+    //     this.$store.dispatch('allSurvey');
+    // },
   created(){
     //   this.$http.get('/api/survey' + ).then
     // this.$store.state.SurveyAllData

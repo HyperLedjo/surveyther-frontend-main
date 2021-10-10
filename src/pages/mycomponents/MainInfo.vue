@@ -1,17 +1,16 @@
 <template>
-  <div class="move-top">
+  <div class=""  style="position: absolute; top:800px;" >
     <div class="">
       
 
       <div class="">
-        <div class="col-md-10 ml-auto col-xl-6 mr-auto" >
+        <div class="col-md-10 ml-auto col-xl-8 mr-auto">
           
           <!-- Nav tabs -->
           <card>
             <tabs
               slot=""
               tab-content-classes=" text-center"
-               style="background:gray"
             >
               <div class="text-box">
                 
