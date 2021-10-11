@@ -209,8 +209,5 @@ export default {
 </script>
 <style lang="scss">
 
-.one-block{
-    padding-top:60px
-}
 
 </style>

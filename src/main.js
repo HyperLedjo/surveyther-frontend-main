@@ -23,12 +23,16 @@ import NowUiKit from './plugins/now-ui-kit';
 // import VueCookie from 'vue-cookie';
 import VueRadioToggleButtons from 'vue-radio-toggle-buttons';
 import 'vue-radio-toggle-buttons/dist/vue-radio-toggle-buttons.css';
+// import VueDropdown from 'vue-dynamic-dropdown'
+
 
 Vue.config.productionTip = false;
 
 Vue.use(NowUiKit);
+// Vue.component('vue-dropdown', VueDropdown);
+
 // Vue.use(VueCookie);
-Vue.use(VueRadioToggleButtons);
+// Vue.use(VueRadioToggleButtons);
 
 new Vue({
   store,

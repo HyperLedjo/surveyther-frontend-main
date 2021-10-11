@@ -17,7 +17,6 @@
     <div class="space">
       <div class="question-location ">
         <div class="container" >
-
             <ongoing-detail></ongoing-detail>    
             <comment-box></comment-box>
 

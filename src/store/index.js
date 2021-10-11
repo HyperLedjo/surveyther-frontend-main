@@ -72,9 +72,12 @@ const store = new Vuex.Store({
         targetAmount: '',
         paymAmount: '',
         closingDate: '',
-        //---------------------서베이 데이터(샘플)-------------------------
+        //---------------------서베이 데이터-------------------------
         surveyAllData: [
             
+        ],
+        surveyQuestionData:[
+
         ],
         //---------------------이하 샘플-------------------------
         
@@ -169,6 +172,17 @@ const store = new Vuex.Store({
             // {"no":3,
             //"fee":100.0,
         },
+        updateQuestionData(state, data){
+            for(let i = 0; i < data.length; i++){
+                state.surveyQuestionData.push({
+                    id: data[i].no,
+                    surveyId: data[i].surveyId,
+                    content: data[i].content,
+                });
+            }
+            
+            console.log(state.surveyQuestionData);
+        },
         rePushingQuestionId(state) {
             for (let i = 0; i < state.questionData.length; i++) {
                 state.questionData[i].questionId = i + 1;
@@ -233,22 +247,84 @@ const store = new Vuex.Store({
                     context.commit('updateSurveyData', data);
                 }
             );
+            // console.log("Ddddddddddddddddddddd");
+            
+        },
+        allQuestion(context){
+            fetch(`/api/question`).then(response => response.json()).then(
+                data =>{
+                    context.commit('updateQuestionData', data)
+                }
+            );
+            // console.log("Dddddddddddddddd???????ddddd");
         },
         
-        postSurvey({state}){
-            // fatch("/api/survey").them(response => response.json()).then(
-                
-            // );
+        async postSurvey({state}){
 
-            console.log( "title: " + state.title );
-            console.log( "content: " + state.subtitle );
-            console.log( "category: " + state.category );
-            console.log( "questions: " + JSON.stringify(state.questionData));
-            console.log( "choice: " + JSON.stringify(state.choiceData));
-            console.log( "tags: " + JSON.stringify(state.tags));
-            console.log( "targetAmount: " + state.targetAmount );
-            console.log( "paymAmount: " + state.paymAmount );
-            console.log( "closingDate: " + state.closingDate );
+            var category_id = 0;
+            await fetch("/api/category")
+            .then(response=>response.json())
+            .then(data=> {
+                data.forEach(element => {
+                    if(state.category === element.name) {
+                        category_id=element.no;
+                    }
+                });
+            });
+            
+            const new_survey = {
+                memberId: '1',
+                title: state.title,
+                content: state.subtitle,
+                category: category_id,
+                goalParticipants: state.targetAmount,
+                paid: state.paymAmount,
+                deadline: state.closingDate
+            }
+
+            let request = {
+                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(new_survey)
+            }
+
+            var survey_id = 0;
+            var new_question_list = [];
+            await fetch("/api/survey", request)
+            .then(response => response.json())
+            .then(data => {
+                survey_id = data;
+                state.questionData.forEach(
+                    element => {
+                        new_question_list.push(
+                            {
+                                surveyId: survey_id,
+                                content: element.content
+                            }
+                        )
+                    }
+                );
+                request.body = new_question_list;
+            })
+
+            // var question_id = 0;
+            // await fetch("/api/question", request)
+            // .then(response => response.json())
+            // .then(data => {
+            //     question_id = data;
+            // })
+
+            // console.log( "title: " + state.title );
+            // console.log( "content: " + state.subtitle );
+            // console.log( "category: " + state.category );
+            // console.log( "questions: " + JSON.stringify(state.questionData));
+            // console.log( "choice: " + JSON.stringify(state.choiceData));
+            // console.log( "tags: " + JSON.stringify(state.tags));
+            // console.log( "targetAmount: " + state.targetAmount );
+            // console.log( "paymAmount: " + state.paymAmount );
+            // console.log( "closingDate: " + state.closingDate );
 
             
         }

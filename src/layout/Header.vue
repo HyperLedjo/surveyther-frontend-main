@@ -328,9 +328,12 @@ export default {
     this.$store.dispatch('logIn');
   },
   beforeCreate(){
-      // console.log('eeeeeeeeebeforecreate')
-        this.$store.dispatch('allSurvey');
+    this.$store.dispatch('allSurvey');
+    this.$store.dispatch('allQuestion');
+    console.log('eeeeeeeeebeforecreate');
+        
     },
+    
   computed: {
     isUser(){
       return this.$store.state.isUser;

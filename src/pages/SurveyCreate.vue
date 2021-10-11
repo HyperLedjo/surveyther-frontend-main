@@ -24,6 +24,11 @@
                 <div id="inputs">
                     <div class="row card-form ">
                         <div class="col-sm-6 col-lg-3">
+                          <small>
+
+                                    <!-- <vue-dropdown :config="config" ></vue-dropdown> -->
+                          </small>
+
                             <select name="" id="" class="selectpicker" data-style="btn-primary" v-model="$store.state.category">
                                     <!-- <option disabled value="">카테고리선택</option> -->
                                 <optgroup label="Blockchain">
@@ -61,7 +66,7 @@
 import { Card, Button, FormGroupInput } from '@/components';
 
 import CreateQuestions from './mycomponents/CreateQuestions.vue';
-
+import VueDropdown from 'vue-dynamic-dropdown';
 
 export default {
   name: 'create',
@@ -70,7 +75,8 @@ export default {
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
     CreateQuestions,
-    Card
+    Card,
+    // VueDropdown,
   },
   data() {
     return {
@@ -78,8 +84,33 @@ export default {
         firstName: '',
         email: '',
         message: ''
-      }
+      },
+      config: {
+        options: [
+          {
+            value: "부동산",
+          },
+          {
+            value: "금융",
+          },
+          {
+            value: "option 3",
+          },
+        ],
+        placeholder: "카테고리선택",
+        backgroundColor: "#E3E3E3",
+        textColor: "gray",
+        borderRadius: "2.5em",
+        border: "1px solid #E3E3E3",
+        width: 180,
+      },
     };
+  },
+  methods:{
+    setNewSelectedOption(selectedOption) {
+      this.config.placeholder = selectedOption.value;
+      this.config.options = selectedOption.options;
+    },
   }
 };
 </script>
@@ -112,5 +143,6 @@ export default {
 .question-card{
     padding-top:100px;
 }
+
 
 </style>
