@@ -273,7 +273,13 @@ const store = new Vuex.Store({
             });
             
             const new_survey = {
-                memberId: '1',
+                /* 
+                * Author: KimH4nKyl
+                * Content: 
+                * 사용자 memberId(DB에서 Primary Key! 카카오 ID 아님!) 불러와서 넣어주세요.
+                * 해결되면 주석 제거하기!
+                */
+                memberId: '1', 
                 title: state.title,
                 content: state.subtitle,
                 category: category_id,
@@ -306,16 +312,62 @@ const store = new Vuex.Store({
                         )
                     }
                 );
-                request.body = new_question_list;
+                request.body = JSON.stringify(new_question_list);
             })
 
-            // var question_id = 0;
-            // await fetch("/api/question", request)
-            // .then(response => response.json())
-            // .then(data => {
-            //     question_id = data;
-            // })
+            var question_id = []; // 필터링된 Response Data 저장 공간 선언 및 초기화
+            // /api/question에 new_question_list가 포함된 request 전달해 서버에 질문 등록 처리 요청 (POST)
+            await fetch("/api/question", request)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(element => {
+                    question_id.push(
+                        element.no
+                    );
+                });
+                // request.body = JSON.stringify(question_id);
+            })
 
+            // Choice Model 등록 처리
+            var new_choice = [];
+            for(var i=1; i<=question_id.length; i++) {
+                for(var j=0; j<state.choiceData.length;j ++) {
+                    if(i === state.choiceData[j].questionId) {
+                        new_choice.push(
+                            {
+                                questionId: question_id[i-1]
+                            }
+                        );
+                    }
+                }
+            }
+            request.body = JSON.stringify(new_choice);
+
+            var new_answer_list = [];
+            await fetch('/api/choice', request)
+            .then(response => response.json())
+            .then(data => {
+                for(var i=0; i < data.length; i++) {
+                    // console.log("test", data[i]);
+                    new_answer_list.push(
+                        {
+                            choiceId: data[i]["no"],
+                            content: state.choiceData[i].content
+                        }
+                    )
+                }
+                request.body = JSON.stringify(new_answer_list);
+            });
+
+            await fetch('/api/answer', request)
+            .then(response => response.json())
+            .then(data => {
+                console.log("final", data);
+            })
+
+            // await fetch("/api/choice", request)
+            // .then(response => response.json())
+            // .then(data => console.log(data))
             // console.log( "title: " + state.title );
             // console.log( "content: " + state.subtitle );
             // console.log( "category: " + state.category );
@@ -325,12 +377,7 @@ const store = new Vuex.Store({
             // console.log( "targetAmount: " + state.targetAmount );
             // console.log( "paymAmount: " + state.paymAmount );
             // console.log( "closingDate: " + state.closingDate );
-
-            
         }
-
-
-
     },
     // getters:{
     //     getQuestion (state) { return state.questionData},
