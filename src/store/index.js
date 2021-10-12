@@ -328,46 +328,50 @@ const store = new Vuex.Store({
                 // request.body = JSON.stringify(question_id);
             })
 
-            // Choice Model 등록 처리
-            var new_choice = [];
+            // Answer List 등록
+            var new_answer_list = [];
             for(var i=1; i<=question_id.length; i++) {
                 for(var j=0; j<state.choiceData.length;j ++) {
                     if(i === state.choiceData[j].questionId) {
-                        new_choice.push(
+                        new_answer_list.push(
                             {
-                                questionId: question_id[i-1]
+                                questionId: question_id[i-1],
+                                content: state.choiceData[j].content
                             }
                         );
                     }
                 }
             }
-            request.body = JSON.stringify(new_choice);
-
-            var new_answer_list = [];
-            await fetch('/api/choice', request)
-            .then(response => response.json())
-            .then(data => {
-                for(var i=0; i < data.length; i++) {
-                    // console.log("test", data[i]);
-                    new_answer_list.push(
-                        {
-                            choiceId: data[i]["no"],
-                            content: state.choiceData[i].content
-                        }
-                    )
-                }
-                request.body = JSON.stringify(new_answer_list);
-            });
+            request.body = JSON.stringify(new_answer_list);
 
             await fetch('/api/answer', request)
             .then(response => response.json())
             .then(data => {
-                console.log("final", data);
-            })
+                if(0 !== data) window.location.href='http://localhost:8081/';
+            });
 
-            // await fetch("/api/choice", request)
+            /*
+            *
+            * Author: KimH4nKyul
+            * Comment: 아래 `/api/choice`에 request 보낸 fetch 로직은 제거하지 마세요.
+            * 
+            */
+            // var new_answer_list = [];
+            // await fetch('/api/choice', request)
             // .then(response => response.json())
-            // .then(data => console.log(data))
+            // .then(data => {
+            //     for(var i=0; i < data.length; i++) {
+            //         // console.log("test", data[i]);
+            //         new_answer_list.push(
+            //             {
+            //                 choiceId: data[i]["no"],
+            //                 content: state.choiceData[i].content
+            //             }
+            //         )
+            //     }
+            //     request.body = JSON.stringify(new_answer_list);
+            // });
+
             // console.log( "title: " + state.title );
             // console.log( "content: " + state.subtitle );
             // console.log( "category: " + state.category );
