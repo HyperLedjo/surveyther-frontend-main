@@ -17,9 +17,8 @@
     <div class="space">
       <div class="question-location ">
         <div class="container" >
-            <ongoing-detail></ongoing-detail>    
+            <detail></detail>    
             <comment-box></comment-box>
-
         </div>
       </div>
     </div>
@@ -29,36 +28,27 @@
 <script>
 import { Card, Button, FormGroupInput } from '@/components';
 
-import OngoingDetail from './mycomponents/Detail.vue';
+import Detail from './mycomponents/Detail.vue';
 import CommentBox from './mycomponents/CommentBox.vue';
 
 
+
 export default {
-  // name: 'landing',
-  // bodyClass: 'landing-page',
   components: {
     // Card,
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
-    OngoingDetail,
+    Detail,
     CommentBox,
 
   },
   data() {
     return {
-      form: {
-        firstName: '',
-        email: '',
-        message: ''
-      }
     };
   }
 };
 </script>
 <style>
 
-.question-card{
-    padding-top:100px;
-}
 
 </style>

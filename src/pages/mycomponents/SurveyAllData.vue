@@ -1,11 +1,12 @@
 <template>
     <div class="">
+      {{$store.state.surveyAllData}}--
           <v-list-tile
             v-for="(survey) in $store.state.surveyAllData"
             :key="survey"
             >
-            <template v-if="survey.category == $route.params.category && survey.status == $route.params.status">
-                <a href="/survey_ongoing/detail">
+            <!-- <template v-if="survey.category == $route.params.category && survey.status == $route.params.status"> -->
+                <a href="/survey/detail">
               <card >
                   <div >
 
@@ -18,7 +19,7 @@
                                     v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
                                 >{{survey.status}}</span>
                               <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
-                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4}}</span>
+                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4}}---{{rewardPerOne(survey.paymAmount)}}</span>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -53,7 +54,7 @@
                   </div>
               </card>
             </a>
-            </template>
+            <!-- </template> -->
 
 
 
@@ -92,6 +93,7 @@ export default {
       //   {id: 2, sample:'two'},
       //   {id: 3, sample:'three'}
       // ]
+      reward: 0,
 
     }
   },
@@ -100,12 +102,25 @@ export default {
     //   this.$store.state.tests.push(sample)
     // })
     // this.$store.dispatch('allSurvey',this.$store.state.selectedCategory);
-
+    
   },
   beforeCreate(){
       // console.log('eeeeeeeeebeforecreate')
         // this.$store.dispatch('allSurvey');
     },
+  methods:{
+    // rewardPerOne(){
+    //   reward = 1;
+    // }
+  },
+  computed:{
+    rewardPerOne() {
+    return this.list.map((element) => {
+      // do your work on this element here 
+      element*0.98*0.4
+    })
+  }
+  }
   
 };
 </script>

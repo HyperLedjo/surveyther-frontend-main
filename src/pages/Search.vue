@@ -52,7 +52,7 @@
             >
              <!-- v-if="survey.category == $route.params.category" -->
             <template>
-                <a href="/survey_ongoing/detail">
+                <router-link :to="{name: 'survey_detail', params:{surveyId: survey.surveyId}}">
               <card >
                   <div >
 
@@ -65,7 +65,7 @@
                                     v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
                                 >{{survey.status}}</span>
                               <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
-                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4}}</span>
+                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -73,7 +73,8 @@
                             </div> -->
                             <div class="surv-disc col-sm-6 col-lg-12 mt-1">
                                 <h6> {{survey.subtitle}}</h6>
-                            <hr style="border: solid 1px rgb(200,200,200);">
+                                 <!-- style="border: solid 1px rgb(200,200,200);" -->
+                            <hr>
                             </div>
                             <div class="col-sm-6 col-lg-5">
                               <span class="badge badge-neutral mr-1">#태그</span>
@@ -99,7 +100,7 @@
 
                   </div>
               </card>
-            </a>
+            </router-link>
             </template>
 
 

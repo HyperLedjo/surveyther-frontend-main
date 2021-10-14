@@ -12,7 +12,7 @@ import Footer from './layout/Footer.vue';
 import Main from './pages/main.vue';
 import SurveyCreate from './pages/SurveyCreate.vue';
 import SurveyList from './pages/SurveyList.vue';
-import SurveyDetailOngoing from './pages/SurveyDetailOngoing.vue';
+import SurveyDetail from './pages/SurveyDetail.vue';
 import SurveyDetailClosed from './pages/SurveyDetailClosed.vue';
 import SurveyDetailFree from './pages/SurveyDetailFree.vue';
 import RewardShop from './pages/RewardShop.vue';
@@ -62,34 +62,34 @@ export default new Router({
       }
     },
     {
-      path: '/survey_ongoing/detail',
-      name: 'survey_ongoing_detail',
-      components: { default: SurveyDetailOngoing, header: Header, footer: Footer },
+      path: '/survey/detail/:surveyId',
+      name: 'survey_detail',
+      components: { default: SurveyDetail, header: Header},
       props: {
         header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
+        // footer: { backgroundColor: 'black' }
       }
     },
     
-    {
-      path: '/survey_closed/detail',
-      name: 'survey_closed_detail',
-      components: { default: SurveyDetailClosed, header: Header, footer: Footer },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
+    // {
+    //   path: '/survey_closed/detail',
+    //   name: 'survey_closed_detail',
+    //   components: { default: SurveyDetailClosed, header: Header, footer: Footer },
+    //   props: {
+    //     header: { colorOnScroll: 400 },
+    //     footer: { backgroundColor: 'black' }
+    //   }
+    // },
     
-    {
-      path: '/survey_free/detail',///
-      name: 'survey_free_detail',
-      components: { default: SurveyDetailFree, header: Header, footer: Footer },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
+    // {
+    //   path: '/survey_free/detail',///
+    //   name: 'survey_free_detail',
+    //   components: { default: SurveyDetailFree, header: Header, footer: Footer },
+    //   props: {
+    //     header: { colorOnScroll: 400 },
+    //     footer: { backgroundColor: 'black' }
+    //   }
+    // },
     {
       path: '/rewardshop',///
       name: 'rewardshop',

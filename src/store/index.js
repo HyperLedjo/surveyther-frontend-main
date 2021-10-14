@@ -7,7 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     // strict: true,
     state: {
-        //유저관련
+        //---------------------------유저관련--------------------------
         isUser: null,
         userInfo: {
             //유저 기본정보
@@ -50,7 +50,7 @@ const store = new Vuex.Store({
             // private String wallet; #지갑주소
             // private Timestamp regDate; #등록일
         },
-        //서베이 작성 관련
+        //---------------------------서베이 작성 관련---------------------------
         category: '',
         title: '',
         subtitle: '',
@@ -72,11 +72,29 @@ const store = new Vuex.Store({
         targetAmount: '',
         paymAmount: '',
         closingDate: '',
+        //---------------------서베이접근-------------------------
+        // surveyIndex: 0,
         //---------------------서베이 데이터-------------------------
         surveyAllData: [
-            
+                    // {surveyId: 11,
+                    // userId: 24525,
+                    
+                    // category: '부동산',
+                    // title: '타이틀타이틀',
+                    // subtitle: '내용내용',
+                    // targetAmount: 10,
+                    // currentAmount: 0,
+                    // regDate: '2021-01-01ABCDEE'.slice(0,10),
+                    // closingDate:'2021-01-11ABCDEE',
+                    // paymAmount: 3331,
+                    // commentCount: 2,
+                    // likeCount: 1,
+                    // status: '진행중',}
         ],
         surveyQuestionData:[
+
+        ],
+        surveyAnswerData:[
 
         ],
         //---------------------이하 샘플-------------------------
@@ -120,7 +138,7 @@ const store = new Vuex.Store({
                     subtitle: data[i].content,
                     targetAmount: data[i].goalParticipants,
                     currentAmount: data[i].currentParticipants,
-                    regDate: data[i].regDate,
+                    regDate: data[i].regDate.slice(0,10),
                     closingDate: data[i].deadline,
                     paymAmount: data[i].paid,
                     commentCount: data[i].comments,
@@ -178,26 +196,22 @@ const store = new Vuex.Store({
                     id: data[i].no,
                     surveyId: data[i].surveyId,
                     content: data[i].content,
+                    answer: null
                 });
             }
             
             console.log(state.surveyQuestionData);
         },
-        rePushingQuestionId(state) {
-            for (let i = 0; i < state.questionData.length; i++) {
-                state.questionData[i].questionId = i + 1;
-            }
-            // console.log("---------@@@@@@@@@@@@-------" + state.questionData.length + "---------@@@@@@@@@@@@-------");
-        },
-        rePushingChoiceId(state) {
-            for (let i = 0; i < state.choiceData.length; i++) {
-                state.choiceData[i].choiceId = i + 1;
+        updateAnswerData(state, data){
+            for(let i = 0; i < data.length; i++){
+                state.surveyAnswerData.push({
+                    id: data[i].no,
+                    questionId: data[i].questionId,
+                    content: data[i].content,
+                });
             }
         },
-        mutatTitle(state, val, text) {//안먹음
-            console.log(val + "----");
-            state.questionData[val].content = text;
-        },
+        
 
         //-----------------------------------------------------------TEST---------------------------------------------------------------
         
@@ -247,7 +261,6 @@ const store = new Vuex.Store({
                     context.commit('updateSurveyData', data);
                 }
             );
-            // console.log("Ddddddddddddddddddddd");
             
         },
         allQuestion(context){
@@ -256,7 +269,13 @@ const store = new Vuex.Store({
                     context.commit('updateQuestionData', data)
                 }
             );
-            // console.log("Dddddddddddddddd???????ddddd");
+        },
+        allAnswer(context){
+            fetch(`/api/answer`).then(response => response.json()).then(
+                data =>{
+                    context.commit('updateAnswerData', data)
+                }
+            );
         },
         
         async postSurvey({state}){
@@ -383,10 +402,16 @@ const store = new Vuex.Store({
             // console.log( "closingDate: " + state.closingDate );
         }
     },
-    // getters:{
+    getters:{
+        getsurveyAnswerDataByQusetId: (state) =>(id) =>{
+            return state.surveyAnswerData.filter( answer => answer.questionId === id)
+        },
+        getsurveyIndexBySurveyId: (state) =>(surveyid) =>{
+            return state.surveyAllData.filter( data => data.surveyId == surveyid)
+        }
     //     getQuestion (state) { return state.questionData},
     //     getTargetAmount (state) { return state.targetAmount},
-    // }
+    }
 });
 
 export default store;

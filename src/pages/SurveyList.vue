@@ -46,8 +46,6 @@ import SurveyAllData from './mycomponents/SurveyAllData.vue';
 
 
 export default {
-  // name: 'landing',
-  // bodyClass: 'landing-page',
   components: {
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,

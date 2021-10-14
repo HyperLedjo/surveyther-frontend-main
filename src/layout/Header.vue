@@ -170,18 +170,16 @@
 
 
               <!-- @mousedown="$commit.updateCurrentFilter('금융')" -->
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="/search"
+        >
+        <i class="now-ui-icons ui-1_zoom-bold"></i>
+          <!-- <p>마이페이지</p> -->
+        </a>
+      </li>
 
-      <drop-down
-              tag="li"
-              title=""
-              icon="now-ui-icons ui-1_zoom-bold"
-              class="nav-item"
-      >
-        <nav-link to="/search" >
-        <!-- v-on:click.native="currentFilter('부동산')" -->
-          검색
-        </nav-link>
-      </drop-down>
 
       <li class="nav-item" v-if="isUser">
         <n-button 
@@ -330,6 +328,7 @@ export default {
   beforeCreate(){
     this.$store.dispatch('allSurvey');
     this.$store.dispatch('allQuestion');
+    this.$store.dispatch('allAnswer');
     console.log('eeeeeeeeebeforecreate');
         
     },
