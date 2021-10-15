@@ -339,13 +339,13 @@
                                 <div class="col-sm-6 col-lg-6 ">
                                     <small>
                                         <h6>
-                                            {{firstReward}}
+                                            {{$store.state.calculate.firstReward}}
                                         </h6> 
                                         <h6>
-                                            {{secReward}}
+                                            {{$store.state.calculate.secReward}}
                                         </h6>
                                         <h6>
-                                            {{fee}}
+                                            {{$store.state.calculate.fee}}
                                         </h6>   
                                     </small>
                                 </div>
@@ -368,7 +368,7 @@
                         </div>
                         
                         <div class="col-sm-6 col-lg-6 " v-if="$store.state.category != '커뮤니티'">
-                            <fg-input class="card-maxline" v-model="$store.state.paymAmount" @input="rewardCalculator" placeholder="결제할 금액을 입력해주세요."></fg-input>
+                            <fg-input class="card-maxline" v-model="$store.state.paymAmount" @input="$store.commit('rewardCalculator')" placeholder="결제할 금액을 입력해주세요."></fg-input>
                         </div>
                         <div class="col-sm-6 col-lg-12 d-flex justify-content-center mt-3">
                             <div class="col-lg-8 d-flex justify-content-center">
@@ -501,12 +501,7 @@ export default {
           this.$store.state.tags.splice(val,1);
       },
 
-      rewardCalculator(){
-      //리워드계산기
-          this.fee = this.$store.state.paymAmount * 0.02;
-          this.firstReward = (this.$store.state.paymAmount - this.fee) * 0.4 / this.$store.state.targetAmount;
-          this.secReward = (this.$store.state.paymAmount - this.fee) * 0.6 / this.$store.state.targetAmount;
-      },
+      
       tagCreator(){
           //태그 생성기
           let tags = this.inputTag.split(" ");

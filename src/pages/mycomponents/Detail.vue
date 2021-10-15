@@ -2,11 +2,11 @@
     <card>
               <div class="">
                 <template>
-{{$route.params.surveyId}}---
-<!-- {{takeSurveyIndex}} -->
+{{$route.params.surveyId}}---{{survey.title}}
                 </template>
-            <div v-for="(survey) in surveyIndexBySurveyId($route.params.surveyId)" :key="survey">
-                {{survey.title}}-=-=-=-=
+            <!-- <div v-for="(survey) in surveyIndexBySurveyId($route.params.surveyId)" :key="survey"> -->
+            <div >
+                {{survey.title}}
 
                 <div id="inputs">
                     <div class="row card-form ">
@@ -16,14 +16,6 @@
                                 <span class="badge badge-warning">120</span>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
-                            <!-- 프사 -->
-                            <!-- <div class="col-sm-1 col-lg-1">
-                                <img
-                                v-lazy="'img/julie.jpg'"
-                                alt="Circle Image"
-                                class="rounded-circle"
-                                />
-                            </div> -->
                             <div class="col-sm-1 col-lg-5">
                                 <span><b class="mr-3">{{survey.userId}}</b> </span>
                                 <span class="surv-disc">{{survey.regDate}}</span>
@@ -45,15 +37,11 @@
                                 <h6>{{survey.subtitle}}</h6>
                             </div>
 
-                            <!-- <div class="col-sm-6 col-lg-12">
-                                <hr style="padding-top:30px"> 
-                            </div> -->
   <!-- 질문 -->
                             <div class="container one-block">
-<!-- {{$store.state.surveyQuestionData}} -->
-                                <div v-for="(quest, index) in $store.state.surveyQuestionData" :key="quest"
+                                <!-- <div v-for="(quest, index) in $store.state.surveyQuestionData" :key="quest" -->
+                                <div v-for="(quest, index) in this.questions" :key="quest"
                                 >
-                                  <template v-if="$store.state.surveyAllData[$route.params.surveyId-1].surveyId == quest.surveyId">
                                     
                                     <span class="badge badge-default mt-5">질문{{index+1}}</span>
                                     <span class=" mr-1">{{quest.content}}</span>
@@ -61,17 +49,16 @@
                                                   :key="choice"
                                                   > -->
  <small>{{quest}}</small> 
-                                        
-                                        <n-radio v-for="(answer, index) in answersByQuestIdx(quest.id)" 
+                                        <!-- updateAnswers(quest.id) -->
+                                        <n-radio v-for="(answer, index) in answers" 
                                                 :key="index" :value="answer.id"  
-                                                v-show="quest.id == answer.questionId"
                                                 v-model= quest.answer
+                                                v-show="quest.id == answer.questionId"
                                                 :label = answer.id>
                                           <small>  <label :for="`q${index}${answer.id}`">{{ answer.id }} </label> </small> 
                                             {{index}}-{{answer.content}}
                                         </n-radio>>
                                     <!-- </v-list-tile> -->
-                                  </template>
                                 </div>
 
                                 <!-- <div style="padding-top:30px">
@@ -100,7 +87,7 @@
                                     <span class="mr-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{survey.likeCount}}</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
-                                    <a href="" class="btn btn-primary btn-round btn-lg"> 서베이 참여 </a>
+                                    <a href="" class="btn btn-primary btn-round btn-lg" @click="$store.dispatch('selectingAnswer',$route.params.surveyId)"> 서베이 참여 </a>
                                 </div>
                             </div>
                             
@@ -115,9 +102,7 @@
 </template>
 <script>
 import { Card, Tabs, TabPane } from '@/components';
-// import { Button, Modal, FormGroupInput } from '@/components';
 import { Popover, Tooltip, DatePicker } from 'element-ui';
-// import CommentBox from './mycomponents/CommentBox.vue';
 
 
 import {
@@ -138,15 +123,28 @@ export default {
   },
   data() {
     return {
-      // surveyIndex: surveyIndexBySurveyId,
-      radios: {
-        radioOn: '0',
-        radioOff: '0'
+      survey: {
+            surveyId: '',
+            userId: '',
+            
+            category: '',
+            title: '',
+            subtitle: null,
+            targetAmount: null,
+            currentAmount: null,
+            regDate: null,
+            closingDate: null,
+            paymAmount: null,
+            commentCount: null,
+            likeCount: null,
+            status: null
       },
-      switches: {
-        defaultOn: true,
-        defaultOff: false
-      },
+      questions:[
+
+      ],
+      answers:[
+
+      ]
     };
   },
   methods:{
@@ -160,6 +158,91 @@ export default {
       let surveyIndex = this.$store.getters.getsurveyIndexBySurveyId(routeId)
       return surveyIndex
     },
+    updateSurveyInfo() {
+      fetch('/api/survey/' + this.$route.params.surveyId).then(response => response.json()).then(
+          data => {
+                    this.survey.surveyId= data.no;
+                    this.survey.userId= data.memberId;
+                    if(data.category == '1')
+                        this.survey.category = '부동산';
+                    else if(data.category == '2')
+                        this.survey.category = '유통';
+                    else if(data.category == '3')
+                        this.survey.category = '식음료';
+                    else if(data.category == '4')
+                        this.survey.category = '관광';
+                    else if(data.category == '5')
+                        this.survey.category = '금융';
+                    else if(data.category == '6')
+                        this.survey.category = '정보통신';
+                    else if(data.category == '7')
+                        this.survey.category = '보건의료';
+                    else if(data.category == '8')
+                        this.survey.category = '공공정책';
+                    else if(data.category == '9')
+                        this.survey.category = '커뮤니티';
+                    this.survey.title= data.title;
+                    this.survey.subtitle= data.content;
+                    this.survey.targetAmount= data.goalParticipants;
+                    this.survey.currentAmount= data.currentParticipants;
+                    this.survey.regDate= data.regDate.slice(0,10);
+                    this.survey.closingDate= data.deadline;
+                    this.survey.paymAmount= data.paid;
+                    this.survey.commentCount= data.comments;
+                    this.survey.likeCount= data.likes;
+                    if(data.status == '0')
+                        this.survey.status = '진행중';
+                    else if(data.status == '1')
+                        this.survey.status = '마감';
+          }
+        );
+        
+    },
+    updateQuestions(){
+      fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
+          data => {
+            for(let i = 0; i < data.length; i++){
+              this.questions.push({
+                    id: data[i].no,
+                    surveyId: data[i].surveyId,
+                    content: data[i].content,
+                    answer: null
+              });
+              fetch('/api/answer/' + data[i].no).then(response => response.json()).then(
+                data =>{
+                  for(let i = 0; i < data.length; i++){
+                      console.log(data[i]);
+                      this.answers.push({
+                            id: data[i].no,
+                            questionId: data[i].questionId,
+                            content: data[i].content,
+                      });
+                    }
+                }
+              )
+            }
+
+          }
+        );
+    },
+    updateAnswers(questId){
+      // console.log(questId)
+      // fetch('/api/answer/' + questId).then(response => response.json()).then(
+      //     data => {
+      //       for(let i = 0; i < data.length; i++){
+      //         console.log(data[i]);
+      //         // this.answers.push({
+      //         //       id: data[i].no,
+      //         //       questionId: data[i].questionId,
+      //         //       content: data[i].content,
+      //         // });
+      //       }
+      //     }
+      //   );
+    // console.log(this.questions + "???");
+    // console.log(this.answers + "??aaaa?");
+
+    }
     
 
   },
@@ -167,28 +250,17 @@ export default {
     remainAmount(){
       return this.$store.state.surveyAllData[0].targetAmount - this.$store.state.surveyAllData[0].particAmount;
     },
-    // surveyIndex(){
-    //   return surveyIndexBySurveyId;
-    // }
-    // takeSurveyIndex(){
-    //   let num = 0;
-    //   for(let i = 0; i < this.$store.state.surveyAllData.length; i++){
-    //     if(this.$store.state.surveyAllData[i].surveyId == $route.params.surveyId)
-    //       num = i;
-    //   }
-    //   return num;
-    // }
+   
   },
   beforeCreate(){
-    // for(let i = 0; i < this.$store.state.surveyAllData.length; i++){
-    //   if(this.$store.state.surveyAllData[i].surveyId == $route.params.surveyId)
-    //     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    //     // surveyIndex = i;
+    
+  },
+  created(){
+    this.updateSurveyInfo();
+    this.updateQuestions();
+    // for(let i = 0; i < questions.length; i++){
+    //   console.log("!!!!!!!!!!!!!!!!!!!!");
     // }
-    // $route.params.surveyId
-    // console.log($route.params.surveyId + " ---------- ");
-    // this.$store.dispatch('allQuestion');
-    // this.$store.dispatch('allAnswer');
   }
 };
 </script>

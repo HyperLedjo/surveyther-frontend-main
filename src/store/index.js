@@ -72,6 +72,12 @@ const store = new Vuex.Store({
         targetAmount: '',
         paymAmount: '',
         closingDate: '',
+
+        calculate:{
+            firstReward: 0,
+            secReward: 0,
+            fee: 0,
+        },
         //---------------------서베이접근-------------------------
         // surveyIndex: 0,
         //---------------------서베이 데이터-------------------------
@@ -190,27 +196,13 @@ const store = new Vuex.Store({
             // {"no":3,
             //"fee":100.0,
         },
-        updateQuestionData(state, data){
-            for(let i = 0; i < data.length; i++){
-                state.surveyQuestionData.push({
-                    id: data[i].no,
-                    surveyId: data[i].surveyId,
-                    content: data[i].content,
-                    answer: null
-                });
-            }
-            
-            console.log(state.surveyQuestionData);
+        rewardCalculator(state){
+        //리워드계산기
+            state.calculate.fee = state.paymAmount * 0.02;
+            state.calculate.firstReward = (state.paymAmount - state.calculate.fee) * 0.4 / state.targetAmount;
+            state.calculate.secReward = (state.paymAmount - state.calculate.fee) * 0.6 / state.targetAmount;
         },
-        updateAnswerData(state, data){
-            for(let i = 0; i < data.length; i++){
-                state.surveyAnswerData.push({
-                    id: data[i].no,
-                    questionId: data[i].questionId,
-                    content: data[i].content,
-                });
-            }
-        },
+
         
 
         //-----------------------------------------------------------TEST---------------------------------------------------------------
@@ -262,20 +254,6 @@ const store = new Vuex.Store({
                 }
             );
             
-        },
-        allQuestion(context){
-            fetch(`/api/question`).then(response => response.json()).then(
-                data =>{
-                    context.commit('updateQuestionData', data)
-                }
-            );
-        },
-        allAnswer(context){
-            fetch(`/api/answer`).then(response => response.json()).then(
-                data =>{
-                    context.commit('updateAnswerData', data)
-                }
-            );
         },
         
         async postSurvey({state}){
