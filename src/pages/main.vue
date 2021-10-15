@@ -11,7 +11,7 @@
           <img class="n-logo" src="img/now-logo.png" alt="" />
           <h1 class="h1-seo">Surveyther</h1>
           <h3>This is Surveyther sample page!</h3>
-          <!-- <button class="btn btn-round btn-primary" v-on:click.prevent="test">test---{{$store.state.testCount}}</button> -->
+          <!-- <button class="btn btn-round btn-primary" v-on:click="kakaoPay">Pay!</button> -->
 
         </div>
 <!-- {{$store.actions.signIn()}} -->
@@ -63,8 +63,15 @@ export default {
     MainAbout
   },
   methods:{
-    
-    
+    kakaoPay() {
+      const member = {
+        member_id: 1
+      }
+      const survey = {
+        survey_title: "이렇고 저런 문제에 관하여",
+        survey_paid: 10000
+      }
+    }    
   }
 };
 </script>
