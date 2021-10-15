@@ -366,8 +366,20 @@ const store = new Vuex.Store({
             await fetch('/api/answer', request)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
+            });
+
+            // 태그(Tag) 등록
+            state.tags.forEach(element => {
+                element.surveyId = survey_id;
+            });
+            request.body = JSON.stringify(state.tags);
+            await fetch('/api/tag', request)
+            .then(response => response.json())
+            .then(data => {
                 if(0 !== data) window.location.href='http://localhost:8081/';
             });
+
 
             /*
             *
