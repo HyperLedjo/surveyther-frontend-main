@@ -277,12 +277,13 @@ const store = new Vuex.Store({
                 * 해결되면 주석 제거하기!
                 */
                 memberId: '1', 
+                category: category_id,
                 title: state.title,
                 content: state.subtitle,
-                category: category_id,
                 goalParticipants: state.targetAmount,
+                deadline: state.closingDate,
                 paid: state.paymAmount,
-                deadline: state.closingDate
+                fee: state.calculate.fee
             }
 
             let request = {
@@ -342,10 +343,10 @@ const store = new Vuex.Store({
             request.body = JSON.stringify(new_answer_list);
 
             await fetch('/api/answer', request)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            });
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log(data);
+            // });
 
             // 태그(Tag) 등록
             state.tags.forEach(element => {
@@ -353,12 +354,24 @@ const store = new Vuex.Store({
             });
             request.body = JSON.stringify(state.tags);
             await fetch('/api/tag', request)
-            .then(response => response.json())
-            .then(data => {
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log(data);
+            // });
+
+            // 보상(Reward) 등록
+            var reward = {
+                surveyId: survey_id,
+                reward1: state.calculate.firstReward * state.targetAmount,
+                reward2: state.calculate.secReward * state.targetAmount
+            }
+            request.body = JSON.stringify(reward);
+
+            await fetch('/api/reward', request)
+            .then(response=>response.json)
+            .then(data=>{
                 if(0 !== data) window.location.href='http://localhost:8081/';
-            });
-
-
+            })
 
             /*
             *
