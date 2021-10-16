@@ -2,18 +2,17 @@
     <card>
               <div class="">
                 <template>
-{{$route.params.surveyId}}---{{survey.title}}
+<!-- {{$route.params.surveyId}}---{{survey.title}} -->
                 </template>
-            <!-- <div v-for="(survey) in surveyIndexBySurveyId($route.params.surveyId)" :key="survey"> -->
             <div >
-                {{survey.title}}
+                <!-- {{survey.title}} -->
 
                 <div id="inputs">
                     <div class="row card-form ">
                             <div class="col-sm-6 col-lg-12">
                               <span class="badge badge-primary mr-1">{{survey.category}}</span>
                               <span class="badge badge-success mr-1">{{survey.status}}</span>
-                                <span class="badge badge-warning">120</span>
+                                <span class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
                             <div class="col-sm-1 col-lg-5">
@@ -22,7 +21,7 @@
 
                             </div>
                             <div class="col-sm-6 col-lg-10">
-                                <span class="mr-3 surv-disc">참여한 인원 {{survey.particAmount}}</span> 
+                                <span class="mr-3 surv-disc">참여한 인원 {{survey.currentAmount}}</span> 
                                 <span class="mr-3 surv-disc">마감까지 5일 4시간 27분</span>
                                 <span class="mr-3 surv-disc">남은보상 <b>{{remainAmount}}</b></span>
                             </div>
@@ -48,16 +47,17 @@
                                     <!-- <v-list-tile v-for="(choice) in $store.state.surveyAllData"
                                                   :key="choice"
                                                   > -->
- <small>{{quest}}</small> 
+ <!-- <small>{{quest}}</small>  -->
                                         <!-- updateAnswers(quest.id) -->
                                         <n-radio v-for="(answer, index) in answers" 
                                                 :key="index" :value="answer.id"  
                                                 v-model= quest.answer
                                                 v-show="quest.id == answer.questionId"
                                                 :label = answer.id>
-                                          <small>  <label :for="`q${index}${answer.id}`">{{ answer.id }} </label> </small> 
-                                            {{index}}-{{answer.content}}
-                                        </n-radio>>
+                                          <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
+                                            <!-- {{index}}- -->
+                                            {{answer.content}}
+                                        </n-radio>
                                     <!-- </v-list-tile> -->
                                 </div>
 
@@ -74,11 +74,11 @@
 
  <!-- 태그 -->
                             <div class="container one-block">
-                                <div class="">
-                                    <span class="badge badge-neutral mr-1">#태그</span>
-                                    <span class="badge badge-neutral mr-1">#서베이</span>
+                                <div class="" >
+                                    <span v-for="tag in tags" :key="tag" class="badge badge-neutral mr-1">#{{tag.content}}</span>
+                                    <!-- <span class="badge badge-neutral mr-1">#서베이</span>
                                     <span class="badge badge-neutral mr-1">#tag</span>
-                                    <span class="badge badge-neutral mr-1">#sample</span>
+                                    <span class="badge badge-neutral mr-1">#sample</span> -->
                                 </div>
                             </div>
 
@@ -87,7 +87,8 @@
                                     <span class="mr-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{survey.likeCount}}</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
-                                    <a href="" class="btn btn-primary btn-round btn-lg" @click="$store.dispatch('selectingAnswer',$route.params.surveyId)"> 서베이 참여 </a>
+                                    <!-- <a href=""></a> -->
+                                    <button type="button" class="btn btn-primary btn-round btn-lg" @click="participateSurvey">  서베이 참여  </button>
                                 </div>
                             </div>
                             
@@ -144,20 +145,23 @@ export default {
       ],
       answers:[
 
+      ],
+      tags:[
+
       ]
     };
   },
   methods:{
-    answersByQuestIdx(idx){
-      let answers = this.$store.getters.getsurveyAnswerDataByQusetId(idx)
-      return answers
-    },
-    surveyIndexBySurveyId(routeId){
-      // console.log("hi")
-      // let routeId = $route.params.surveyId;
-      let surveyIndex = this.$store.getters.getsurveyIndexBySurveyId(routeId)
-      return surveyIndex
-    },
+    // answersByQuestIdx(idx){
+    //   let answers = this.$store.getters.getsurveyAnswerDataByQusetId(idx)
+    //   return answers
+    // },
+    // surveyIndexBySurveyId(routeId){
+    //   // console.log("hi")
+    //   // let routeId = $route.params.surveyId;
+    //   let surveyIndex = this.$store.getters.getsurveyIndexBySurveyId(routeId)
+    //   return surveyIndex
+    // },
     updateSurveyInfo() {
       fetch('/api/survey/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
@@ -211,7 +215,7 @@ export default {
               fetch('/api/answer/' + data[i].no).then(response => response.json()).then(
                 data =>{
                   for(let i = 0; i < data.length; i++){
-                      console.log(data[i]);
+                      // console.log(data[i]);
                       this.answers.push({
                             id: data[i].no,
                             questionId: data[i].questionId,
@@ -225,30 +229,38 @@ export default {
           }
         );
     },
-    updateAnswers(questId){
-      // console.log(questId)
-      // fetch('/api/answer/' + questId).then(response => response.json()).then(
-      //     data => {
-      //       for(let i = 0; i < data.length; i++){
-      //         console.log(data[i]);
-      //         // this.answers.push({
-      //         //       id: data[i].no,
-      //         //       questionId: data[i].questionId,
-      //         //       content: data[i].content,
-      //         // });
-      //       }
-      //     }
-      //   );
-    // console.log(this.questions + "???");
-    // console.log(this.answers + "??aaaa?");
+    updateTags(){
+      fetch('/api/tag/' + this.$route.params.surveyId).then(response => response.json()).then(
+        data =>{
+          for(let i = 0; i < data.length; i++){
+            this.tags.push({
+              id: data[i].no,
+              surveyId: data[i].surveyId,
+              content: data[i].content,
+            });
+          }
+        }
+      );
 
+    },
+    participateSurvey(){
+      console.log("survey ID: " + this.survey.surveyId);
+      console.log("user ID: " + 1);
+         let result =[];
+       for(let i = 0; i < this.questions.length; i++){
+         result.push({
+           questionId: this.questions[i].id,
+           answerId: this.questions[i].answer
+         })
+       }
+      console.log("quests & answers: " + JSON.stringify(result));
     }
     
 
   },
   computed:{
     remainAmount(){
-      return this.$store.state.surveyAllData[0].targetAmount - this.$store.state.surveyAllData[0].particAmount;
+      return this.survey.targetAmount - this.survey.currentAmount;
     },
    
   },
@@ -258,9 +270,7 @@ export default {
   created(){
     this.updateSurveyInfo();
     this.updateQuestions();
-    // for(let i = 0; i < questions.length; i++){
-    //   console.log("!!!!!!!!!!!!!!!!!!!!");
-    // }
+    this.updateTags();
   }
 };
 </script>
@@ -275,7 +285,5 @@ export default {
   // margin: 20px;
   // padding-right: 13px;
 }
-.commnet-button{
 
-}
 </style>
