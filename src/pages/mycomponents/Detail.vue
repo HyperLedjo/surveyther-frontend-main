@@ -243,17 +243,40 @@ export default {
       );
 
     },
-    participateSurvey(){
-      console.log("survey ID: " + this.survey.surveyId);
-      console.log("user ID: " + 1);
-         let result =[];
+    async participateSurvey(){
+      // console.log("survey ID: " + this.survey.surveyId);
+      // console.log("user ID: " + 1);
+       let result =[];
        for(let i = 0; i < this.questions.length; i++){
+         if(this.questions[i].answer === null) {
+           window.alert(i+1 + "번째 답변을 꼭 선택해 주세요!");
+           return;
+         }
+        //  console.log(1); // 위에서 answer가 null이면 콘솔에 1이 출력되지 않아야 합니다.
          result.push({
+           memberId: 1,
+           surveyId: this.survey.surveyId,
            questionId: this.questions[i].id,
            answerId: this.questions[i].answer
          })
        }
-      console.log("quests & answers: " + JSON.stringify(result));
+      let request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(result)
+      }
+      console.log(request);
+      // console.log("quests & answers: " + JSON.stringify(result));
+      await fetch("/api/participants", request)
+      .then(response=>response.json())
+      .then(data=>{
+        if(0 < data) {
+          window.alert("성공적으로 참여 되었습니다!");
+        }
+      })
+      .catch(error=>console.log(error));
     }
     
 
