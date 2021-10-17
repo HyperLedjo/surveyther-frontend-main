@@ -15,7 +15,6 @@
         </div>
 
     <div class="container">
-      <!-- style="background: yellow" -->
       <card>
         <div>
           
@@ -24,16 +23,6 @@
 
       <div class="row">
 
-        <!-- <div class="col-md-4 mr-auto">
-          <card>
-            <img src="img/reward.jpg" alt="">
-            <h6 class="category category-absolute">스타벅스</h6>
-            <h6 class="">아이스 아메리카노 T</h6>
-            <h5 class="mt-4"><b> 4100</b> 토큰</h5>
-            <button type="button" class="btn btn-round btn-block btn-primary btn-lg"> 구매하기 </button>
-          </card>
-        </div> -->
-
         <v-list-tile v-for="product in $store.state.rewardshop"
         :key="product" class="col-md-4 mr-auto">
             <card>
@@ -41,7 +30,9 @@
               <h6 class="category category-absolute">{{product.comp}}</h6>
               <h6 class="">{{product.product}}</h6>
               <h5 class="mt-4"><b> {{product.price}}</b> 토큰</h5>
-              <button type="button" class="btn btn-round btn-block btn-primary btn-lg"> 구매하기 </button>
+              <button type="button" class="btn btn-round btn-block btn-primary btn-lg" @click="checkUser">
+                 구매하기 
+              </button>
             </card>
         </v-list-tile>
         
@@ -72,6 +63,19 @@ export default {
         message: ''
       }
     };
+  },
+  methods:{
+    checkUser(){
+      if(this.$store.state.isUser){
+        this.buyProduct();
+      }else{
+        this.$store.state.loginAlert = true;
+      }
+
+    },
+    buyProduct(){
+      console.log("buy it!!")
+    }
   }
 };
 </script>

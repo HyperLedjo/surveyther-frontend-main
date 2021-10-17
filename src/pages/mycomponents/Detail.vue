@@ -1,4 +1,6 @@
 <template>
+<div>
+
     <card>
               <div class="">
                 <template>
@@ -11,8 +13,12 @@
                     <div class="row card-form ">
                             <div class="col-sm-6 col-lg-12">
                               <span class="badge badge-primary mr-1">{{survey.category}}</span>
-                              <span class="badge badge-success mr-1">{{survey.status}}</span>
-                                <span class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
+                              <span class="badge  mr-1"
+                                    v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
+                                >{{survey.status}}</span>
+                                <template v-if="survey.category != '커뮤니티' && survey.status == '진행중'">
+                                    <span class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
+                                </template>
                                 <span><b> {{survey.title}}</b></span> 
                             </div>
                             <div class="col-sm-1 col-lg-5">
@@ -22,8 +28,10 @@
                             </div>
                             <div class="col-sm-6 col-lg-10">
                                 <span class="mr-3 surv-disc">참여한 인원 {{survey.currentAmount}}</span> 
-                                <span class="mr-3 surv-disc">마감까지 5일 4시간 27분</span>
-                                <span class="mr-3 surv-disc">남은보상 <b>{{remainAmount}}</b></span>
+                                <template v-if="survey.category != '커뮤니티' && survey.status == '진행중'">
+                                    <span class="mr-3 surv-disc">마감까지 5일 4시간 27분</span>
+                                    <span class="mr-3 surv-disc">남은보상 <b>{{remainAmount}}</b></span>
+                                </template>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}} </span> 
@@ -38,37 +46,35 @@
 
   <!-- 질문 -->
                             <div class="container one-block">
-                                <!-- <div v-for="(quest, index) in $store.state.surveyQuestionData" :key="quest" -->
                                 <div v-for="(quest, index) in this.questions" :key="quest"
                                 >
                                     
                                     <span class="badge badge-default mt-5">질문{{index+1}}</span>
                                     <span class=" mr-1">{{quest.content}}</span>
-                                    <!-- <v-list-tile v-for="(choice) in $store.state.surveyAllData"
-                                                  :key="choice"
-                                                  > -->
  <!-- <small>{{quest}}</small>  -->
-                                        <!-- updateAnswers(quest.id) -->
-                                        <n-radio v-for="(answer, index) in answers" 
-                                                :key="index" :value="answer.id"  
-                                                v-model= quest.answer
-                                                v-show="quest.id == answer.questionId"
-                                                :label = answer.id>
-                                          <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
-                                            <!-- {{index}}- -->
-                                            {{answer.content}}
-                                        </n-radio>
-                                    <!-- </v-list-tile> -->
+                                        <template v-if="survey.status == '진행중'">
+                                            <n-radio v-for="(answer, index) in answers" 
+                                                    :key="index" :value="answer.id"  
+                                                    v-model= quest.answer
+                                                    v-show="quest.id == answer.questionId"
+                                                    :label = answer.id>
+                                              <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
+                                                {{answer.content}}
+                                            </n-radio>
+                                        </template>
+                                        <template v-else-if="survey.status == '마감'">
+                                            <n-radio n-radio v-for="(answer, index) in answers" 
+                                                    :key="index" :value="answer.id"  
+                                                    v-model= quest.answer
+                                                    v-show="quest.id == answer.questionId"
+                                                    :label = answer.id 
+                                                    disabled>
+                                              <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
+                                                {{answer.content}}
+                                            </n-radio>
+                                        </template>
                                 </div>
 
-                                <!-- <div style="padding-top:30px">
-                                    <span class="badge badge-default">질문2</span>
-                                    <span class=" mr-1">이것에 대해 어떻게 생각하십니까?</span>
-                                        <n-radio v-model="radios.radioOff" label="1">이렇고 그렇게 생각한다</n-radio>
-                                        <n-radio v-model="radios.radioOff" label="2">이것은 아니라고 생각한다</n-radio>
-                                        <n-radio v-model="radios.radioOff" label="3">그럴수도 있다고 생각한다</n-radio>
-                                        <n-radio v-model="radios.radioOff" label="4">저럴수도 있다고 생각한다</n-radio>
-                                </div> -->
                               
                             </div>
 
@@ -76,9 +82,6 @@
                             <div class="container one-block">
                                 <div class="" >
                                     <span v-for="tag in tags" :key="tag" class="badge badge-neutral mr-1">#{{tag.content}}</span>
-                                    <!-- <span class="badge badge-neutral mr-1">#서베이</span>
-                                    <span class="badge badge-neutral mr-1">#tag</span>
-                                    <span class="badge badge-neutral mr-1">#sample</span> -->
                                 </div>
                             </div>
 
@@ -88,7 +91,17 @@
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{survey.likeCount}}</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
                                     <!-- <a href=""></a> -->
-                                    <button type="button" class="btn btn-primary btn-round btn-lg" @click="participateSurvey">  서베이 참여  </button>
+                                    <button type="button" class="btn btn-primary btn-round btn-lg" @click="checkUser">
+                                      <template v-if="survey.category == '커뮤니티'">
+                                        참여하고 결과보기  
+                                      </template>
+                                      <template v-else-if="survey.status == '진행중'">
+                                          서베이 참여  
+                                      </template>
+                                      <template v-else-if="survey.status == '마감'">
+                                            ??? SVTH  
+                                      </template>
+                                    </button>
                                 </div>
                             </div>
                             
@@ -100,9 +113,25 @@
                 
               </div>
           </card>
+
+    <modal :show.sync="EmptyAnswerAlert" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
+      <h5 slot="header" class="title title-up pb-0">알림</h5>
+        <h6 class="text-center">
+          선택하지못한 답변이 있습니다!
+        </h6>
+      <template slot="footer">
+        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+          type="button"
+          @click="EmptyAnswerAlert = false" >
+          확인
+        </n-button>
+      </template>
+    </modal>
+
+</div>
 </template>
 <script>
-import { Card, Tabs, TabPane } from '@/components';
+import { Card, Tabs, TabPane, Modal, } from '@/components';
 import { Popover, Tooltip, DatePicker } from 'element-ui';
 
 
@@ -121,9 +150,12 @@ export default {
     Card,
     [Radio.name]: Radio,
     [FormGroupInput.name]: FormGroupInput,
+    Modal,
+
   },
   data() {
     return {
+      EmptyAnswerAlert: false,
       survey: {
             surveyId: '',
             userId: '',
@@ -243,13 +275,29 @@ export default {
       );
 
     },
+    checkUser(){
+      if(this.$store.state.isUser){
+        if(this.survey.category == '커뮤니티')
+          this.participateSurveyAndGetResult();
+        else if(this.survey.status == '진행중')
+          this.participateSurvey();
+        else if(this.survey.status == '마감')
+          this.buySurvey();
+      }else{
+        this.$store.state.loginAlert = true;
+      }
+    },
+    participateSurveyAndGetResult(){
+      console.log("participateSurveyAndGetResult");
+    },
     async participateSurvey(){
       // console.log("survey ID: " + this.survey.surveyId);
       // console.log("user ID: " + 1);
        let result =[];
        for(let i = 0; i < this.questions.length; i++){
          if(this.questions[i].answer === null) {
-           window.alert(i+1 + "번째 답변을 꼭 선택해 주세요!");
+          //  window.alert(i+1 + "번째 답변을 꼭 선택해 주세요!");
+           this.EmptyAnswerAlert = true;
            return;
          }
         //  console.log(1); // 위에서 answer가 null이면 콘솔에 1이 출력되지 않아야 합니다.
@@ -277,7 +325,10 @@ export default {
         }
       })
       .catch(error=>console.log(error));
-    }
+    },
+    buySurvey(){
+      console.log("buySurvey");
+    },
     
 
   },

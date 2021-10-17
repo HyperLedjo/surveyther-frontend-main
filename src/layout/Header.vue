@@ -193,14 +193,14 @@
         <n-button 
           class="nav-link btn btn-neutral" 
           type="neutral" 
-          @click.native="modals.login = true">
+          @click.native="$store.state.loginAlert = true">
               로그인
         </n-button>
       </li>
     
 
     <!-- Login model -->
-    <modal :show.sync="modals.login" headerClasses="justify-content-center" class="modal-primary" >
+    <modal :show.sync="$store.state.loginAlert" headerClasses="justify-content-center" class="modal-primary" >
       <h4 slot="header" class="title title-up">로그인</h4>
       <div class="mx-5 ">
         
@@ -327,9 +327,9 @@ export default {
   },
   beforeCreate(){
     this.$store.dispatch('allSurvey');
-    this.$store.dispatch('allQuestion');
-    this.$store.dispatch('allAnswer');
-    console.log('eeeeeeeeebeforecreate');
+    // this.$store.dispatch('allQuestion');
+    // this.$store.dispatch('allAnswer');
+    // console.log('eeeeeeeeebeforecreate');
         
     },
     
