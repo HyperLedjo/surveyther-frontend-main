@@ -73,6 +73,7 @@ const store = new Vuex.Store({
         targetAmount: '',
         paymAmount: '',
         closingDate: '',
+        isPaid: false,
 
         calculate:{
             firstReward: 0,
@@ -261,7 +262,6 @@ const store = new Vuex.Store({
 
             var IMP = window.IMP;
             IMP.init('imp43832818');
-
             IMP.request_pay({
                 pg: 'kakaopay',
                 pay_method: 'card',
@@ -273,137 +273,155 @@ const store = new Vuex.Store({
                 // buyer_tel: '010-9028-5863',
                 // buyer_addr: "서울특별시 성북구 정릉동",
                 // buyer_postcode: "123-456"
-            }, function(response) {
-                if(response.success) {
-                    fetch('/api/payment/' + response.imp_uid, {
+            }, async function(resp) {
+                if(resp.success) {
+                    await fetch('/api/payments/' + resp.imp_uid, {
                         method: "POST"
                     })
-                    .then(response=>response.json())
-                    .then(data=>console.log(data))
+                    .then(response => response.json())
+                    .then(async data => {
+                        if(data.response.amount === resp.paid_amount) {
+                            let request = {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(
+                                    {
+                                        memberId: 1,
+                                        paymentType: data.response.payMethod,
+                                        paidAmount: data.response.amount
+                                    }
+                                )
+                            }
+                            await fetch('/api/payments', request)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log("paid result: ", data);
+                                console.log("isPaid1: ", state.isPaid);
+                                if(0 !== data) {
+                                    state.isPaid = true;
+                                }
+                                console.log("isPaid2: ", state.isPaid);
+                            });
+
+                            if(state.isPaid) {
+                                let category_id = 0;
+                                await fetch("/api/category")
+                                .then(response=>response.json())
+                                .then(data=> {
+                                    data.forEach(element => {
+                                        if(state.category === element.name) {
+                                            category_id = element.no;
+                                        }
+                                    });
+                                });    
+                                const new_survey = {
+                                    memberId: '1', 
+                                    category: category_id,
+                                    title: state.title,
+                                    content: state.subtitle,
+                                    goalParticipants: state.targetAmount,
+                                    deadline: state.closingDate,
+                                    paid: state.paymAmount,
+                                    fee: state.calculate.fee
+                                }
+                                let request = {
+                                    method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify(new_survey)
+                                }
+                                var survey_id = 0;
+                                var new_question_list = [];
+                                await fetch("/api/survey", request)
+                                .then(response => response.json())
+                                .then(data => {
+                                    survey_id = data;
+                                    state.questionData.forEach(
+                                        element => {
+                                            new_question_list.push(
+                                                {
+                                                    surveyId: survey_id,
+                                                    content: element.content
+                                                }
+                                            )
+                                        }
+                                    );
+                                    request.body = JSON.stringify(new_question_list);
+                                });
+                                var question_id = []; // 필터링된 Response Data 저장 공간 선언 및 초기화
+                                // /api/question에 new_question_list가 포함된 request 전달해 서버에 질문 등록 처리 요청 (POST)
+                                await fetch("/api/question", request)
+                                .then(response => response.json())
+                                .then(data => {
+                                    data.forEach(element => {
+                                        question_id.push(
+                                            element.no
+                                        );
+                                    });
+                                    // request.body = JSON.stringify(question_id);
+                                });
+                                // Answer List 등록
+                                var new_answer_list = [];
+                                for(var i=1; i<=question_id.length; i++) {
+                                    for(var j=0; j<state.choiceData.length;j ++) {
+                                        if(i === state.choiceData[j].questionId) {
+                                            new_answer_list.push(
+                                                {
+                                                    questionId: question_id[i-1],
+                                                    content: state.choiceData[j].content
+                                                }
+                                            );
+                                        }
+                                    }
+                                }
+                                request.body = JSON.stringify(new_answer_list);
+                                await fetch('/api/answer', request);
+                                // .then(response => response.json())
+                                // .then(data => {
+                                //     console.log(data);
+                                // });
+                    
+                                // 태그(Tag) 등록
+                                state.tags.forEach(element => {
+                                    element.surveyId = survey_id;
+                                });
+                                request.body = JSON.stringify(state.tags);
+                                await fetch('/api/tag', request);
+                                // .then(response => response.json())
+                                // .then(data => {
+                                //     console.log(data);
+                                // });
+                    
+                                // 보상(Reward) 등록
+                                var reward = {
+                                    surveyId: survey_id,
+                                    reward1: state.calculate.firstReward * state.targetAmount,
+                                    reward2: state.calculate.secReward * state.targetAmount
+                                }
+                                request.body = JSON.stringify(reward);
+                    
+                                await fetch('/api/reward', request)
+                                .then(response=>response.json)
+                                .then(data=>{
+                                    console.log("post survey result: ", data)
+                                    // if(0 !== data) window.location.href='http://localhost:8081/';
+                                });
+                            }
+                        }
+                    });
                     // var msg = "결제 완료!";
                     // msg += '고유 ID: ' + response.imp_uid;
                     // msg += '상점 거래 ID: ' + response.merchant_uid;
                     // msg += '결제 금액: ' + response.paid_amount;
                     // msg += '승인 번호: ' + response.apply_num;
                 } else {
+                    console.log(resp);
                     window.alert("fail");
                 }
             })
-
-            // var category_id = 0;
-            // await fetch("/api/category")
-            // .then(response=>response.json())
-            // .then(data=> {
-            //     data.forEach(element => {
-            //         if(state.category === element.name) {
-            //             category_id=element.no;
-            //         }
-            //     });
-            // });
-            
-            // const new_survey = {
-            //     /* 
-            //     * Author: KimH4nKyl
-            //     * Content: 
-            //     * 사용자 memberId(DB에서 Primary Key! 카카오 ID 아님!) 불러와서 넣어주세요.
-            //     * 해결되면 주석 제거하기!
-            //     */
-            //     memberId: '1', 
-            //     category: category_id,
-            //     title: state.title,
-            //     content: state.subtitle,
-            //     goalParticipants: state.targetAmount,
-            //     deadline: state.closingDate,
-            //     paid: state.paymAmount,
-            //     fee: state.calculate.fee
-            // }
-
-            // let request = {
-            //     method: "POST",
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //         },
-            //         body: JSON.stringify(new_survey)
-            // }
-
-            // var survey_id = 0;
-            // var new_question_list = [];
-            // await fetch("/api/survey", request)
-            // .then(response => response.json())
-            // .then(data => {
-            //     survey_id = data;
-            //     state.questionData.forEach(
-            //         element => {
-            //             new_question_list.push(
-            //                 {
-            //                     surveyId: survey_id,
-            //                     content: element.content
-            //                 }
-            //             )
-            //         }
-            //     );
-            //     request.body = JSON.stringify(new_question_list);
-            // })
-
-            // var question_id = []; // 필터링된 Response Data 저장 공간 선언 및 초기화
-            // // /api/question에 new_question_list가 포함된 request 전달해 서버에 질문 등록 처리 요청 (POST)
-            // await fetch("/api/question", request)
-            // .then(response => response.json())
-            // .then(data => {
-            //     data.forEach(element => {
-            //         question_id.push(
-            //             element.no
-            //         );
-            //     });
-            //     // request.body = JSON.stringify(question_id);
-            // })
-
-            // // Answer List 등록
-            // var new_answer_list = [];
-            // for(var i=1; i<=question_id.length; i++) {
-            //     for(var j=0; j<state.choiceData.length;j ++) {
-            //         if(i === state.choiceData[j].questionId) {
-            //             new_answer_list.push(
-            //                 {
-            //                     questionId: question_id[i-1],
-            //                     content: state.choiceData[j].content
-            //                 }
-            //             );
-            //         }
-            //     }
-            // }
-            // request.body = JSON.stringify(new_answer_list);
-
-            // await fetch('/api/answer', request)
-            // // .then(response => response.json())
-            // // .then(data => {
-            // //     console.log(data);
-            // // });
-
-            // // 태그(Tag) 등록
-            // state.tags.forEach(element => {
-            //     element.surveyId = survey_id;
-            // });
-            // request.body = JSON.stringify(state.tags);
-            // await fetch('/api/tag', request)
-            // // .then(response => response.json())
-            // // .then(data => {
-            // //     console.log(data);
-            // // });
-
-            // // 보상(Reward) 등록
-            // var reward = {
-            //     surveyId: survey_id,
-            //     reward1: state.calculate.firstReward * state.targetAmount,
-            //     reward2: state.calculate.secReward * state.targetAmount
-            // }
-            // request.body = JSON.stringify(reward);
-
-            // await fetch('/api/reward', request)
-            // .then(response=>response.json)
-            // .then(data=>{
-            //     if(0 !== data) window.location.href='http://localhost:8081/';
-            // })
 
             /*
             *
