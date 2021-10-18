@@ -4,13 +4,13 @@ module.exports = {
     port: 8081,
     proxy: {
       'api': {
-        // target: 'http://localhost:8082',
-        target: 'http://ec2-3-36-111-77.ap-northeast-2.compute.amazonaws.com:8082',
+        target: 'http://localhost:8082',
+        // target: 'http://ec2-3-36-111-77.ap-northeast-2.compute.amazonaws.com:8082',
         changeOrigin: true
       },
       'oauth2': {
-        // target: 'http://localhost:8082',
-        target: 'http://ec2-3-36-111-77.ap-northeast-2.compute.amazonaws.com:8082',
+        target: 'http://localhost:8082',
+        // target: 'http://ec2-3-36-111-77.ap-northeast-2.compute.amazonaws.com:8082',
         changeOrigin: true
       }
     }
