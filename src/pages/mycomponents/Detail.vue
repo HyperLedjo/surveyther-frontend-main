@@ -277,9 +277,9 @@ export default {
     },
     checkUser(){
       if(this.$store.state.isUser){
-        if(this.survey.category == '커뮤니티')
+        if(this.survey.category == '커뮤니티') 
           this.participateSurveyAndGetResult();
-        else if(this.survey.status == '진행중')
+        else if(this.survey.status == '진행중') 
           this.participateSurvey();
         else if(this.survey.status == '마감')
           this.buySurvey();
