@@ -138,6 +138,21 @@
       </template>
     </modal>
 
+    <modal :show.sync="ParticipateSucceed" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
+      <h5 slot="header" class="title title-up pb-0">알림</h5>
+        <h6 class="text-center">
+          성공적으로 참여하여
+          보상 300 SVTH 을 받았습니다!
+        </h6>
+      <template slot="footer">
+        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+          type="button"
+          @click="ParticipateSucceed = false" >
+          확인
+        </n-button>
+      </template>
+    </modal>
+
 </div>
 </template>
 <script>
@@ -166,6 +181,7 @@ export default {
   data() {
     return {
       EmptyAnswerAlert: false,
+      ParticipateSucceed: false,
       survey: {
             surveyId: '',
             userId: '',
@@ -336,7 +352,8 @@ export default {
       .then(response=>response.json())
       .then(data=>{
         if(0 < data) {
-          window.alert("성공적으로 참여 되었습니다!");
+          // window.alert("성공적으로 참여 되었습니다!");
+          this.ParticipateSucceed = true;
         }
       })
       .catch(error=>console.log(error));
