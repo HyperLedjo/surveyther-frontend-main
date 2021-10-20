@@ -88,10 +88,12 @@
                             <div class="container one-block">
                                 <div class="">
                                     <span class="mr-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
-                                    <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{survey.likeCount}}</span> 
+  <!-- 여기여기 -->
+                                    <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{likes}}</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
                                     <!-- <a href=""></a> -->
-                                    <button type="button" class="btn btn-primary btn-round btn-lg" @click="checkUser">
+                                    
+                                    <button type="button" class="btn btn-primary btn-round btn-lg pull-right" @click="checkUser">
                                       <template v-if="survey.category == '커뮤니티'">
                                         참여하고 결과보기  
                                       </template>
@@ -101,6 +103,14 @@
                                       <template v-else-if="survey.status == '마감'">
                                             ??? SVTH  
                                       </template>
+                                    </button>
+
+                                    <button type="button" 
+                                    class="btn btn-danger btn-round btn-icon pull-right mt-3 mx-3" 
+                                    v-bind:class="{ '' : islike == true , 'btn-simple' : islike == false}"
+                                    @click="like"
+                                    >
+                                      <span class="mt-2 now-ui-icons ui-2_favourite-28"></span> 
                                     </button>
                                 </div>
                             </div>
@@ -180,7 +190,9 @@ export default {
       ],
       tags:[
 
-      ]
+      ],
+      islike: false,
+      likes: 0,
     };
   },
   methods:{
@@ -275,6 +287,7 @@ export default {
       );
 
     },
+    //로그인상태인지 확인
     checkUser(){
       if(this.$store.state.isUser){
         if(this.survey.category == '커뮤니티') 
@@ -287,9 +300,11 @@ export default {
         this.$store.state.loginAlert = true;
       }
     },
+    //무료서베이 참여하고 결과바로보기
     participateSurveyAndGetResult(){
       console.log("participateSurveyAndGetResult");
     },
+    //유료서베이 참여하고 보상받기
     async participateSurvey(){
       // console.log("survey ID: " + this.survey.surveyId);
       // console.log("user ID: " + 1);
@@ -315,7 +330,7 @@ export default {
         },
         body: JSON.stringify(result)
       }
-      console.log(request);
+      // console.log(request);
       // console.log("quests & answers: " + JSON.stringify(result));
       await fetch("/api/participants", request)
       .then(response=>response.json())
@@ -326,9 +341,89 @@ export default {
       })
       .catch(error=>console.log(error));
     },
+    //마감서베이 구매하기
     buySurvey(){
       console.log("buySurvey");
     },
+    //좋아요 & 좋아요취소
+    like(){
+      if(!this.islike){
+        // let likeInfo = {
+        //   surveyId: this.$route.params.surveyId,
+        //   memberId: this.$store.state.userInfo.id
+        // }
+        // let request = {
+        // method: "POST",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(likeInfo)
+        // };
+        // console.log(JSON.stringify(likeInfo));
+        // fetch("/api/like", request)
+        // .then(response=>response.json())
+        // .catch(error=>console.log(error));
+
+        this.islike = true;
+        this.likes = 1;
+      }else{
+        // let dislikeInfo = {
+        //   surveyId: this.$route.params.surveyId,
+        //   memberId: this.$store.state.userInfo.id
+        // }
+        // let request = {
+        // method: "PUT",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(dislikeInfo)
+        // };
+        // console.log(JSON.stringify(dislikeInfo));
+        // fetch("/api/dislike", request)
+        // .then(response=>response.json())
+        // .catch(error=>console.log(error));
+
+        this.islike = false;
+        this.likes = 0;
+
+      }
+    },
+    //좋아요 갯수 505
+    likeCount(){
+        fetch('/api/likes/count/' + this.$route.params.surveyId).then(response => response.json()).then(
+          data =>{
+            // console.log(data);
+          }
+        );
+    },
+    checkIfLike(){
+      let likeInfo = {
+          surveyId: this.$route.params.surveyId,
+          memberId: this.$store.state.userInfo.id
+        }
+        let request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(likeInfo)
+        };
+        // console.log(JSON.stringify(likeInfo)+"========");
+        fetch("/api/likes/me", request)
+        .then(response=>response.json()).then(
+          data =>{
+            console.log(data);
+            if(data.liked == false){
+              console.log("안쥬ㅜ아");
+              this.islike = false;
+            }else if(data.liked == true){
+              console.log("쥬아");
+              this.islike = true;
+
+            }
+          })
+        .catch(error=>console.log(error));
+    }
     
 
   },
@@ -336,6 +431,18 @@ export default {
     remainAmount(){
       return this.survey.targetAmount - this.survey.currentAmount;
     },
+    likeWatcher:{
+      // return this.survey.likeCount;
+        get(){
+             return this.survey.likeCount;
+        },
+        set(){
+            // let time;
+
+            // this.time = time;
+       }
+    }
+    
    
   },
   beforeCreate(){
@@ -345,6 +452,8 @@ export default {
     this.updateSurveyInfo();
     this.updateQuestions();
     this.updateTags();
+
+    this.checkIfLike();
   }
 };
 </script>

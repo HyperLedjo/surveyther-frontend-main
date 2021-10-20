@@ -12,7 +12,7 @@ const store = new Vuex.Store({
         loginAlert: false,
         userInfo: {
             //유저 기본정보
-            id: 'abc1234',  //완료
+            id: '1',  //완료
             birthday: '01/01',   //완료
             gender: 'M/F',  //완료
             email: 'sample@gmail.com',  //완료
@@ -99,12 +99,18 @@ const store = new Vuex.Store({
                     // likeCount: 1,
                     // status: '진행중',}
         ],
-        surveyQuestionData:[
+        tagData:[
 
         ],
-        surveyAnswerData:[
+        // surveyQuestionData:[
 
-        ],
+        // ],
+        // surveyAnswerData:[
+
+        // ],
+        //---------------------기타용도-------------------------
+        isfailToPay: false, //for modal
+        searchKeyword: '',
         //---------------------이하 샘플-------------------------
         
         rewardshop: [//Temp!!!! 샘플
@@ -178,6 +184,19 @@ const store = new Vuex.Store({
                 else if(data[i].status == '1')
                     state.surveyAllData[i].status = '마감';
 
+                fetch('/api/tag/' + data[i].no).then(response => response.json()).then(
+                    data =>{
+                        // console.log(data[i]);
+    
+                        for(let i = 0; i < data.length; i++){
+                        state.tagData.push({
+                            id: data[i].no,
+                            surveyId: data[i].surveyId,
+                            content: data[i].content,
+                        });
+                        }
+                    }
+                );
 
             }
             // userId: 'user_id_1',      //"memberId":1,
@@ -204,7 +223,17 @@ const store = new Vuex.Store({
             state.calculate.firstReward = (state.paymAmount - state.calculate.fee) * 0.4 / state.targetAmount;
             state.calculate.secReward = (state.paymAmount - state.calculate.fee) * 0.6 / state.targetAmount;
         },
-
+        //
+        IsfailToPayTrue(state){
+            state.isfailToPay = true;
+        },
+        IsfailToPayFalse(state){
+            state.isfailToPay = false;
+        },
+        // SearchSurvey(state){
+        //     state.searchKeyword = 'changed!!!';
+        //     console.log(state.searchKeyword + " ?");
+        // }
         
 
         //-----------------------------------------------------------TEST---------------------------------------------------------------
@@ -257,8 +286,7 @@ const store = new Vuex.Store({
             );
             
         },
-        
-        async postSurvey({state}){
+        async postSurvey({state, commit}){
 
             var IMP = window.IMP;
             IMP.init('imp43832818');
@@ -419,7 +447,10 @@ const store = new Vuex.Store({
                     // msg += '승인 번호: ' + response.apply_num;
                 } else {
                     console.log(resp);
-                    window.alert("fail");
+                    // window.alert("fail");
+                    commit('IsfailToPayTrue');
+                    
+                    
                 }
             })
 
@@ -454,7 +485,9 @@ const store = new Vuex.Store({
             // console.log( "targetAmount: " + state.targetAmount );
             // console.log( "paymAmount: " + state.paymAmount );
             // console.log( "closingDate: " + state.closingDate );
-        }
+        },
+
+        
     },
     getters:{
         getsurveyAnswerDataByQusetId: (state) =>(id) =>{
@@ -462,7 +495,8 @@ const store = new Vuex.Store({
         },
         getsurveyIndexBySurveyId: (state) =>(surveyid) =>{
             return state.surveyAllData.filter( data => data.surveyId == surveyid)
-        }
+        },
+        
     //     getQuestion (state) { return state.questionData},
     //     getTargetAmount (state) { return state.targetAmount},
     }

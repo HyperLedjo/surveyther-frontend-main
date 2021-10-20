@@ -28,7 +28,7 @@
     <main-about></main-about>
 
 
-    <signup-form></signup-form>
+    <!-- <signup-form></signup-form> -->
     <!-- <examples-section></examples-section>
     <download-section></download-section> -->
   </div>
@@ -57,7 +57,7 @@ export default {
   bodyClass: 'index-page',
   components: {
     Parallax,
-    SignupForm,
+    // SignupForm,
     MainInfo,
     MainContent,
     MainAbout

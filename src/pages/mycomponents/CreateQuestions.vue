@@ -303,7 +303,7 @@
         </div>
 
     </div>
-
+<!-- <button onclick="scroll(0, 100);">click to scroll to the 100th pixel</button> -->
 <!-- --------------------------------------- 추가 정보입력 --------------------------------------- -->
             <card  class="col-md-11 mx-5">
               <div class="">
@@ -389,10 +389,26 @@
             </card>
 
         </div>
+        
+    <!-- 등록실패Modal -->
+        <modal :show.sync="$store.state.isfailToPay" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
+        <h5 slot="header" class="title title-up pb-0">알림</h5>
+            <h6 class="text-center">
+            등록에 실패하였습니다!
+            </h6>
+        <template slot="footer">
+            <n-button  class="btn btn-round btn-block btn-neutral btn" 
+            type="button"
+            @click="$store.commit('IsfailToPayFalse')" >
+            확인
+            </n-button>
+        </template>
+        </modal>
+
     </div>
 </template>
 <script>
-import { Card, Tabs, TabPane } from '@/components';
+import { Card, Tabs, TabPane, Modal } from '@/components';
 // import { Button, Modal, FormGroupInput } from '@/components';
 import { DatePicker } from 'element-ui';
 
@@ -410,9 +426,11 @@ export default {
     Tabs,
     TabPane,
     [DatePicker.name]: DatePicker,
+    Modal,
   },
   data() {
     return {
+        isfailToPay: false,
       switches: {
         defaultOn: true,
         defaultOff: false
@@ -517,6 +535,31 @@ export default {
           }
 
       },
+      scroll(){
+        //   console.clear();
+        //     $(window).scroll(function() {
+        //         let scrollTop = $(this).scrollTop();
+        //         console.log(scrollTop)
+                
+        //         if ( scrollTop < 100 ) {
+        //             scrollTop = 100;
+        //         }
+        //         else if ( scrollTop > 9600 ) {
+        //             scrollTop = 9600;
+        //         }
+                
+        //         let duration = 1000;
+        //         $('.fly').stop().animate({top:scrollTop}, duration);
+                
+        //         //console.log(scrollTop);
+        //     });
+
+            window.scroll({
+                top: 100,
+                left: 100,
+                behavior: 'smooth'
+                });
+      },
     
       postSurvey(){
         this.$store.dispatch('postSurvey');
@@ -542,5 +585,23 @@ export default {
       margin-left: 3px;
     }
   }
+}
+
+.fly {
+    position:absolute;
+    left:50%;
+    width:100px;
+    top:100px;
+    height:500px;
+    margin-left:520px;
+    background-color:red;
+}
+
+div.con {
+    width:1000px;
+    margin: 100px auto;
+    margin-bottom:1000px;
+    height:10000px;
+    // background: linear-gradient(to bottom, red, yellow);
 }
 </style>

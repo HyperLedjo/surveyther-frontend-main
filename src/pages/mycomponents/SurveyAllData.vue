@@ -59,7 +59,14 @@
              <!-- v-if="survey.category == $route.params.category" -->
             <template v-if="survey.category == $route.params.category && survey.status == $route.params.status">
                 <router-link :to="{name: 'survey_detail', params:{surveyId: survey.surveyId}}">
-              <card >
+              <div class="card p-3"
+                @mouseover ="selectingBox(survey.surveyId)"
+                v-bind:style="selectedBox==survey.surveyId ? 
+                      {'border-left': '10px solid #fff2c8'
+                      , 'border-right' : '10px solid #fff2c8'
+                      }:{'': ''}"
+              
+              >
                   <div >
 
                     <div id="inputs">
@@ -82,11 +89,13 @@
                                  <!-- style="border: solid 1px rgb(200,200,200);" -->
                             <hr>
                             </div>
+                      <!-- 태그 -->
                             <div class="col-sm-6 col-lg-5">
-                              <span class="badge badge-neutral mr-1">#태그</span>
-                              <span class="badge badge-neutral mr-1">#서베이</span>
-                              <span class="badge badge-neutral mr-1">#tag</span>
-                              <span class="badge badge-neutral mr-1">#sample</span>
+                              <span v-for="tag in $store.state.tagData " :key="tag" class="badge badge-neutral mr-1">
+                                      <template v-if="tag.surveyId == survey.surveyId">
+                                        #{{tag.content}}
+                                      </template>
+                                      </span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
                                 <div  v-if="survey.status == '진행중'">
@@ -105,7 +114,7 @@
                     </div>
 
                   </div>
-              </card>
+              </div>
             </router-link>
             </template>
 
@@ -115,7 +124,7 @@
     </div>
 </template>
 <script>
-import { Card } from '@/components';
+// import { Card } from '@/components';
 import {EventBus} from '@/main.js';
 
 import {
@@ -129,42 +138,26 @@ import {
 
 export default {
   components: {
-    Card,
-    // [Button.name]: Button,
-    // [Checkbox.name]: Checkbox,
-    // [Radio.name]: Radio,
+    // Card,
     [FormGroupInput.name]: FormGroupInput,
-    // [Switch.name]: Switch,
-    // [Option.name]: Option,
-    // Slider
   },
   data(){
     return{
-        // id: null,
-      // tests:[
-      //   {id: 1, sample:'one'},
-      //   {id: 2, sample:'two'},
-      //   {id: 3, sample:'three'}
-      // ]
       reward: 0,
+        selectedBox: '',
 
     }
   },
   mounted(){
-    // EventBus.$on('signUp',  sample => {
-    //   this.$store.state.tests.push(sample)
-    // })
-    // this.$store.dispatch('allSurvey',this.$store.state.selectedCategory);
+    
     
   },
   beforeCreate(){
-      // console.log('eeeeeeeeebeforecreate')
-        // this.$store.dispatch('allSurvey');
     },
   methods:{
-    // rewardPerOne(){
-    //   reward = 1;
-    // }
+    selectingBox(val){
+      this.selectedBox = val;
+    }
   },
   computed:{
     rewardPerOne() {
@@ -178,19 +171,5 @@ export default {
 };
 </script>
 <style>
-/* .title-location{
-    position: absolute;
-    top:360px;
-    width:100%;
-    background: rgb(82, 82, 82, 0);
-}
-.card-form{
-    padding:15px;
-}
-.card-maxline{
-    width:100%;
-}
-.surv-disc{
-  color: rgb(156, 156, 156);
-} */
+
 </style>

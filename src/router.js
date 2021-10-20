@@ -109,6 +109,15 @@ export default new Router({
       }
     },
     {
+      path: '/search/:keyword',///
+      name: 'searchByKeyword',
+      components: { default: Search, header: Header, footer: Footer },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
       path: '/main',
       name: 'index',
       components: { default: Index, header: MainNavbar, footer: Footer },
