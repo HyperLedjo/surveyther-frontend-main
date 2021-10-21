@@ -138,7 +138,7 @@
                             >{{survey.status}}</span>
                           <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
                             <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
-                            <span><b> {{survey.title}} {{survey.surveyId}}</b></span> 
+                            <span><b> {{survey.title}}</b></span> 
                         </div>
                         <!-- <div class="col-sm-6 col-lg mt-1">
                             <b> <h6>서베이 타이틀입니다</h6></b>

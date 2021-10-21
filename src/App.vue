@@ -17,6 +17,9 @@ export default {
 
     };
   },
+  components:{
+
+  },
   computed:{
     ...mapState({
       //json객체를 리턴함

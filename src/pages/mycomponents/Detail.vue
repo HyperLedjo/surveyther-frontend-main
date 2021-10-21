@@ -1,6 +1,6 @@
 <template>
 <div>
-
+                          <!-- <test-chart></test-chart> -->
     <card>
               <div class="">
                 <template>
@@ -50,7 +50,7 @@
                                 >
                                     
                                     <span class="badge badge-default mt-5">질문{{index+1}}</span>
-                                    <span class=" mr-1">{{quest.content}}</span>
+                                    <span class="align-middle ml-2">{{quest.content}}</span>
  <!-- <small>{{quest}}</small>  -->
                                         <template v-if="survey.status == '진행중'">
                                             <n-radio v-for="(answer, index) in answers" 
@@ -63,7 +63,30 @@
                                             </n-radio>
                                         </template>
                                         <template v-else-if="survey.status == '마감'">
-                                            <n-radio n-radio v-for="(answer, index) in answers" 
+                                          <div class="row col-sm-6 col-lg-12">
+
+                            <chart-container :width="400" :height="200"></chart-container>
+
+          <table id="" class="align-bottom">
+            <thead>
+              <tr style="background:gray">
+                <th>답변</th>
+                <th>응답수</th>
+                <th>백분율</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr v-for="answer in answers" :key="answer" 
+              v-show="quest.id == answer.questionId"
+              >
+                <td style="width:60%">{{answer.content}}</td>
+                <td>22</td>
+                <td>33%</td>
+              </tr>
+            </tbody>
+          </table>
+                                          </div>
+                                            <!-- <n-radio n-radio v-for="(answer, index) in answers" 
                                                     :key="index" :value="answer.id"  
                                                     v-model= quest.answer
                                                     v-show="quest.id == answer.questionId"
@@ -71,12 +94,11 @@
                                                     disabled>
                                               <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
                                                 {{answer.content}}
-                                            </n-radio>
+                                            </n-radio> -->
                                         </template>
                                 </div>
-
-                              
                             </div>
+
 
  <!-- 태그 -->
                             <div class="container one-block">
@@ -158,6 +180,9 @@
 <script>
 import { Card, Tabs, TabPane, Modal, } from '@/components';
 import { Popover, Tooltip, DatePicker } from 'element-ui';
+import ChartContainer from './ChartContainer.vue';
+import Chart from './Chart.js'
+
 
 
 import {
@@ -176,6 +201,8 @@ export default {
     [Radio.name]: Radio,
     [FormGroupInput.name]: FormGroupInput,
     Modal,
+    ChartContainer,
+    // Chart,
 
   },
   data() {
@@ -209,6 +236,7 @@ export default {
       ],
       islike: false,
       likes: 0,
+      chartData:{}
     };
   },
   methods:{
@@ -471,7 +499,10 @@ export default {
     this.updateTags();
 
     this.checkIfLike();
-  }
+  },
+  beforeUpdate () {
+      this.updateSurveyInfo();
+    },
 };
 </script>
 <style lang="scss">
@@ -484,6 +515,23 @@ export default {
   border-radius:16px;
   // margin: 20px;
   // padding-right: 13px;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+th {
+  background-color: #32545d;// darkcyan;
+  color: white;
+}
+table{
+  width: 45%; 
+  height: 1%; 
+  border-collapse: collapse; 
+  border: 2px solid #e4e4e4;
+    margin:  50px auto;
+
 }
 
 </style>

@@ -12,6 +12,7 @@ const store = new Vuex.Store({
         loginAlert: false,
         userInfo: {
             //유저 기본정보
+            no: '',
             id: '1',  //완료
             birthday: '01/01',   //완료
             gender: 'M/F',  //완료
@@ -138,6 +139,9 @@ const store = new Vuex.Store({
             state.userInfo.birthday = data.birthDay;
             state.userInfo.gender = data.gender;
         },
+        getNumOfUser(state, data){
+            state.userInfo.no = data.no;
+        },
         logOut(state) {
             state.isUser = false;
         },
@@ -250,6 +254,7 @@ const store = new Vuex.Store({
                         context.commit('logIn', data);
                         fetch("/api/member/" + data.id)
                             .then(response => response.json())
+                            .then(data => { context.commit('getNumOfUser', data); })
                             .catch(err => {
                                 const new_member = {
                                     id: data.id,

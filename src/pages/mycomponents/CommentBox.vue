@@ -26,14 +26,13 @@
                           <hr style="border:0px">
                         </div> -->
 <!-- 댓글작성 -->
-                        <div class="textarea-container col-md-12 mr-auto p-4 commnet-box">
-                          <h7 class="col-md-10"><b>{{commentCreate.user_id}}</b> </h7>
-                          <button type="button" class="btn btn-primary btn-round col-md-2 pull-right" @click="postComment">
+                        <div class="textarea-container col-md-12 mr-auto p-4 commnet-box ">
+                          <h7 class="col-md-10 p-1"><b>{{commentCreate.user_id}}</b> </h7>
+                          <button type="button" class="btn btn-primary btn-round col-md-2 pull-right m-0" @click="postComment">
                                 댓글등록
                           </button>
                           <textarea name="commnet" id="comment" cols="100%" rows="100%" placeholder="댓글을 남겨보세요..."
-                          class="form-control " v-model="commentCreate.content"></textarea>
-                          {{commentCreate.content}}
+                          class="form-control p-0" v-model="commentCreate.content"></textarea>
                           <!-- <button type="button" class="btn btn-primary btn-round btn-lg"> 댓글등록</button> -->
                           <!-- <a href="" class="btn btn-primary btn-round btn-lg commnet-button">댓글등록</a> -->
                         </div>
@@ -67,11 +66,12 @@ export default {
             // },
           ],
           commentCreate:{
-            id: null,
+            // id: null,
+            user_no: this.$store.state.userInfo.no,
             user_id: this.$store.state.userInfo.id,
             survey_id: this.$route.params.surveyId,
             content: null,
-            regDate:this.today(),
+            // regDate:this.today(),
           },
         }
     },
@@ -92,7 +92,7 @@ export default {
       },
       postComment(){
         let comment = {
-          memberId: this.commentCreate.user_id,
+          memberId: this.commentCreate.user_no,
           surveyId: this.commentCreate.survey_id,
           content: this.commentCreate.content,
         }
@@ -109,19 +109,21 @@ export default {
         .then(response=>response.json())
         .catch(error=>console.log(error));
 
-
+        this.updateCommentData();
+        this.commentCreate.content = '';
       },
       updateCommentData(){
         fetch('/api/comments/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
             // console.log(data.length);
+              this.commentData = [];
             for(let i = 0; i < data.length; i++){
               this.commentData.push({
                     id: data[i].no,
                     userId: data[i].memberId,
                     surveyId: data[i].surveyId,
                     content: data[i].content,
-                    regDate: data[i].regDate.slice(0,10),
+                    regDate: data[i].regDate.slice(0,10) + '  ' + (data[i].regDate.slice(11,13)-3)+''+ data[i].regDate.slice(13,19),
                 
               })
             }
@@ -134,7 +136,10 @@ export default {
     },
     computed:{
 
-    }
+    },
+    beforeUpdate () {
+      this.updateCommentData();
+    },
 }
 </script>
   
