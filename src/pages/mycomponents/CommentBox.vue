@@ -11,7 +11,7 @@
                         </div>
 <!-- {{commentData}} -->
                         <div class="col-md-12" v-for="(comment) in this.commentData" :key="comment">
-                          <h7><b class="col-md-3">{{comment.userId}}</b> {{comment.regDate}} </h7>
+                          <h7><b class="col-md-3">{{comment.kakaoId}}</b> {{comment.regDate}} </h7>
                           <div>
                           <h8 class="col-md-12"> {{comment.content}}</h8> 
                           </div>
@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- <div class="col-md-12">
-                          <h7><b class="col-md-3">user_id</b>{{commentCreate.regDate}}</h7>
+                          <h7><b class="col-md-3">kakao_id</b>{{commentCreate.regDate}}</h7>
                           <div>
                           <h8 class="col-md-12"> 댓글입니다 댓글입니다 댓글입니다</h8> 
                           </div>
@@ -27,7 +27,7 @@
                         </div> -->
 <!-- 댓글작성 -->
                         <div class="textarea-container col-md-12 mr-auto p-4 commnet-box ">
-                          <h7 class="col-md-10 p-1"><b>{{commentCreate.user_id}}</b> </h7>
+                          <h7 class="col-md-10 p-1"><b>{{commentCreate.kakao_id}}</b> </h7>
                           <button type="button" class="btn btn-primary btn-round col-md-2 pull-right m-0" @click="postComment">
                                 댓글등록
                           </button>
@@ -59,7 +59,7 @@ export default {
           commentData:[
             // {
             //   id: null,
-            //   user_id: 1,
+            //   kakao_id: 1,
             //   survey_id: null,
             //   content: null,
             //   regDate:null,
@@ -68,7 +68,7 @@ export default {
           commentCreate:{
             // id: null,
             user_no: this.$store.state.userInfo.no,
-            user_id: this.$store.state.userInfo.id,
+            kakao_id: this.$store.state.userInfo.id,
             survey_id: this.$route.params.surveyId,
             content: null,
             // regDate:this.today(),
@@ -93,6 +93,7 @@ export default {
       postComment(){
         let comment = {
           memberId: this.commentCreate.user_no,
+          author: this.commentCreate.kakao_id,
           surveyId: this.commentCreate.survey_id,
           content: this.commentCreate.content,
         }
@@ -121,6 +122,7 @@ export default {
               this.commentData.push({
                     id: data[i].no,
                     userId: data[i].memberId,
+                    kakaoId: data[i].author,
                     surveyId: data[i].surveyId,
                     content: data[i].content,
                     regDate: data[i].regDate.slice(0,10) + '  ' + (data[i].regDate.slice(11,13)-3)+''+ data[i].regDate.slice(13,19),
@@ -137,7 +139,10 @@ export default {
     computed:{
 
     },
-    beforeUpdate () {
+    // beforeMount () {
+    //   this.updateCommentData();
+    // },
+    mounted () {
       this.updateCommentData();
     },
 }

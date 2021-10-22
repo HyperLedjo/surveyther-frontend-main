@@ -11,7 +11,7 @@
 
                 <div id="inputs">
                     <div class="row card-form ">
-                            <div class="col-sm-6 col-lg-12">
+                            <div class="col-sm-6 col-lg-12 align-bottom">
                               <span class="badge badge-primary mr-1">{{survey.category}}</span>
                               <span class="badge  mr-1"
                                     v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
@@ -19,7 +19,7 @@
                                 <template v-if="survey.category != '커뮤니티' && survey.status == '진행중'">
                                     <span class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
                                 </template>
-                                <span><b> {{survey.title}}</b></span> 
+                                <h4 class="mt-2"><b> {{survey.title}}</b></h4> 
                             </div>
                             <div class="col-sm-1 col-lg-5">
                                 <span><b class="mr-3">{{survey.userId}}</b> </span>
@@ -433,7 +433,7 @@ export default {
 
       }
     },
-    //좋아요 갯수 505
+    //좋아요 갯수
     likeCount(){
         fetch('/api/likes/count/' + this.$route.params.surveyId).then(response => response.json()).then(
           data =>{
@@ -441,33 +441,34 @@ export default {
           }
         );
     },
+    //내가 좋아요를 눌렀는지
     checkIfLike(){
-      let likeInfo = {
-          surveyId: this.$route.params.surveyId,
-          memberId: this.$store.state.userInfo.id
-        }
-        let request = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(likeInfo)
-        };
-        // console.log(JSON.stringify(likeInfo)+"========");
-        fetch("/api/likes/me", request)
-        .then(response=>response.json()).then(
-          data =>{
-            console.log(data);
-            if(data.liked == false){
-              console.log("안쥬ㅜ아");
-              this.islike = false;
-            }else if(data.liked == true){
-              console.log("쥬아");
-              this.islike = true;
+      // let likeInfo = {
+      //     surveyId: this.$route.params.surveyId,
+      //     memberId: this.$store.state.userInfo.id
+      //   }
+      //   let request = {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(likeInfo)
+      //   };
+      //   // console.log(JSON.stringify(likeInfo)+"========");
+      //   fetch("/api/likes/me", request)
+      //   .then(response=>response.json()).then(
+      //     data =>{
+      //       console.log(data);
+      //       if(data.liked == false){
+      //         console.log("안쥬ㅜ아");
+      //         this.islike = false;
+      //       }else if(data.liked == true){
+      //         console.log("쥬아");
+      //         this.islike = true;
 
-            }
-          })
-        .catch(error=>console.log(error));
+      //       }
+      //     })
+      //   .catch(error=>console.log(error));
     }
     
 

@@ -8,12 +8,12 @@ const store = new Vuex.Store({
     // strict: true,
     state: {
         //---------------------------유저관련--------------------------
-        isUser: true,
+        isUser: false,
         loginAlert: false,
         userInfo: {
             //유저 기본정보
-            no: '',
-            id: '1',  //완료
+            no: '1',
+            id: '123456',  //완료
             birthday: '01/01',   //완료
             gender: 'M/F',  //완료
             email: 'sample@gmail.com',  //완료

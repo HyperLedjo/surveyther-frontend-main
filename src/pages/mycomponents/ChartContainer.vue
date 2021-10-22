@@ -1,6 +1,9 @@
 <template>
-  <div class="small">
-    <chart :chart-data="datacollection2"></chart>
+  <div class="small" >
+    <!-- <div v-for="chart in tags" :key="chart"> -->
+
+      <chart :chart-data="datacollection2"></chart>
+    <!-- </div> -->
     <!-- <button @click="fillData2()">Randomize</button> -->
   </div>
 </template>
