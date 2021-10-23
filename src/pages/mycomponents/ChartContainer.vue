@@ -1,74 +1,48 @@
 <template>
   <div class="small">
     <div v-if="loaded">
-        <div  v-for="(chart) in this.chartData" :key="chart">
-          <chart  :chart-data="chart"></chart>
-              {{chart}}
-        </div>
-
-    </div>
-    <!-- <chart :chart-data="datacollection"></chart> -->
-    <!-- <button @click="makeitTrue()">Randomize</button> -->
-  </div>
-
-
-
-  <!-- <div class="container small">
-    <line-chart
+        <div  v-for="(data,index) in chartData" :key="index">
+ <line-chart
       v-if="loaded"
-      :chartdata="chartdata"
-      :options="options"/>
-  </div> -->
+      :chartdata="data"
+      />
+      {{data}}
+  </div>        </div>
+
+    </div> 
+  
+
+
+ 
+
+   
 </template>
 
 <script>
-  import Chart from './Chart.js'
+  // import Chart from './Chart.js'
+import LineChart from './Chart.vue'
 
   export default {
-    components: {
-      Chart
-    },
+  components: { LineChart },
+
     data () {
       return {
-        datacollection: {
-            labels: ['그렇다', '아니다'],
-            datasets: [
-              {
-                label: '인원수',
-                backgroundColor: '#f87979',
-                data: [this.getRandomInt(), this.getRandomInt()]
-              }, 
-            ]
-          },
+        // datacollection: {
+        //     labels: ['그렇다', '아니다'],
+        //     datasets: [
+        //       {
+        //         label: '인원수',
+        //         backgroundColor: '#f87979',
+        //         data: [this.getRandomInt(), this.getRandomInt()]
+        //       }, 
+        //     ]
+        //   },
         loaded: false,
-        chartData:[
-          {
-            labels: ['그렇다', '아니다'],
-            datasets: [
-              {
-                label: '인원수',
-                backgroundColor: '#f87979',
-                data: [this.getRandomInt(), this.getRandomInt()]
-              }, 
-            ]
-          },
-
-          // {
-          //   labels: ['그렇다22', '아니다22 가까와야핟ㄴ다!!!'],
-          //   datasets: [
-          //     {
-          //       label: '인원수22',
-          //       backgroundColor: '#f87979',
-          //       data: [this.getRandomInt(), this.getRandomInt()]
-          //     }, 
-          //   ]
-          // },
-          
-        ]
+        chartData:[],
       }
     },
-    mounted () {
-      this.fillData();
+    async mounted () {
+      await this.fillData();
       this.makeitTrue();
     },
     created(){
@@ -80,7 +54,7 @@
         this.loaded = true;
 
       },
-      fillData () {
+      async fillData () {
         // this.datacollection = {
         //   labels: ['그렇다', '아니다'],
         //   datasets: [
@@ -91,7 +65,7 @@
         //     }, 
         //   ]
         // }
-        fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
+       await fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
             for(let i = 0; i < data.length; i++){
               fetch('/api/answer/' + data[i].no).then(response => response.json()).then(
@@ -104,11 +78,12 @@
                     //읽어온 값을 배열에 넣어줌
                     for(let i = 0; i < data.length; i++){
                         templabel.push(data[i].content);
-                        tempdata.push(data[i].no);//임시로 answerID를 넣음, 실제 데이터자리
+                        tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
                     }
+          
                     //차트데이터에 넣음
                     this.chartData.push({
-                      label : templabel,
+                      labels : templabel,
                       datasets: [
                         {
                           label: '인원수',
@@ -117,14 +92,11 @@
                         }, 
                       ]
                     })
-                  // }
                 }
               )
             }
-      // this.chartDataLoaded = true;
           }
         );
-
       },
       watch: {
   chartData () {
@@ -149,8 +121,15 @@
 //   async mounted () {
 //     this.loaded = false
 //     try {
-//       const { userlist } = await fetch('/api/comments/count/1')
-//       this.chartdata = userlist
+//       console.log('a')
+//       const number = await fetch('/api/comments/count/1')
+//       const number2 = await fetch('/api/comments/count/2')
+//       console.log(number)
+      
+//       this.chartdata = {
+//         '그렇다': number,
+//         '아니다':number2
+//         }
 //       this.loaded = true
 //     } catch (e) {
 //       console.error(e)
