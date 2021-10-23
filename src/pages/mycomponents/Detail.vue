@@ -1,6 +1,15 @@
 <template>
 <div>
                           <!-- <test-chart></test-chart> -->
+                          <!-- {{chartData}}
+                          {{questions}}
+                          <hr>
+                          {{answers}} -->
+
+    <div  v-for="(chart) in this.chartData" :key="chart"  class="small">
+      <chart  :chart-data="chart"></chart>
+
+    </div>
     <card>
               <div class="">
                 <template>
@@ -41,7 +50,7 @@
                                 <hr style="background:rgb(200,200,200); "> 
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                                <h6>{{survey.subtitle}}</h6>
+                                <h6><b>{{survey.subtitle}}</b> </h6>
                             </div>
 
   <!-- 질문 -->
@@ -50,7 +59,7 @@
                                 >
                                     
                                     <span class="badge badge-default mt-5">질문{{index+1}}</span>
-                                    <span class="align-middle ml-2">{{quest.content}}</span>
+                                    <span class="align-middle ml-2"><b>{{quest.content}}</b> </span>
  <!-- <small>{{quest}}</small>  -->
                                         <template v-if="survey.status == '진행중'">
                                             <n-radio v-for="(answer, index) in answers" 
@@ -65,7 +74,7 @@
                                         <template v-else-if="survey.status == '마감'">
                                           <div class="row col-sm-6 col-lg-12">
 
-                            <chart-container :width="400" :height="200"></chart-container>
+                            <chart-container  :width="400" :height="200"></chart-container>
 
           <table id="" class="align-bottom">
             <thead>
@@ -202,7 +211,7 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
     Modal,
     ChartContainer,
-    // Chart,
+    Chart,
 
   },
   data() {
@@ -236,7 +245,13 @@ export default {
       ],
       islike: false,
       likes: 0,
-      chartData:{}
+      //내가 보유한 서베이인지 여부
+      isMySurvey: true,
+      chartDataLoaded: false,
+      //차트 데이터
+      chartData:[
+        
+      ]
     };
   },
   methods:{
@@ -309,11 +324,35 @@ export default {
                             questionId: data[i].questionId,
                             content: data[i].content,
                       });
-                    }
+                      
+                  }
+                  //만약 서베이를 보유하고있다면
+                  // if(this.isMySurvey){
+                  //   //임시로 라벨들과 해당 데이터를 저장할 배열 선언
+                  //   let templabel = [];
+                  //   let tempdata = [];
+                  //   //읽어온 값을 배열에 넣어줌
+                  //   for(let i = 0; i < data.length; i++){
+                  //       templabel.push(data[i].content);
+                  //       tempdata.push(data[i].no);//임시로 answerID를 넣음, 실제 데이터자리
+                  //   }
+                  //   //차트데이터에 넣음
+                  //   this.chartData.push({
+                  //     label : templabel,
+                  //     datasets: [
+                  //       {
+                  //         label: '인원수',
+                  //         backgroundColor: '#f87979',
+                  //         data: tempdata
+                  //       }, 
+                  //     ]
+                  //   })
+                  // }
                 }
               )
             }
-
+                    // console.log("--------chartchart");
+      // this.chartDataLoaded = true;
           }
         );
     },
@@ -435,11 +474,11 @@ export default {
     },
     //좋아요 갯수
     likeCount(){
-        fetch('/api/likes/count/' + this.$route.params.surveyId).then(response => response.json()).then(
-          data =>{
-            // console.log(data);
-          }
-        );
+        // fetch('/api/likes/count/' + this.$route.params.surveyId).then(response => response.json()).then(
+        //   data =>{
+        //     // console.log(data);
+        //   }
+        // );
     },
     //내가 좋아요를 눌렀는지
     checkIfLike(){
@@ -469,25 +508,21 @@ export default {
       //       }
       //     })
       //   .catch(error=>console.log(error));
+    },
+    fillChartData(){
+
     }
     
 
   },
+  mounted () {
+      // this.updateQuestions()
+    },
   computed:{
     remainAmount(){
       return this.survey.targetAmount - this.survey.currentAmount;
     },
-    likeWatcher:{
-      // return this.survey.likeCount;
-        get(){
-             return this.survey.likeCount;
-        },
-        set(){
-            // let time;
-
-            // this.time = time;
-       }
-    }
+    
     
    
   },

@@ -116,78 +116,74 @@
                 <template slot="label">
                    시장조사
                 </template>
-                <card>
+                        <button  
+                @mousedown ="selectQuestion(quest.questionId)"
+                class="card"
+                v-for="(quest, index) in $store.state.questionData" :key="quest" 
+                v-bind:style="selectedBox==quest.questionId ? 
+                {'border-left': '10px solid #fff2c8'
+                , 'border-right' : '10px solid #fff2c8'
+                }:{'': ''}"
+                >
                         <div id="inputs">
-                            <div class="row card-form ">
+                            <!-- index: {{index}}---- -->
+                            
+                            <div class="row card-form pb-0">
+                                <div class="col-sm-6 col-lg-1  d-flex align-items-center">
+                                    <span class="badge badge-primary mr-1 py-2">질문 {{index+1}}</span>
+                                </div>
                                 <div class="col-sm-6 col-lg-8">
-                                    <fg-input placeholder="시장조사 질문 양식"></fg-input>
+                                    <fg-input placeholder="자유양식입니다. 질문을 입력해주세요." 
+                                    v-model="quest.content"
+                                    ></fg-input>
+                                    <!-- title:{{title}}-------{{quest.content}} -->
                                 </div>
-                                <div class="col-sm-6 col-lg-4">
+                                <div class="col-sm-6 col-lg-3 p-0 d-flex flex-row-reverse align-items-center">
                                     <n-switch
-                                        v-model="switches.defaultOff"
-                                        on-text="ON"
-                                        off-text="OFF"
+                                        class=""
+                                        v-model="quest.isMultyple"
+                                        on-text="On"
+                                        off-text="Off"
                                     ></n-switch>
+                                    <small class="px-1 pb-2"><b>복수선택</b></small>
+                                    
                                 </div>
-                                <div class="col-sm-6 col-lg-8 ">
-                                    <fg-input class="card-maxline" placeholder="선택1"></fg-input>
+<!-- 선택 -->
+                                <div class="col-sm-6 col-lg-9 pr-0 row"  
+                                v-for="(choice, index) in $store.state.choiceData" :key="choice"
+                                v-show="quest.questionId==choice.questionId"
+                                >
+               <!-- {{quest.questionId}}/{{choice.choiceId}} -->
+                                    <div class="col-sm-6 col-lg-10 pr-0" @mousedown="selectChoice(choice.choiceId)">
+                                        <fg-input class="card-maxline" 
+                                        placeholder="선택" 
+                                        v-model="choice.content"
+                                        
+                                        ></fg-input>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-1 p-0" @mousedown="selectChoice(choice.choiceId)">
+                                        <button type="button" @click="deleteChoice(index)" class="btn btn-icon btn-round btn-neutral m-0">
+                                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6 col-lg-8 ">
-                                    <fg-input class="card-maxline" placeholder="선택2"></fg-input>
-                                    <!-- <button type="button" class="btn btn-icon btn-round btn-primary">
-                                        <i class="now-ui-icons ui-1_simple-add"></i>
-                                    </button> -->
-                                </div>
-                                <div class="col-sm-6 col-lg-8 ">
-                                    <button type="button" class="btn btn-icon btn-round btn-primary">
+
+                                <div class="col-sm-6 col-lg-9 ">
+                                    <button type="button"  @click="addChoice" class="btn btn-icon btn-round btn-primary">
                                         <i class="now-ui-icons ui-1_simple-add"></i>
                                     </button>
                                 </div>
-                                <div class="col-sm-6 col-lg-4 ">
-                                    <button type="button" class="btn btn-round btn-round btn-primary">
-                                        지우기
+                                <div class="col-sm-6 col-lg-3 ">
+                                    <button type="button" @click="deleteQuestion(index)" class="btn btn-simple btn-block btn-round btn-primary">
+                                        지우기  
                                     </button>
                                 </div>
                             </div>
                         </div>
                         
-                </card>
-                <card>
-                        <div id="inputs">
-                            <div class="row card-form ">
-                                <div class="col-sm-6 col-lg-8">
-                                    <fg-input placeholder="시장조사 질문 양식 2"></fg-input>
-                                </div>
-                                <div class="col-sm-6 col-lg-4">
-                                    <n-switch
-                                        v-model="switches.defaultOff"
-                                        on-text="ON"
-                                        off-text="OFF"
-                                    ></n-switch>
-                                </div>
-                                <div class="col-sm-6 col-lg-8 ">
-                                    <fg-input class="card-maxline" placeholder="선택1"></fg-input>
-                                </div>
-                                <div class="col-sm-6 col-lg-8 ">
-                                    <fg-input class="card-maxline" placeholder="선택2"></fg-input>
-                                    <!-- <button type="button" class="btn btn-icon btn-round btn-primary">
-                                        <i class="now-ui-icons ui-1_simple-add"></i>
-                                    </button> -->
-                                </div>
-                                <div class="col-sm-6 col-lg-8 ">
-                                    <button type="button" class="btn btn-icon btn-round btn-primary">
-                                        <i class="now-ui-icons ui-1_simple-add"></i>
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 col-lg-4 ">
-                                    <button type="button" class="btn btn-round btn-round btn-primary">
-                                        지우기
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                </button>
                         
-                </card>
+                
               </tab-pane>
               <tab-pane>
                 <template slot="label">
