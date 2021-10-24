@@ -1,6 +1,6 @@
 <template>
 <card>
-              <div class="">
+              <div class="p-4">
 
                 <div id="inputs">
                     <div class="row card-form ">

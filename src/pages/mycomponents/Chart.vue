@@ -1,8 +1,8 @@
 <script>
-import { Bar } from 'vue-chartjs'
+import { HorizontalBar } from 'vue-chartjs'
 
 export default {
- extends: Bar,
+ extends: HorizontalBar, //HorizontalBar
           props: ['chartdata'],
 
 	data: function () {
@@ -10,6 +10,14 @@ export default {
       datacollection:this.chartdata ,
 			options: {
 				scales: {
+					xAxes: [{
+						ticks: {
+							beginAtZero: true
+						},
+						gridLines: {
+							display: false
+						}
+					}],
 					yAxes: [{
 						ticks: {
 							beginAtZero: true
@@ -18,30 +26,23 @@ export default {
 							display: true
 						}
 					}],
-					xAxes: [{
-						ticks: {
-							beginAtZero: true
-						},
-						gridLines: {
-							display: false
-						}
-					}]
 				},
 				legend: {
-					display: false
+					display: true
 				},
 				tooltips: {
 					enabled: true,
 					mode: 'single',
 					callbacks: {
 						label: function(tooltipItems, data) {
-							return '$' + tooltipItems.yLabel;
+							return tooltipItems.xLabel + '명';
 						}
 					}
 				},
-				responsive: true,
+				responsive: false,
 				maintainAspectRatio: false,
-				height: 200
+				// height: '200',
+				// width:'300',
 }
 		}
 	},

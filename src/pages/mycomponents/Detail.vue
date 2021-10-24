@@ -11,10 +11,8 @@
 
     </div>
     <card>
-              <div class="">
-                <template>
-<!-- {{$route.params.surveyId}}---{{survey.title}} -->
-                </template>
+              <div class="p-4">
+                
             <div >
                 <!-- {{survey.title}} -->
 
@@ -72,25 +70,26 @@
                                             </n-radio>
                                         </template>
                                         <template v-else-if="survey.status == '마감'">
-                                          <div class="row col-sm-6 col-lg-12">
+                                          <div class="row ">
 
-                            <chart-container  :width="400" :height="200"></chart-container>
+                            <chart-container></chart-container>
 
-          <table id="" class="align-bottom">
+          <table id="" class="align-bottom p-10 mytable" style="width:30%">
             <thead>
-              <tr style="background:gray">
-                <th>답변</th>
-                <th>응답수</th>
-                <th>백분율</th>
+              <tr class="mytr myp-10" style="background:gray">
+                <th class="myp-10 myth">답변</th>
+                <th class="myp-10 myth">응답수</th>
+                <th class="myp-10 myth">백분율</th>
               </tr>
             </thead>
             <tbody >
               <tr v-for="answer in answers" :key="answer" 
               v-show="quest.id == answer.questionId"
+              class="mytr myp-10"
               >
-                <td style="width:60%">{{answer.content}}</td>
-                <td>22</td>
-                <td>33%</td>
+                <td  class="myp-10" style="width:60%">{{answer.content}}</td>
+                <td  class="myp-10">22</td>
+                <td  class="myp-10">33%</td>
               </tr>
             </tbody>
           </table>
@@ -184,6 +183,20 @@
       </template>
     </modal>
 
+    <modal :show.sync="ParticipateFailed" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
+      <h5 slot="header" class="title title-up pb-0">알림</h5>
+        <h6 class="text-center">
+          중복참여는 불가합니다
+        </h6>
+      <template slot="footer">
+        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+          type="button"
+          @click="ParticipateFailed = false" >
+          확인
+        </n-button>
+      </template>
+    </modal>
+
 </div>
 </template>
 <script>
@@ -218,6 +231,7 @@ export default {
     return {
       EmptyAnswerAlert: false,
       ParticipateSucceed: false,
+      ParticipateFailed: false,
       survey: {
             surveyId: '',
             userId: '',
@@ -329,7 +343,7 @@ export default {
                   //만약 서베이를 보유하고있다면
                   // if(this.isMySurvey){
                   //   //임시로 라벨들과 해당 데이터를 저장할 배열 선언
-                  //   let templabel = [];
+                    // let templabel = [];
                   //   let tempdata = [];
                   //   //읽어온 값을 배열에 넣어줌
                   //   for(let i = 0; i < data.length; i++){
@@ -421,6 +435,8 @@ export default {
         if(0 < data) {
           // window.alert("성공적으로 참여 되었습니다!");
           this.ParticipateSucceed = true;
+        }else if(0 == data){
+          this.ParticipateFailed = true;
         }
       })
       .catch(error=>console.log(error));
@@ -552,16 +568,16 @@ export default {
   // margin: 20px;
   // padding-right: 13px;
 }
-th, td {
-  padding: 15px;
+.myp-10{
+  padding: 10px;
   text-align: left;
 }
-tr:nth-child(even) {background-color: #f2f2f2;}
-th {
-  background-color: #32545d;// darkcyan;
+.mytr:nth-child(even) {background-color: #f2f2f2;}
+.myth {
+  background-color: #595959;// darkcyan;
   color: white;
 }
-table{
+.mytable{
   width: 45%; 
   height: 1%; 
   border-collapse: collapse; 

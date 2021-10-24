@@ -4,7 +4,7 @@
         <div  v-for="(data,index) in chartData" :key="index">
  <line-chart
       v-if="loaded"
-      :chartdata="data"
+      :chartdata="data" :width="400" :height="200"
       />
       {{data}}
   </div>        </div>
@@ -60,7 +60,7 @@ import LineChart from './Chart.vue'
         //   datasets: [
         //     {
         //       label: '인원수',
-        //       backgroundColor: '#f87979',
+        //       backgroundColor: '#fa9778',
         //       data: [this.getRandomInt(), this.getRandomInt()]
         //     }, 
         //   ]
@@ -87,7 +87,7 @@ import LineChart from './Chart.vue'
                       datasets: [
                         {
                           label: '인원수',
-                          backgroundColor: '#f87979',
+                          backgroundColor: '#fa9778', //  f87979
                           data: tempdata
                         }, 
                       ]
@@ -141,6 +141,6 @@ import LineChart from './Chart.vue'
 <style>
   .small {
     max-width: 250px;
-    margin:  30px auto;
+    margin:  20px auto;
   }
 </style>

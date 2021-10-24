@@ -239,7 +239,7 @@
               <hr>
             </div>
             <div class="col-md-6 mr-auto text-center p-0 pt-2">
-              <small>또는 다른계정으로 로그인하기</small>
+             <h6>또는 다른계정으로 로그인하기</h6> 
             </div>
             <div class="col-md-3 mr-auto p-0">
               <hr>
@@ -247,8 +247,8 @@
             <div class="col-md-12 ml-auto">
             <button type="button" 
               @click="kakaoLogin"
-              class="btn btn-round btn-block btn-warning btn-lg"
-              style="color:black"
+              class="btn btn-round btn-block btn-lg"
+              style="color:black; background:#FEE500;"
               >
               <b>카카오로 로그인</b> 
             </button>

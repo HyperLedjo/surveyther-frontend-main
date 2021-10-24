@@ -15,22 +15,22 @@
         </div>
 
     <div class="container">
-      <card>
+      <!-- <card>
         <div>
           
         </div>
-      </card>
+      </card> -->
 
-      <div class="row">
+      <div class="row p-5">
 
         <v-list-tile v-for="product in $store.state.rewardshop"
         :key="product" class="col-md-4 mr-auto">
-            <card>
+            <card class="p-2">
               <img src="img/reward.jpg" alt="">
               <h6 class="category category-absolute">{{product.comp}}</h6>
               <h6 class="">{{product.product}}</h6>
               <h5 class="mt-4"><b> {{product.price}}</b> 토큰</h5>
-              <button type="button" class="btn btn-round btn-block btn-primary btn-lg" @click="checkUser">
+              <button type="button" class="btn btn-round btn-block btn-primary btn-lg m-0" @click="checkUser">
                  구매하기 
               </button>
             </card>

@@ -62,8 +62,8 @@
               <div class="card p-3"
                 @mouseover ="selectingBox(survey.surveyId)"
                 v-bind:style="selectedBox==survey.surveyId ? 
-                      {'border-left': '10px solid #fff2c8'
-                      , 'border-right' : '10px solid #fff2c8'
+                      {'border-left': '10px solid #fddcae'
+                      , 'border-right' : '10px solid #fddcae'
                       }:{'': ''}"
               
               >
@@ -79,7 +79,7 @@
                                 >{{survey.status}}</span>
                               <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
                                 <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
-                                <span><b> {{survey.title}}</b></span> 
+                                <span><b class="black-text"> {{survey.title}}</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
                                 <b> <h6>서베이 타이틀입니다</h6></b>
@@ -90,7 +90,7 @@
                             <hr>
                             </div>
                       <!-- 태그 -->
-                            <div class="col-sm-6 col-lg-5">
+                            <div class="col-sm-6 col-lg-5 black-text">
                               <span v-for="tag in $store.state.tagData " :key="tag" class="badge badge-neutral mr-1">
                                       <template v-if="tag.surveyId == survey.surveyId">
                                         #{{tag.content}}
@@ -171,5 +171,10 @@ export default {
 };
 </script>
 <style>
-
+.black-text{
+  color: black;
+}
+.white-text{
+  color: white;
+}
 </style>
