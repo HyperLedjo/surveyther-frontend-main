@@ -69,7 +69,9 @@ import LineChart from './Chart.vue'
        await fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
             for(let i = 0; i < data.length; i++){
-              fetch('/api/answer/' + data[i].no).then(response => response.json()).then(
+              fetch('/api/answer/' + data[i].no)
+              .then(response => response.json())
+              .then(
                 data =>{
                   // 만약 서베이를 보유하고있다면
                   // if(this.isMySurvey){
@@ -91,7 +93,7 @@ import LineChart from './Chart.vue'
                           backgroundColor: '#fa9778', //  f87979
                           data: tempdata
                         }, 
-                      ]
+                      ], 
                     })
                 }
               )

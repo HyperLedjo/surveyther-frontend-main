@@ -5,9 +5,9 @@ export default {
  extends: HorizontalBar, //HorizontalBar
           props: ['chartdata'],
 
-	data: function () {
+	data() {
 		return {
-      datacollection:this.chartdata ,
+			datacollection:this.chartdata,
 			options: {
 				scales: {
 					xAxes: [{

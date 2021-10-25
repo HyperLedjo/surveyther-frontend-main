@@ -217,8 +217,6 @@ import { Popover, Tooltip, DatePicker } from 'element-ui';
 import ChartContainer from './ChartContainer.vue';
 import Chart from './Chart.vue'
 
-
-
 import {
   Button,
   Checkbox,
@@ -241,6 +239,7 @@ export default {
   },
   data() {
     return {
+      surveyResultData: null,
       EmptyAnswerAlert: false,
       ParticipateSucceed: false,
       ParticipateFailed: false,
@@ -335,7 +334,7 @@ export default {
         
     },
     async updateQuestions(){
-      fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
+      await fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
             for(let i = 0; i < data.length; i++){
               this.questions.push({
@@ -545,48 +544,92 @@ export default {
       //   .catch(error=>console.log(error));
     },
     async fillChartData(){
-      await fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
-          questdata => {
-            for(let i = 0; i < 4; i++){
-              // fetch('/api/answer/' + this.questions[i].id).then(response => response.json()).then(
-              fetch('/api/answer/' + questdata[i].no).then(response => response.json()).then(
-                data =>{
-                  // 만약 서베이를 보유하고있다면
-                  // if(this.isMySurvey){
-                    //임시로 라벨들과 해당 데이터를 저장할 배열 선언
-                    let templabel = [];
-                    let tempdata = [];
-                    //읽어온 값을 배열에 넣어줌
-                    for(let i = 0; i < data.length; i++){
-                        templabel.push(data[i].content);
-                        tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
-                    }
-          
-                    //차트데이터에 넣음
-                    this.chartData.push({
-                      labels : templabel,
-                      datasets: [
-                        {
-                          label: '인원수',
-                          backgroundColor: '#fa9778', //  f87979
-                          data: tempdata
-                        }, 
-                      ],
-                      questId: questdata[i].no
-                    })
-                }
-              )
+
+      let mQuestId = []; // 중복 제거해서 단일로 남기기
+      let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
+      let mDatas = [];  // 불러온 데이터들의 결과 값
+      let mData;
+      await fetch('/api/participants/survey/' + this.$route.params.surveyId)
+      .then(response=>response.json())
+      .then(data=>{
+        mData = data;
+        data.forEach(element => {
+          mQuestId.push(element["questionId"]);
+          // mLabels.push(element["answerId"]);
+          // mDatas.push(element["result"]);
+        });  
+        const set = new Set(mQuestId);
+        const uniqQuestId = [...set];
+
+        for(var i=0; i<uniqQuestId.length; i++) {
+          for(var j=0; j<mData.length; j++) {
+            if(uniqQuestId[i] === mData[j]["questionId"]) {
+              mLabels.push(mData[j]["answerId"]);
+              mDatas.push(mData[j]["result"]);
             }
           }
-        );
-    }
+          this.chartData.push(
+            {
+              labels: mLabels,
+              datasets: [
+                {
+                  label: '인원수',
+                  backgroundColor: "#fa9778",
+                  data: mDatas
+                }
+              ],
+              questId: uniqQuestId[i]
+            }
+          );
+          mLabels = [];
+          mDatas = [];
+        }
+      });
+      }
+      // await fetch('/api/question/' + this.$route.params.surveyId)
+      // .then(response => response.json())
+      // .then(
+      //     questdata => {
+      //       for(let i = 0; i < 4; i++){
+      //         // fetch('/api/answer/' + this.questions[i].id).then(response => response.json()).then(
+      //         fetch('/api/answer/' + questdata[i].no).then(response => response.json()).then(
+      //           data =>{
+      //             // 만약 서베이를 보유하고있다면
+      //             // if(this.isMySurvey){
+      //               //임시로 라벨들과 해당 데이터를 저장할 배열 선언
+      //               let templabel = [];
+      //               let tempdata = [];
+      //               //읽어온 값을 배열에 넣어줌
+      //               for(let i = 0; i < data.length; i++){
+      //                   templabel.push(data[i].content);
+      //                   tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
+      //               }
+          
+      //               //차트데이터에 넣음
+      //               this.chartData.push({
+      //                 labels : templabel,
+      //                 datasets: [
+      //                   {
+      //                     label: '인원수',
+      //                     backgroundColor: '#fa9778', //  f87979
+      //                     data: tempdata
+      //                   }, 
+      //                 ],
+      //                 questId: questdata[i].no
+      //               })
+      //           }
+      //         )
+      //       }
+      //     }
+      //   );
+    // }
     
 
   },
   async mounted () {
       await this.fillChartData();
-      this.makeitTrue();
-    },
+      await this.makeitTrue();
+  },
   watch: {
     chartData () {
       this.$data._chart.update()
@@ -606,13 +649,13 @@ export default {
   created(){
     this.updateSurveyInfo();
     this.updateQuestions();
-    this.fillChartData();
+    // this.resultDataLoad();
+    // this.fillChartData();
     this.updateTags();
-
     this.checkIfLike();
   },
   beforeUpdate () {
-      this.updateSurveyInfo();
+      //this.updateSurveyInfo();
     },
 };
 </script>
