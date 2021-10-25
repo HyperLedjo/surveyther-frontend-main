@@ -322,7 +322,7 @@ export default {
             confirm: false,
         }
         let request = {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
