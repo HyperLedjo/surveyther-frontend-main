@@ -184,8 +184,8 @@
                         />
                       </div>
                       <div class=" row col-md-12 mr-auto"  style="padding-left:30px">
-                          <n-radio  class=" col-md-6 p-0 m-0" v-model="editData.married" label="0">미혼</n-radio>
-                          <n-radio  class=" col-md-6 p-0 m-0 pb-2" v-model="editData.married" label="1">기혼</n-radio>
+                          <n-radio  class=" col-md-6 p-0 m-0" v-model="editData.married" label="false">미혼</n-radio>
+                          <n-radio  class=" col-md-6 p-0 m-0 pb-2" v-model="editData.married" label="true">기혼</n-radio>
 
                       </div>
                       <div class="col-md-12 mr-auto ">
@@ -330,7 +330,7 @@ export default {
         fetch("/api/member", request)
         .then(response=>response.json())
         .catch(error=>console.log(error));
-        
+
       this.EditSucceed = true;
     },
     refresh(){
