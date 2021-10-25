@@ -308,6 +308,7 @@ export default {
     },
     PostUserData(){
         let userAddInfo = {
+            id: this.$store.state.userInfo.id,
             name: this.editData.name,
             birthYear: this.editData.birthYear,
             phone1: this.editData.phone1,
@@ -318,6 +319,7 @@ export default {
             married: this.editData.married,
             academic: this.editData.academic,
             income: this.editData.income,
+            confirm: false,
         }
         let request = {
           method: "PUT",
