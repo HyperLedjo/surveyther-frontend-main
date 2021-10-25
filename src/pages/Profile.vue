@@ -329,7 +329,7 @@ export default {
           body: JSON.stringify(userAddInfo)
         };
         console.log(JSON.stringify(userAddInfo));
-        fetch("/api/member/"+ this.$store.state.userInfo.no , request)
+        fetch("/api/member", request)
         .then(response=>response.json())
         .catch(error=>console.log(error));
 
