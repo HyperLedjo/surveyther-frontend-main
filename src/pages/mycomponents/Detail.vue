@@ -6,10 +6,10 @@
                           <hr>
                           {{answers}} -->
 
-    <div  v-for="(chart) in this.chartData" :key="chart"  class="small">
+    <!-- <div  v-for="(chart) in this.chartData" :key="chart"  class="small">
       <chart  :chart-data="chart"></chart>
 
-    </div>
+    </div> -->
     <card>
               <div class="p-4">
                 
@@ -72,7 +72,19 @@
                                         <template v-else-if="survey.status == '마감'">
                                           <div class="row ">
 
-                            <chart-container></chart-container>
+                            <!-- <chart-container></chart-container> -->
+                             <!-- v-show="data.questId == quest.id" -->
+                            <div v-if="loaded" class="small">
+                                <div  v-for="(data,index) in chartData" :key="index">
+                                    <chart
+                                           v-show="data.questId == quest.id"
+                                          :chartdata="data" :width="400" :height="200"
+                                          />
+                                  {{data}}
+                                  <hr>
+                                  {{quest.id}}
+                                </div>        
+                            </div>
 
           <table id="" class="align-bottom p-10 mytable" style="width:30%">
             <thead>
@@ -203,7 +215,7 @@
 import { Card, Tabs, TabPane, Modal, } from '@/components';
 import { Popover, Tooltip, DatePicker } from 'element-ui';
 import ChartContainer from './ChartContainer.vue';
-import Chart from './Chart.js'
+import Chart from './Chart.vue'
 
 
 
@@ -223,7 +235,7 @@ export default {
     [Radio.name]: Radio,
     [FormGroupInput.name]: FormGroupInput,
     Modal,
-    ChartContainer,
+    // ChartContainer,
     Chart,
 
   },
@@ -263,9 +275,9 @@ export default {
       isMySurvey: true,
       chartDataLoaded: false,
       //차트 데이터
-      chartData:[
-        
-      ]
+      chartData:[],
+      loaded: false,//차트데이터 로드
+
     };
   },
   methods:{
@@ -279,6 +291,9 @@ export default {
     //   let surveyIndex = this.$store.getters.getsurveyIndexBySurveyId(routeId)
     //   return surveyIndex
     // },
+    makeitTrue(){
+        this.loaded = true;
+    },
     updateSurveyInfo() {
       fetch('/api/survey/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
@@ -319,7 +334,7 @@ export default {
         );
         
     },
-    updateQuestions(){
+    async updateQuestions(){
       fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
             for(let i = 0; i < data.length; i++){
@@ -327,7 +342,7 @@ export default {
                     id: data[i].no,
                     surveyId: data[i].surveyId,
                     content: data[i].content,
-                    answer: null
+                    // answer: null
               });
               fetch('/api/answer/' + data[i].no).then(response => response.json()).then(
                 data =>{
@@ -344,24 +359,24 @@ export default {
                   // if(this.isMySurvey){
                   //   //임시로 라벨들과 해당 데이터를 저장할 배열 선언
                     // let templabel = [];
-                  //   let tempdata = [];
+                    // let tempdata = [];
                   //   //읽어온 값을 배열에 넣어줌
-                  //   for(let i = 0; i < data.length; i++){
-                  //       templabel.push(data[i].content);
-                  //       tempdata.push(data[i].no);//임시로 answerID를 넣음, 실제 데이터자리
-                  //   }
+                    // for(let i = 0; i < data.length; i++){
+                    //     templabel.push(data[i].content);
+                    //     tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
+                    // }
                   //   //차트데이터에 넣음
-                  //   this.chartData.push({
-                  //     label : templabel,
-                  //     datasets: [
-                  //       {
-                  //         label: '인원수',
-                  //         backgroundColor: '#f87979',
-                  //         data: tempdata
-                  //       }, 
-                  //     ]
-                  //   })
-                  // }
+                    // this.chartData.push({
+                    //   label : templabel,
+                    //   datasets: [
+                    //     {
+                    //       label: '인원수',
+                    //       backgroundColor: '#595959',//fa9778
+                    //       data: tempdata
+                    //     }, 
+                    //   ]
+                    // })
+                  // }//if(this.isMySurvey)
                 }
               )
             }
@@ -407,14 +422,14 @@ export default {
       // console.log("user ID: " + 1);
        let result =[];
        for(let i = 0; i < this.questions.length; i++){
-         if(this.questions[i].answer === null) {
+         if(this.questions[i].answer == null) {
           //  window.alert(i+1 + "번째 답변을 꼭 선택해 주세요!");
            this.EmptyAnswerAlert = true;
            return;
          }
         //  console.log(1); // 위에서 answer가 null이면 콘솔에 1이 출력되지 않아야 합니다.
          result.push({
-           memberId: 1,
+           memberId: this.$store.state.userInfo.no,
            surveyId: this.survey.surveyId,
            questionId: this.questions[i].id,
            answerId: this.questions[i].answer
@@ -435,9 +450,13 @@ export default {
         if(0 < data) {
           // window.alert("성공적으로 참여 되었습니다!");
           this.ParticipateSucceed = true;
-        }else if(0 == data){
+        }
+        else if(0 == data){
           this.ParticipateFailed = true;
         }
+        // else{
+        //   console.log(data + "--------?????");
+        // }
       })
       .catch(error=>console.log(error));
     },
@@ -525,15 +544,54 @@ export default {
       //     })
       //   .catch(error=>console.log(error));
     },
-    fillChartData(){
-
+    async fillChartData(){
+      await fetch('/api/question/' + this.$route.params.surveyId).then(response => response.json()).then(
+          questdata => {
+            for(let i = 0; i < 4; i++){
+              // fetch('/api/answer/' + this.questions[i].id).then(response => response.json()).then(
+              fetch('/api/answer/' + questdata[i].no).then(response => response.json()).then(
+                data =>{
+                  // 만약 서베이를 보유하고있다면
+                  // if(this.isMySurvey){
+                    //임시로 라벨들과 해당 데이터를 저장할 배열 선언
+                    let templabel = [];
+                    let tempdata = [];
+                    //읽어온 값을 배열에 넣어줌
+                    for(let i = 0; i < data.length; i++){
+                        templabel.push(data[i].content);
+                        tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
+                    }
+          
+                    //차트데이터에 넣음
+                    this.chartData.push({
+                      labels : templabel,
+                      datasets: [
+                        {
+                          label: '인원수',
+                          backgroundColor: '#fa9778', //  f87979
+                          data: tempdata
+                        }, 
+                      ],
+                      questId: questdata[i].no
+                    })
+                }
+              )
+            }
+          }
+        );
     }
     
 
   },
-  mounted () {
-      // this.updateQuestions()
+  async mounted () {
+      await this.fillChartData();
+      this.makeitTrue();
     },
+  watch: {
+    chartData () {
+      this.$data._chart.update()
+    }
+  },
   computed:{
     remainAmount(){
       return this.survey.targetAmount - this.survey.currentAmount;
@@ -548,6 +606,7 @@ export default {
   created(){
     this.updateSurveyInfo();
     this.updateQuestions();
+    this.fillChartData();
     this.updateTags();
 
     this.checkIfLike();

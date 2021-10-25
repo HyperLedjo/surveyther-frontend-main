@@ -8,11 +8,11 @@ const store = new Vuex.Store({
     // strict: true,
     state: {
         //---------------------------유저관련--------------------------
-        isUser: false,
+        isUser: true,
         loginAlert: false,
         userInfo: {
             //유저 기본정보
-            no: '1',
+            no: '12',
             id: '123456',  //완료
             birthday: '01/01',   //완료
             gender: 'M/F',  //완료
@@ -138,6 +138,7 @@ const store = new Vuex.Store({
             state.userInfo.email = data.email;
             state.userInfo.birthday = data.birthDay;
             state.userInfo.gender = data.gender;
+            state.userInfo.wallet = data.wallet;
         },
         getNumOfUser(state, data){
             state.userInfo.no = data.no;

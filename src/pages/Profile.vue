@@ -55,7 +55,7 @@
 
 
         <div class="container mt-4">
-          <card>
+          <card class="p-3">
             <div>
               <h3 class=""><b>My Wallet</b></h3>
               <!-- <hr> -->
@@ -65,7 +65,7 @@
           </card>
           <div class="row">
             <div class="col-md-3 mr-auto ">
-              <card>
+              <card class="p-3">
                 <h6 class="my-4">내정보보기</h6>
                 <h6 class="my-4">등록한서베이</h6>
                 <h6 class="my-4">보유서베이</h6>
@@ -74,7 +74,7 @@
             </div>
 
             <div class="col-md-9 ml-auto ">
-              <card>
+              <card class="p-3">
                 <h5 class="mt-3"><b>기본정보</b></h5>  
                 <hr>
                 <div class="row ">
@@ -95,7 +95,8 @@
 
                 <h5 class="mt-4"><b>추가정보</b></h5>
                 <hr>
-                <div class="row ">
+<!-- 추가정보 -->
+                <div class="row " v-if="!isEditing">
                   <div class="col-md-3 mr-auto ">
                     <h6 class="my-3">실명</h6>
                     <h6 class="my-3">출생년도</h6>
@@ -110,17 +111,60 @@
                   <div class="col-md-9 ml-auto ">
                     <b>
                       <h6 class="my-3">{{$store.state.userAddInfo.name}}-</h6>
-                      <h6 class="my-3">-</h6>
-                      <h6 class="my-3">-</h6>
-                      <h6 class="my-3">-</h6>
-                      <h6 class="my-3">-</h6>
-                      <h6 class="my-3">-</h6>
-                      <h6 class="my-3">-</h6>
-                      <h6 class="my-3">-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.birthYear}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.phone1}}-{{$store.state.userAddInfo.phone2}}{{$store.state.userAddInfo.phone3}}</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.residence}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.job}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.married}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.academic}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.income}}-</h6>
+
                     </b>
                   </div>
                 </div>
 
+                <div v-else class="row ">
+                  <div class="col-md-3 mr-auto ">
+                    <h6 class="my-3">실명</h6>
+                    <h6 class="my-3">출생년도</h6>
+                    <h6 class="my-3">전화번호</h6>
+                    <h6 class="my-3">지역</h6>
+                    <h6 class="my-3">직업</h6>
+                    <h6 class="my-3">결혼유무</h6>
+                    <h6 class="my-3">최종학력</h6>
+                    <h6 class="my-3">소득수준</h6>
+
+                  </div>
+                  <div class="col-md-9 ml-auto ">
+                    <b>
+                      <fg-input placeholder="이름을 입력해주세요." v-model="editData.name"></fg-input>
+                      <fg-input placeholder="출생년도를 입력해주세요. ex)YYYY" v-model="editData.birthYear"></fg-input>
+                      <div class="row">
+
+                      </div>
+                      <h6 class="my-3">{{$store.state.userAddInfo.phone1}}-{{$store.state.userAddInfo.phone2}}{{$store.state.userAddInfo.phone3}}</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.residence}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.job}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.married}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.academic}}-</h6>
+                      <h6 class="my-3">{{$store.state.userAddInfo.income}}-</h6>
+
+                    </b>
+                  </div>
+
+
+
+                </div>
+<!-- v-else -->
+                      <fg-input placeholder="자유양식입니다. 질문을 입력해주세요." ></fg-input>
+<custom-select
+      :options="['사무직', '노동직', '가정주부', '자영업','학생', '농림어업', '무직', '기타']"
+      :default="'직업선택'"
+      class="select"
+      v-model="mytest"
+      @input="alert(displayToKey($event))"
+    />
+    {{mytest}}?
 
               </card>
             </div>
@@ -130,84 +174,13 @@
         </div>
         
 
-        <!-- <h3 class="title">About me</h3>
-        <h5 class="description">
-          An artist of considerable range, Ryan — the name taken by
-          Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-          records all of his own music, giving it a warm, intimate feel with a
-          solid groove structure. An artist of considerable range.
-        </h5>
-        <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
-            <h4 class="title text-center">My Portfolio</h4>
-          </div>
-          <tabs
-            pills
-            class="nav-align-center"
-            tab-content-classes="gallery"
-            tab-nav-classes="nav-pills-just-icons"
-            type="primary"
-          >
-            <tab-pane title="Profile">
-              <i slot="label" class="now-ui-icons design_image"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg6.jpg" class="img-raised" />
-                    <img src="img/bg11.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-
-            <tab-pane title="Home">
-              <i slot="label" class="now-ui-icons location_world"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg1.jpg" alt="" class="img-raised" />
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-
-            <tab-pane title="Messages">
-              <i slot="label" class="now-ui-icons sport_user-run"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg6.jpg" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-          </tabs>
-          
-        </div> -->
-
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Card, Tabs, TabPane } from '@/components';
+import { Card, Tabs, TabPane, FormGroupInput} from '@/components';
+import  CustomSelect  from './mycomponents/CustomSeclet.vue';
 import {EventBus} from '@/main.js';
 
 
@@ -217,8 +190,39 @@ export default {
   components: {
     // Tabs,
     // TabPane,
-    Card
+    Card,
+    // DropDown,
+    CustomSelect,
+    [FormGroupInput.name]: FormGroupInput,
+
+  },
+  data(){
+    MySeclet
+    return {
+      isEditing: false,
+      editData:{
+            name: null,
+            birthYear: null,
+            phone1: null,
+            phone2: null,
+            phone3: null,
+            residence: null,
+            job: 'null',
+            married: null,
+            academic: null,
+            income: null,
+      },
+      mytest: null,
+      
+    }
   }
 };
 </script>
-<style></style>
+<style>
+.myDropDown{
+  border: 1px solid rgb(211, 211, 211);
+  /* border-radius: 50px 20px; */
+  border-radius: 50px;
+}
+
+</style>

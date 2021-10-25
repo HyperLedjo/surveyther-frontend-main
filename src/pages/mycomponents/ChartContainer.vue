@@ -2,12 +2,13 @@
   <div class="small">
     <div v-if="loaded">
         <div  v-for="(data,index) in chartData" :key="index">
- <line-chart
-      v-if="loaded"
-      :chartdata="data" :width="400" :height="200"
-      />
-      {{data}}
-  </div>        </div>
+            <line-chart
+                  v-if="loaded"
+                  :chartdata="data" :width="400" :height="200"
+                  />
+          {{data}}
+        </div>        
+    </div>
 
     </div> 
   
