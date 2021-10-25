@@ -49,6 +49,7 @@ export default {
   },
   mounted() {
     this.$emit("input", this.selected);
+    console.log(this.selected+ "aaaaaaaaaaaa");
   },
 };
 </script>
@@ -63,12 +64,13 @@ export default {
   line-height: 35px;
 }
 
-.my-select .selected {
+.my-select .selected { 
   background-color: #ffffff;
   border-radius: 30px;
   border: 1px solid #E3E3E3;
   color: rgb(63, 63, 63);
-  padding-left: 1em;
+  padding-left: 1.3em;
+  font-size:11.5px;
   cursor: pointer;
   user-select: none;
 }
@@ -104,9 +106,11 @@ export default {
   z-index: 1;
 }
 
-.my-select .items div {
+.my-select .items div { 
   color: rgb(63, 63, 63);
-  padding-left: 1em;
+  font-size:11.5px;
+
+  padding-left: 1.3em;
   cursor: pointer;
   user-select: none;
 }
