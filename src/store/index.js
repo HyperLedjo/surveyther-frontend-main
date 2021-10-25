@@ -8,7 +8,7 @@ const store = new Vuex.Store({
     // strict: true,
     state: {
         //---------------------------유저관련--------------------------
-        isUser: true,
+        isUser: false,
         loginAlert: false,
         userInfo: {
             //유저 기본정보
@@ -17,7 +17,7 @@ const store = new Vuex.Store({
             birthday: '01/01',   //완료
             gender: 'M/F',  //완료
             email: 'sample@gmail.com',  //완료
-            wallet: '0xNJ0R8M5SR8FGSRNYH08SR8NSFS0RY8',   //블록체인과 연결 필요@@@@
+            wallet: '0x-------8FGSRNYH08SR8NSFS0RY8',   //블록체인과 연결 필요@@@@
             tokenAmount: 2000   //블록체인과 연결 필요@@@@
             // private String id;
             // private String birthday;
