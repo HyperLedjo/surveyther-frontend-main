@@ -716,11 +716,11 @@ export default {
       await this.makeitTrue();
   },
   watch: {
-    chartData () {
-      this.$data._chart.update()
+    async chartData () {
+      await this.$data._chart.update();
     }
   },
-  computed:{
+  computed: {
     remainAmount(){
       return this.survey.targetAmount - this.survey.currentAmount;
     },
