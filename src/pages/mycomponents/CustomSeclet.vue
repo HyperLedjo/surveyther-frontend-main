@@ -49,7 +49,6 @@ export default {
   },
   mounted() {
     this.$emit("input", this.selected);
-    console.log(this.selected+ "aaaaaaaaaaaa");
   },
 };
 </script>

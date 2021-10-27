@@ -72,17 +72,12 @@
                                         <template v-else-if="survey.status == '마감'">
                                           <div class="row ">
 
-                            <!-- <chart-container></chart-container> -->
-                             <!-- v-show="data.questId == quest.id" -->
                             <div v-if="loaded" class="small">
                                 <div  v-for="(data,index) in chartData" :key="index">
                                     <chart
                                            v-show="data.questId == quest.id"
                                           :chartdata="data" :width="400" :height="200"
                                           />
-                                  {{data}}
-                                  <hr>
-                                  {{quest.id}}
                                 </div>        
                             </div>
 
@@ -716,8 +711,8 @@ export default {
       await this.makeitTrue();
   },
   watch: {
-    async chartData () {
-      await this.$data._chart.update();
+    chartData () {
+      this.$data._chart.update();
     }
   },
   computed: {
