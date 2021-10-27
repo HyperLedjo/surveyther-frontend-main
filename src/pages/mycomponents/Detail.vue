@@ -70,7 +70,7 @@
                                             </n-radio>
                                         </template>
                                         <template v-else-if="survey.status == '마감'">
-                                          <div class="row ">
+                                          <div class="row " v-if="isMySurvey">
 
                             <div v-if="loaded" class="small">
                                 <div  v-for="(data,index) in chartData" :key="index">
@@ -95,13 +95,14 @@
               class="mytr myp-10"
               >
                 <td  class="myp-10" style="width:60%">{{answer.content}}</td>
-                <td  class="myp-10">22</td>
-                <td  class="myp-10">33%</td>
+                <td  class="myp-10">{{answer.result}}</td>
+                <td  class="myp-10">{{answer.percentage}}%</td>
               </tr>
             </tbody>
           </table>
                                           </div>
-                                            <!-- <n-radio n-radio v-for="(answer, index) in answers" 
+                                          <div v-else>
+                                            <n-radio n-radio v-for="(answer, index) in answers" 
                                                     :key="index" :value="answer.id"  
                                                     v-model= quest.answer
                                                     v-show="quest.id == answer.questionId"
@@ -109,7 +110,8 @@
                                                     disabled>
                                               <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
                                                 {{answer.content}}
-                                            </n-radio> -->
+                                            </n-radio>
+                                          </div>
                                         </template>
                                 </div>
                             </div>
@@ -129,18 +131,19 @@
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{likes}}</span> 
                                     <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
                                     <!-- <a href=""></a> -->
-                                    
-                                    <button type="button" class="btn btn-primary btn-round btn-lg pull-right" @click="checkUser">
-                                      <template v-if="survey.category == '커뮤니티'">
-                                        참여하고 결과보기  
-                                      </template>
-                                      <template v-else-if="survey.status == '진행중'">
-                                          서베이 참여  
-                                      </template>
-                                      <template v-else-if="survey.status == '마감'">
-                                            ??? SVTH  
-                                      </template>
-                                    </button>
+                                    <template v-if="!isMySurvey">
+                                        <button type="button" class="btn btn-primary btn-round btn-lg pull-right" @click="checkUser">
+                                          <template v-if="survey.category == '커뮤니티'">
+                                            참여하고 결과보기  
+                                          </template>
+                                          <template v-else-if="survey.status == '진행중'">
+                                              서베이 참여  
+                                          </template>
+                                          <template v-else-if="survey.status == '마감'">
+                                              서베이 구매  
+                                          </template>
+                                        </button>
+                                    </template>
 
                                     <button type="button" 
                                     class="btn btn-danger btn-round btn-icon pull-right mt-3 mx-3" 
@@ -266,7 +269,7 @@ export default {
       islike: false,
       likes: 0,
       //내가 보유한 서베이인지 여부
-      isMySurvey: true,
+      isMySurvey: false,
       chartDataLoaded: false,
       //차트 데이터
       chartData:[],
@@ -346,6 +349,8 @@ export default {
                             id: data[i].no,
                             questionId: data[i].questionId,
                             content: data[i].content,
+                            result: null,
+                            percentage: null,
                       });
                       
                   }
@@ -372,6 +377,41 @@ export default {
                     // })
                   // }//if(this.isMySurvey)
                 }
+              ).then(
+                fetch('/api/participants/survey/' + this.$route.params.surveyId)
+                .then(response=>response.json())
+                .then( data =>{
+                  // let tempQuest = 0;
+                  // let tempResult;
+                  // let tempSum = 0;
+                  // let count = 0;
+                  // for(let i = 0; i < data.length; i++){
+                    // tempResult = data[i].result;
+                  //   this.answers[i].result = tempResult;
+                  //   if(i == 0){
+                  //     tempQuest = data[i].questionId;
+                  //     tempSum = tempResult;
+                  //     count = 1;
+                  //     console.log(count);
+                  //   }
+                  //   else if(tempQuest == data[i].questionId){
+                  //     tempSum = tempSum + tempResult;
+                  //     ++count;
+
+                  //   }else{
+                  //     this.answers[i].percentage = tempSum / count *tempResult;
+                  //     count = 1;
+                  //     tempSum =0;
+                  //   }
+
+                  // }
+                  for(let i = 0; i < data.length; i++){
+                    // for(let j = 0; j < data.length; j++){
+                      // if(this.answers[i].id == data[i].no)
+                        this.answers[i].result = data[i].result;
+                    // }
+                  }
+                })
               )
             }
                     // console.log("--------chartchart");
@@ -596,32 +636,32 @@ export default {
     },
     //내가 좋아요를 눌렀는지
     checkIfLike(){
-      // let likeInfo = {
-      //     surveyId: this.$route.params.surveyId,
-      //     memberId: this.$store.state.userInfo.id
-      //   }
-      //   let request = {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(likeInfo)
-      //   };
-      //   // console.log(JSON.stringify(likeInfo)+"========");
-      //   fetch("/api/likes/me", request)
-      //   .then(response=>response.json()).then(
-      //     data =>{
-      //       console.log(data);
-      //       if(data.liked == false){
-      //         console.log("안쥬ㅜ아");
-      //         this.islike = false;
-      //       }else if(data.liked == true){
-      //         console.log("쥬아");
-      //         this.islike = true;
+    //   let likeInfo = {
+    //       surveyId: this.$route.params.surveyId,
+    //       memberId: this.$store.state.userInfo.id
+    //     }
+    //     let request = {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(likeInfo)
+    //     };
+    //     // console.log(JSON.stringify(likeInfo)+"========");
+    //     fetch("/api/likes/me", request)
+    //     .then(response=>response.json()).then(
+    //       data =>{
+    //         console.log(data);
+    //         if(data.liked == false){
+    //           console.log("안쥬ㅜ아");
+    //           this.islike = false;
+    //         }else if(data.liked == true){
+    //           console.log("쥬아");
+    //           this.islike = true;
 
-      //       }
-      //     })
-      //   .catch(error=>console.log(error));
+    //         }
+    //       })
+    //     .catch(error=>console.log(error));
     },
     async fillChartData(){
 
@@ -629,8 +669,9 @@ export default {
       let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
       let mDatas = [];  // 불러온 데이터들의 결과 값
       let mData;
-      let tempAnswers;
+      let tempAnswers = [];
 
+      
       await fetch('/api/participants/survey/' + this.$route.params.surveyId)
       .then(response=>response.json())
       .then(data=>{
@@ -643,13 +684,37 @@ export default {
         
         const set = new Set(mQuestId);
         const uniqQuestId = [...set];
+        
+for(var i=0; i<uniqQuestId.length; i++){
+  fetch('/api/answer/' + uniqQuestId[i])
+  .then(response=>response.json())
+  .then(data=>{
+    for(let j=0; j<data.length;j++){
+      tempAnswers.push(data[j].content);
+      // tempAnswers.push({content: data[j].content,});
 
+    }
+    
+  });
+}
         // console.log(JSON.parse(JSON.stringify(mData))); //??????????????????????
         // console.log(tempAnswers); //??????????????????????
         for(var i=0; i<uniqQuestId.length; i++) {
+          // for(var j=0; j<mData.length; j++) {
+          //   fetch('/api/answer/' + uniqQuestId[i])
+          //   .then(response=>response.json())
+          //   .then(data=>{
+          //     if(uniqQuestId[i] === data[j]["questionId"]){
+          //       // mLabels.push(data[i]["content"]);
+          //       console.log(data[i]["content"]);
+          //     }
+          //   });
+          // }
           for(var j=0; j<mData.length; j++) {
             if(uniqQuestId[i] === mData[j]["questionId"]) {
-              mLabels.push(mData[j]["answerId"]);
+              // mLabels.push(mData[j]["answerId"]);
+              mLabels.push(tempAnswers[j]);
+              // console.log(tempAnswers[j]);
               mDatas.push(mData[j]["result"]);
             }
           }
@@ -670,44 +735,24 @@ export default {
           mDatas = [];
         }
       });
-      }
-      // await fetch('/api/question/' + this.$route.params.surveyId)
-      // .then(response => response.json())
-      // .then(
-      //     questdata => {
-      //       for(let i = 0; i < 4; i++){
-      //         // fetch('/api/answer/' + this.questions[i].id).then(response => response.json()).then(
-      //         fetch('/api/answer/' + questdata[i].no).then(response => response.json()).then(
-      //           data =>{
-      //             // 만약 서베이를 보유하고있다면
-      //             // if(this.isMySurvey){
-      //               //임시로 라벨들과 해당 데이터를 저장할 배열 선언
-      //               let templabel = [];
-      //               let tempdata = [];
-      //               //읽어온 값을 배열에 넣어줌
-      //               for(let i = 0; i < data.length; i++){
-      //                   templabel.push(data[i].content);
-      //                   tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
-      //               }
-          
-      //               //차트데이터에 넣음
-      //               this.chartData.push({
-      //                 labels : templabel,
-      //                 datasets: [
-      //                   {
-      //                     label: '인원수',
-      //                     backgroundColor: '#fa9778', //  f87979
-      //                     data: tempdata
-      //                   }, 
-      //                 ],
-      //                 questId: questdata[i].no
-      //               })
-      //           }
-      //         )
-      //       }
-      //     }
-      //   );
-    // }
+      },
+    checkIfMySurvey(){
+      fetch('/api/survey/my/' + this.$route.params.surveyId)
+                .then(response=>response.json())
+                .then(data =>{
+                  for(let i=0; i<data.length; i++){
+                    if(data[i].memberId == this.$store.state.userInfo.no){
+                      this.isMySurvey = true;
+                      // console.log("이거내꺼내꺼");
+                      break;
+                    }else{
+                      // console.log("이거안내꺼");
+                      this.isMySurvey = false;
+                    }
+                  }
+                })
+    }
+      
     
 
   },
@@ -732,6 +777,7 @@ export default {
     
   },
   created(){
+    this.checkIfMySurvey()
     this.updateSurveyInfo();
     this.updateQuestions();
     // this.resultDataLoad();
