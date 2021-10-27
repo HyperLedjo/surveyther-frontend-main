@@ -284,6 +284,9 @@ export default {
   },
   computed:{
     },
+  mounted(){
+
+  },
   methods:{
     
     editJob(val){

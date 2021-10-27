@@ -139,6 +139,17 @@ const store = new Vuex.Store({
             state.userInfo.birthday = data.birthDay;
             state.userInfo.gender = data.gender;
             state.userInfo.wallet = data.wallet;
+
+            state.userAddInfo.name = data.name;
+            state.userAddInfo.birthYear = data.birthYear;
+            state.userAddInfo.phone1 = data.phone1;
+            state.userAddInfo.phone2 = data.phone2;
+            state.userAddInfo.phone3 = data.phone3;
+            state.userAddInfo.residence = data.residence;
+            state.userAddInfo.job = data.job;
+            state.userAddInfo.married = data.married;
+            state.userAddInfo.academic = data.academic;
+            state.userAddInfo.income = data.income;
         },
         getNumOfUser(state, data){
             state.userInfo.no = data.no;
@@ -235,6 +246,9 @@ const store = new Vuex.Store({
         IsfailToPayFalse(state){
             state.isfailToPay = false;
         },
+        editCategory(state, val){
+            state.category = val;
+        }
         // SearchSurvey(state){
         //     state.searchKeyword = 'changed!!!';
         //     console.log(state.searchKeyword + " ?");

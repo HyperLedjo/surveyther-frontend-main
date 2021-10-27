@@ -62,13 +62,7 @@ export default {
 }
 </script>
 <style>
-.black{
-    /* background: rgb(48, 48, 48); */
-}
-.red{
-    /* background: rgb(255, 97, 97); */
 
-}
 .img-info{
     
     height: 300px;
@@ -78,7 +72,7 @@ export default {
     padding-top: 100px;
     padding-bottom: 100px;
 }
-.mybox > img{
+.img{
     width:48%;
 }
 .mybox > div{

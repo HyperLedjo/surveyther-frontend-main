@@ -629,6 +629,8 @@ export default {
       let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
       let mDatas = [];  // 불러온 데이터들의 결과 값
       let mData;
+      let tempAnswers;
+
       await fetch('/api/participants/survey/' + this.$route.params.surveyId)
       .then(response=>response.json())
       .then(data=>{
@@ -638,9 +640,12 @@ export default {
           // mLabels.push(element["answerId"]);
           // mDatas.push(element["result"]);
         });  
+        
         const set = new Set(mQuestId);
         const uniqQuestId = [...set];
 
+        // console.log(JSON.parse(JSON.stringify(mData))); //??????????????????????
+        // console.log(tempAnswers); //??????????????????????
         for(var i=0; i<uniqQuestId.length; i++) {
           for(var j=0; j<mData.length; j++) {
             if(uniqQuestId[i] === mData[j]["questionId"]) {

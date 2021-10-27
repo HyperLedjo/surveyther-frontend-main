@@ -24,13 +24,14 @@
                 <div id="inputs">
                     <div class="row card-form ">
                         <div class="col-sm-6 col-lg-3">
-                          <small>
-
-                                    <!-- <vue-dropdown :config="config" ></vue-dropdown> -->
-                          </small>
-
-                            <select name="" id="" class="selectpicker" data-style="btn-primary" v-model="$store.state.category">
-                                    <!-- <option disabled value="">카테고리선택</option> -->
+                          
+                              <custom-select
+                                :options="['부동산', '유통', '식음료','관광', '금융', '정보통신', '보건의료', '공공정책', '커뮤니티']"
+                                :default="'카테고리를 선택해주세요'"
+                                class="select"
+                                @input="$store.commit('editCategory',$event)"
+                              />
+                            <!-- <select name="" id="" class="selectpicker" data-style="btn-primary" v-model="$store.state.category">
                                 <optgroup label="Blockchain">
                                     <option>부동산</option>
                                     <option>유통</option>
@@ -44,7 +45,7 @@
                                 <optgroup label="Free">
                                     <option>커뮤니티</option>
                                 </optgroup>
-                            </select>
+                            </select> -->
                         </div>
                         <div class="col-sm-6 col-lg-9 ">
                             <fg-input class="card-maxline" placeholder="타이틀을 입력해주세요." v-model="$store.state.title"></fg-input>
@@ -66,7 +67,9 @@
 import { Card, Button, FormGroupInput } from '@/components';
 
 import CreateQuestions from './mycomponents/CreateQuestions.vue';
-import VueDropdown from 'vue-dynamic-dropdown';
+import  CustomSelect  from './mycomponents/CustomSeclet.vue';
+
+// import VueDropdown from 'vue-dynamic-dropdown';
 
 export default {
   name: 'create',
@@ -76,6 +79,7 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
     CreateQuestions,
     Card,
+    CustomSelect,
     // VueDropdown,
   },
   data() {
@@ -115,14 +119,7 @@ export default {
 };
 </script>
 <style>
-.block-title{
-    /* height:600px; */
-    /* background: gray; */
-    /* margin-top:500px; */
-}
-.mycheck{
-    /* background: gray; */
-}
+
 .space{
     /* height:2000px; */
     /* background: red; */

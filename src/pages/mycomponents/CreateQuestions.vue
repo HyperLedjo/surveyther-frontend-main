@@ -320,7 +320,7 @@
                             <fg-input class="card-maxline" v-model="$store.state.targetAmount" placeholder="목표인원수"></fg-input>
                             <div class="px-3 row">
                                 <div class="col-sm-6 col-lg-6 ">
-                                    <small>
+                                    <div style="color:gray">
                                         <h6>
                                             참여인 보상
                                         </h6>
@@ -330,10 +330,10 @@
                                         <h6>
                                             수수료
                                         </h6>
-                                    </small>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 col-lg-6 ">
-                                    <small>
+                                    <h6>
                                         <h6>
                                             {{$store.state.calculate.firstReward}}
                                         </h6> 
@@ -343,7 +343,7 @@
                                         <h6>
                                             {{$store.state.calculate.fee}}
                                         </h6>   
-                                    </small>
+                                    </h6>
                                 </div>
 
                             </div>
