@@ -11,8 +11,10 @@ import Header from './layout/Header.vue';
 import Footer from './layout/Footer.vue';
 import Main from './pages/main.vue';
 import SurveyCreate from './pages/SurveyCreate.vue';
-import SurveyList from './pages/SurveyList.vue';
-import SurveyDetail from './pages/SurveyDetail.vue';
+// import SurveyList from './pages/SurveyList.vue';
+const SurveyList = () => import(/* webpackChunkName: "survey_list" */ './pages/SurveyList.vue');
+// import SurveyDetail from './pages/SurveyDetail.vue';
+const SurveyDetail = () => import(/* webpackChunkName: "survey_detail" */ './pages/SurveyDetail.vue');
 import SurveyDetailClosed from './pages/SurveyDetailClosed.vue';
 import SurveyDetailFree from './pages/SurveyDetailFree.vue';
 import RewardShop from './pages/RewardShop.vue';
@@ -20,6 +22,12 @@ import About from './pages/About.vue';
 import Search from './pages/Search.vue';
 
 Vue.use(Router);
+
+
+// const routes = [
+//   { path: '/survey/:status/:category', name: 'survey_list', component: SurveyList },
+//   { path: '/survey/detail/:surveyId', name: 'survey_detail', component: SurveyDetail }
+// ];
 
 export default new Router({
   mode: 'history',
