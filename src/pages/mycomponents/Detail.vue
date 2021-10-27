@@ -296,8 +296,8 @@ export default {
     updateSurveyInfo() {
       fetch('/api/survey/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
-                    this.survey.surveyId= data.no;
-                    this.survey.userId= data.memberId;
+                    this.survey.surveyId = data.no;
+                    this.survey.userId = data.memberId;
                     if(data.category == '1')
                         this.survey.category = '부동산';
                     else if(data.category == '2')
@@ -460,8 +460,93 @@ export default {
       .catch(error=>console.log(error));
     },
     //마감서베이 구매하기
-    buySurvey(){
-      console.log("buySurvey");
+    async buySurvey(){
+      let isPaid = false;
+      let _paymentId = 0;
+      let _surveyId = this.survey.surveyId;
+      let _paymAmount = this.survey.paymAmount;
+      var IMP = window.IMP;
+      IMP.init('imp43832818');
+      IMP.request_pay({
+                pg: 'kakaopay',
+                pay_method: 'card',
+                merchant_uid: 'merchant_' + new Date().getTime(),
+                name: this.survey.title,
+                amount: this.survey.paymAmount,
+                // buyer_email: 'alskim93@kakao.com',
+                // buyer_name: 'test',
+                // buyer_tel: '010-9028-5863',
+                // buyer_addr: "서울특별시 성북구 정릉동",
+                // buyer_postcode: "123-456"
+            }, async function(resp) {
+              console.log(resp);
+              if(resp.success) {
+                await fetch('/api/payments/' + resp.imp_uid, {
+                  method: "POST"
+                })
+                .then(response => response.json())
+                .then(async data => {
+                  if(data.response.amount === resp.paid_amount) {
+                    let request = {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(
+                        {
+                          memberId: 1,
+                          paymentType: data.response.payMethod,
+                          paidAmount: data.response.amount
+                        }
+                      )
+                    }
+                    await fetch('/api/payments', request)
+                    .then(response => response.json())
+                    .then(data => {
+                      if(0 !== data) {
+                        _paymentId = data;
+                        isPaid = true;
+                      }
+                    });
+
+                    if(isPaid) {
+                      // storing survey order entity
+                      /*
+                      * Need columns
+                      * memberId
+                      * surveyId
+                      * paymentId
+                      * price
+                      * paid
+                      * date
+                      */
+                     const survey_order = {
+                       memberId: 1,
+                       surveyId: _surveyId,
+                       paymentId: _paymentId,
+                       price: _paymAmount,
+                       paid: resp.paid_amount
+                     };
+                     const request = {
+                       method: "POST",
+                       headers: {
+                         "Content-Type": "application/json",
+                       },
+                       body: JSON.stringify(survey_order)
+                     };
+                     await fetch("/api/order/survey", request)
+                     .then(response => response.json())
+                     .then(data => {
+                       console.log("Survey Ordering Result: \n", data);
+                     })
+                     .catch(err => {
+                       console.log("ERROR: \n", err);
+                     });
+                    }
+                  }
+                })
+              }
+            });
     },
     //좋아요 & 좋아요취소
     like(){
