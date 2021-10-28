@@ -129,7 +129,6 @@
                                     <span class="mr-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
   <!-- 여기여기 -->
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{likes}}</span> 
-                                    <a href=""><span class="mr-4 now-ui-icons arrows-1_share-66"></span></a> 
                                     <!-- <a href=""></a> -->
                                     <template v-if="!isMySurvey">
                                         <button type="button" class="btn btn-primary btn-round btn-lg pull-right" @click="checkUser">
@@ -146,11 +145,16 @@
                                     </template>
 
                                     <button type="button" 
-                                    class="btn btn-danger btn-round btn-icon pull-right mt-3 mx-3" 
-                                    v-bind:class="{ '' : islike == true , 'btn-simple' : islike == false}"
-                                    @click="like"
-                                    >
-                                      <span class="mt-2 now-ui-icons ui-2_favourite-28"></span> 
+                                      class="btn btn-simple btn-round btn-icon pull-right mt-3 mx-3" 
+                                      @click="kakaoShare">
+                                        <span class=" now-ui-icons arrows-1_share-66"></span>
+                                    </button> 
+                                    <button type="button" 
+                                      class="btn btn-danger btn-round btn-icon pull-right mt-3 mx-3" 
+                                      v-bind:class="{ '' : islike == true , 'btn-simple' : islike == false}"
+                                      @click="like"
+                                      >
+                                        <span class="mt-2 now-ui-icons ui-2_favourite-28"></span> 
                                     </button>
                                 </div>
                             </div>
@@ -269,7 +273,7 @@ export default {
       islike: false,
       likes: 0,
       //내가 보유한 서베이인지 여부
-      isMySurvey: false,
+      isMySurvey: true,
       chartDataLoaded: false,
       //차트 데이터
       chartData:[],
@@ -751,6 +755,43 @@ for(var i=0; i<uniqQuestId.length; i++){
                     }
                   }
                 })
+    },
+    kakaoShare(){
+        Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: this.survey.title,
+          description: this.survey.subtitle,
+          // description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
+          imageUrl:
+            'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+          link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+            webUrl: 'https://developers.kakao.com',
+          },
+        },
+        social: {
+          likeCount: 286,
+          commentCount: 45,
+          sharedCount: 845,
+        },
+        // buttons: [
+        //   {
+        //     title: '웹으로 보기',
+        //     link: {
+        //       mobileWebUrl: 'https://developers.kakao.com',
+        //       webUrl: 'https://developers.kakao.com',
+        //     },
+        //   },
+        //   {
+        //     title: '앱으로 보기',
+        //     link: {
+        //       mobileWebUrl: 'https://developers.kakao.com',
+        //       webUrl: 'https://developers.kakao.com',
+        //     },
+        //   },
+        // ],
+      })
     }
       
     
