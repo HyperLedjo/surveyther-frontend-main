@@ -7,9 +7,9 @@
       >
       </parallax>
       <div class="container">
-        <div class="photo-container">
+        <!-- <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
-        </div>
+        </div> -->
         <h3 class="title">My Page</h3>
         <p class="category">ID : {{$store.state.userInfo.id}}</p>
         <div class="content">

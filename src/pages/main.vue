@@ -10,14 +10,14 @@
         <div class="content-center brand">
           <img class="n-logo" src="img/now-logo.png" alt="" />
           <h1 class="h1-seo">Surveyther</h1>
-          <h3>This is Surveyther sample page!</h3>
+          <h3>블록체인 기반 서베이 데이터 거래 플랫폼</h3>
           <!-- <button class="btn btn-round btn-primary" v-on:click="kakaoPay">Pay!</button> -->
 
         </div>
 <!-- {{$store.actions.signIn()}} -->
 
         <h6 class="category category-absolute">
-          this is sample text
+          (주)에프엔이노에듀
           
         </h6>
       </div>

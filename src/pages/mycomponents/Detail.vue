@@ -460,7 +460,7 @@ export default {
                       },
                       body: JSON.stringify(
                         {
-                          memberId: 1,
+                          memberId: state.userInfo.no,
                           paymentType: data.response.payMethod,
                           paidAmount: data.response.amount
                         }
@@ -487,7 +487,7 @@ export default {
                       * date
                       */
                      const survey_order = {
-                       memberId: 1,
+                       memberId: state.userInfo.no,
                        surveyId: _surveyId,
                        paymentId: _paymentId,
                        price: _paymAmount,
