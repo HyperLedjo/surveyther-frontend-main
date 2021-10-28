@@ -134,6 +134,7 @@ const store = new Vuex.Store({
         },
         logIn(state, data) {
             state.isUser = true;
+            state.userInfo.no = data.no;
             state.userInfo.id = data.id;
             state.userInfo.email = data.email;
             state.userInfo.birthday = data.birthDay;

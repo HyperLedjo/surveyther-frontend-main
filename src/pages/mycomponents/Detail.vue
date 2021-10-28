@@ -329,59 +329,12 @@ export default {
                             result: null,
                             percentage: null,
                       });
-                      
                   }
-                  //만약 서베이를 보유하고있다면
-                  // if(this.isMySurvey){
-                  //   //임시로 라벨들과 해당 데이터를 저장할 배열 선언
-                    // let templabel = [];
-                    // let tempdata = [];
-                  //   //읽어온 값을 배열에 넣어줌
-                    // for(let i = 0; i < data.length; i++){
-                    //     templabel.push(data[i].content);
-                    //     tempdata.push(data[i].no.toString());//임시로 answerID를 넣음, 실제 데이터자리
-                    // }
-                  //   //차트데이터에 넣음
-                    // this.chartData.push({
-                    //   label : templabel,
-                    //   datasets: [
-                    //     {
-                    //       label: '인원수',
-                    //       backgroundColor: '#595959',//fa9778
-                    //       data: tempdata
-                    //     }, 
-                    //   ]
-                    // })
-                  // }//if(this.isMySurvey)
                 }
               ).then(
                 fetch('/api/participants/survey/' + this.$route.params.surveyId)
                 .then(response=>response.json())
                 .then( data =>{
-                  // let tempQuest = 0;
-                  // let tempResult;
-                  // let tempSum = 0;
-                  // let count = 0;
-                  // for(let i = 0; i < data.length; i++){
-                    // tempResult = data[i].result;
-                  //   this.answers[i].result = tempResult;
-                  //   if(i == 0){
-                  //     tempQuest = data[i].questionId;
-                  //     tempSum = tempResult;
-                  //     count = 1;
-                  //     console.log(count);
-                  //   }
-                  //   else if(tempQuest == data[i].questionId){
-                  //     tempSum = tempSum + tempResult;
-                  //     ++count;
-
-                  //   }else{
-                  //     this.answers[i].percentage = tempSum / count *tempResult;
-                  //     count = 1;
-                  //     tempSum =0;
-                  //   }
-
-                  // }
                   for(let i = 0; i < data.length; i++){
                     // for(let j = 0; j < data.length; j++){
                       // if(this.answers[i].id == data[i].no)
@@ -640,6 +593,68 @@ export default {
     //         }
     //       })
     //     .catch(error=>console.log(error));
+
+
+      
+    },
+    async fillChartData2(){
+      let mQuestId = []; // 중복 제거해서 단일로 남기기
+      let mAnswerId = [];
+      let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
+      let mDatas = [];  // 불러온 데이터들의 결과 값
+      let mData;
+
+      await fetch('/api/participants/survey/' + this.$route.params.surveyId)
+      .then(response=>response.json())
+      .then(data=>{
+        mData = data;
+        data.forEach(element => {
+          mQuestId.push(element["questionId"]);
+          // mAnswerId.push(element["answerId"]);
+          // mDatas.push(element["result"]);
+        });
+      });  
+      // Question ID 중복 제거
+      const set = new Set(mQuestId);
+      const uniqQuestId = [...set];      
+
+      // mAnswer ID에 저장된 ID에 해당하는 Content를
+      // mLabels에 저장
+      for(var i=0; i < mAnswerId.length; i++) {
+        fetch(`/api/answer/${mAnswerId[i]}`, {
+          headers: {
+            'Accept': 'application/json',
+          }
+        })
+        .then(response=>response.json())
+        .then(data=>mLabels.push(data.content));
+      }
+      for(var i=0; i < uniqQuestId.length; i++) {
+        for(var j=0; j < mData.length; j++) {
+          if(uniqQuestId[i] === mData[j].questionId) {
+            mDatas.push(mData[j].result);
+            await fetch(`/api/answer/${mData[j].answerId}`, {
+              headers: {
+                'Accept': 'application/json',
+              }
+            }).then(response=>response.json())
+            .then(data=>mLabels.push(data.content));
+          }
+        }
+        await this.chartData.push({
+          labels: mLabels,
+          datasets: [
+            {
+              label: '인원수',
+              backgroundColor: "#53ecec",
+              data: mDatas
+            }
+          ],
+          questId: uniqQuestId[i]
+        });
+        mDatas = [];
+        mLabels = [];
+      }
     },
     async fillChartData(){
       let mQuestId = []; // 중복 제거해서 단일로 남기기
@@ -690,7 +705,7 @@ export default {
           datasets: [
             {
               label: '인원수',
-              backgroundColor: "#fa9774",
+              backgroundColor: "#53ecec",
               data: mDatas
             }
           ],
@@ -699,6 +714,26 @@ export default {
         mDatas = [];
         mLabels = [];
       }
+    },
+    percentageCal(){
+      //
+      let myPercentage =[]; //각 퍼센테이지
+      let questSum = 0; //한질문 합계
+      let tempSum = 0; //임시 합계
+      let count = 0; //답변갯수
+        console.log(this.answers.length + " length");
+
+      for(let j=0; j<this.questions.length; j++){
+        for(let i=0; i<this.answers.length; i++){
+          console.log(i);
+          if(this.answers[i].questionId == this.questions.id){
+
+          }
+  
+        }
+        
+      }
+      
     },
     async checkIfMySurvey(){
       await fetch('/api/survey/my/' + this.$route.params.surveyId)
@@ -762,6 +797,8 @@ export default {
   async mounted () {
       await this.fillChartData();
       await this.makeitTrue();
+    this.percentageCal();
+
   },
   watch: {
     chartData () {

@@ -8,7 +8,7 @@
   >
     <template>
       <router-link v-popover:popover1 class="navbar-brand" to="/">
-        Surveyther
+        <b>Surveyther</b> 
       </router-link>
 
       <!-- <el-popover

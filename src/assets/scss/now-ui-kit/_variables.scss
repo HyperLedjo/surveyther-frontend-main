@@ -11,7 +11,7 @@ $border-thick:               2px !default;
 $white-color:                #ffffff !default;
 $tag-color:                  #fddcae !default;//fff2c8
 $white-bg:                   #FFFFFF !default;
-$orange-bg:                  #5fa4ab !default;//#32545d
+$orange-bg:                  #5a48d0 !default;//#32545d
 
 $smoke-bg:                   #F5F5F5 !default;
 $light-black:                #444    !default;
@@ -47,12 +47,12 @@ $default-color:              #9c9c9c !default;
 $default-states-color:       lighten($default-color, 6%) !default;
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;
 
-$primary-color:              #5fa4ab !default;//f96332 65a3b2
+$primary-color:              #5a48d0 !default;//f96332 65a3b2 5fa4ab
 $primary-states-color:       lighten($primary-color, 6%) !default;
 $primary-color-opacity:      rgba(51, 255, 255, 0.3) !default;
 $primary-color-alert:        rgba(50, 249, 173, 0.8) !default;
 
-$success-color:              #a3caf7 !default;//18ce0f a3caf7 4aaf85
+$success-color:              #38e5e5 !default;//18ce0f a3caf7 4aaf85
 $success-states-color:       lighten($success-color, 6%) !default;
 $success-color-opacity:      rgba(24, 206, 15, .3) !default;
 $success-color-alert:        rgba(24, 206, 15, .8) !default;
