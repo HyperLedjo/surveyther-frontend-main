@@ -124,12 +124,14 @@ const store = new Vuex.Store({
     mutations: {
         kakaoLogin() {
             window.location.replace(
-                "https://kauth.kakao.com/oauth/authorize?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&redirect_uri=http://localhost:8082/oauth2/login&response_type=code"
+                "https://kauth.kakao.com/oauth/authorize?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&redirect_uri=http://ec2-3-36-111-77.ap-northeast-2.compute.amazonaws.com:8082"
+                +"/oauth2/login&response_type=code"
             );
         },
         kakaoLogout() {
             window.location.replace(
-                "https://kauth.kakao.com/oauth/logout?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&logout_redirect_uri=http://localhost:8082/oauth2/logout"
+                "https://kauth.kakao.com/oauth/logout?client_id=48500a0e0a3fae56b1ab1f039e7a5c71&logout_redirect_uri=http://ec2-3-36-111-77.ap-northeast-2.compute.amazonaws.com:8082"
+                +"/oauth2/logout"
             );
         },
         logIn(state, data) {
