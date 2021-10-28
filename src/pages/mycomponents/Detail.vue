@@ -597,65 +597,6 @@ export default {
 
       
     },
-    async fillChartData2(){
-      let mQuestId = []; // 중복 제거해서 단일로 남기기
-      let mAnswerId = [];
-      let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
-      let mDatas = [];  // 불러온 데이터들의 결과 값
-      let mData;
-
-      await fetch('/api/participants/survey/' + this.$route.params.surveyId)
-      .then(response=>response.json())
-      .then(data=>{
-        mData = data;
-        data.forEach(element => {
-          mQuestId.push(element["questionId"]);
-          // mAnswerId.push(element["answerId"]);
-          // mDatas.push(element["result"]);
-        });
-      });  
-      // Question ID 중복 제거
-      const set = new Set(mQuestId);
-      const uniqQuestId = [...set];      
-
-      // mAnswer ID에 저장된 ID에 해당하는 Content를
-      // mLabels에 저장
-      for(var i=0; i < mAnswerId.length; i++) {
-        fetch(`/api/answer/${mAnswerId[i]}`, {
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
-        .then(response=>response.json())
-        .then(data=>mLabels.push(data.content));
-      }
-      for(var i=0; i < uniqQuestId.length; i++) {
-        for(var j=0; j < mData.length; j++) {
-          if(uniqQuestId[i] === mData[j].questionId) {
-            mDatas.push(mData[j].result);
-            await fetch(`/api/answer/${mData[j].answerId}`, {
-              headers: {
-                'Accept': 'application/json',
-              }
-            }).then(response=>response.json())
-            .then(data=>mLabels.push(data.content));
-          }
-        }
-        await this.chartData.push({
-          labels: mLabels,
-          datasets: [
-            {
-              label: '인원수',
-              backgroundColor: "#53ecec",
-              data: mDatas
-            }
-          ],
-          questId: uniqQuestId[i]
-        });
-        mDatas = [];
-        mLabels = [];
-      }
-    },
     async fillChartData(){
       let mQuestId = []; // 중복 제거해서 단일로 남기기
       let mAnswerId = [];
