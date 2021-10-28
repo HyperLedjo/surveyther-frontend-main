@@ -658,23 +658,18 @@ export default {
     },
     percentageCal(){
       //
-      let myPercentage =[]; //각 퍼센테이지
-      let questSum = 0; //한질문 합계
-      let tempSum = 0; //임시 합계
-      let count = 0; //답변갯수
-        console.log(this.answers.length + " length");
+      let questSum = 0; //한질문 합계 --각문제가 필수참여라 한문제 총인원이 총참여인원임
 
-      for(let j=0; j<this.questions.length; j++){
-        for(let i=0; i<this.answers.length; i++){
-          console.log(i);
-          if(this.answers[i].questionId == this.questions.id){
-
-          }
-  
+      for(let i=0; i< this.answers.length; i++){
+        if(this.answers[i].questionId === this.questions[0].id){
+          questSum = questSum + this.answers[i].result;
         }
-        
       }
-      
+
+      for(let i=0; i< this.answers.length; i++){
+        // console.log(i + "이건 안나이ㅓㄹ미러ㅣㄴ아러민아러미;ㄴ얾옴");
+        this.answers[i].percentage = this.answers[i].result / questSum *100;
+      }
     },
     async checkIfMySurvey(){
       await fetch('/api/survey/my/' + this.$route.params.surveyId)
