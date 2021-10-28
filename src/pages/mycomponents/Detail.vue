@@ -1,21 +1,9 @@
 <template>
 <div>
-                          <!-- <test-chart></test-chart> -->
-                          <!-- {{chartData}}
-                          {{questions}}
-                          <hr>
-                          {{answers}} -->
-
-    <!-- <div  v-for="(chart) in this.chartData" :key="chart"  class="small">
-      <chart  :chart-data="chart"></chart>
-
-    </div> -->
     <card>
               <div class="p-4">
                 
             <div >
-                <!-- {{survey.title}} -->
-
                 <div id="inputs">
                     <div class="row card-form ">
                             <div class="col-sm-6 col-lg-12 align-bottom">
@@ -58,7 +46,6 @@
                                     
                                     <span class="badge badge-default mt-5">질문{{index+1}}</span>
                                     <span class="align-middle ml-2"><b>{{quest.content}}</b> </span>
- <!-- <small>{{quest}}</small>  -->
                                         <template v-if="survey.status == '진행중'">
                                             <n-radio v-for="(answer, index) in answers" 
                                                     :key="index" :value="answer.id"  
@@ -100,21 +87,21 @@
               </tr>
             </tbody>
           </table>
-                                          </div>
-                                          <div v-else>
-                                            <n-radio n-radio v-for="(answer, index) in answers" 
-                                                    :key="index" :value="answer.id"  
-                                                    v-model= quest.answer
-                                                    v-show="quest.id == answer.questionId"
-                                                    :label = answer.id 
-                                                    disabled>
-                                              <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
-                                                {{answer.content}}
-                                            </n-radio>
-                                          </div>
-                                        </template>
-                                </div>
-                            </div>
+        </div>
+        <div v-else>
+          <n-radio n-radio v-for="(answer, index) in answers" 
+                  :key="index" :value="answer.id"  
+                  v-model= quest.answer
+                  v-show="quest.id == answer.questionId"
+                  :label = answer.id 
+                  disabled>
+            <small>  <label :for="`q${index}${answer.id}`"> </label> </small> 
+              {{answer.content}}
+          </n-radio>
+        </div>
+      </template>
+    </div>
+  </div>
 
 
  <!-- 태그 -->
@@ -215,17 +202,17 @@
 </template>
 <script>
 import { Card, Tabs, TabPane, Modal, } from '@/components';
-import { Popover, Tooltip, DatePicker } from 'element-ui';
-import ChartContainer from './ChartContainer.vue';
+// import { Popover, Tooltip, DatePicker } from 'element-ui';
+// import ChartContainer from './ChartContainer.vue';
 import Chart from './Chart.vue'
 
 import {
-  Button,
-  Checkbox,
+  // Button,
+  // Checkbox,
   Radio,
   FormGroupInput,
-  Slider,
-  Switch,
+  // Slider,
+  // Switch,
   
 } from '@/components';
 
@@ -235,9 +222,7 @@ export default {
     [Radio.name]: Radio,
     [FormGroupInput.name]: FormGroupInput,
     Modal,
-    // ChartContainer,
     Chart,
-
   },
   data() {
     return {
@@ -247,8 +232,7 @@ export default {
       ParticipateFailed: false,
       survey: {
             surveyId: '',
-            userId: '',
-            
+            userId: '',  
             category: '',
             title: '',
             subtitle: null,
@@ -278,20 +262,9 @@ export default {
       //차트 데이터
       chartData:[],
       loaded: false,//차트데이터 로드
-
     };
   },
   methods:{
-    // answersByQuestIdx(idx){
-    //   let answers = this.$store.getters.getsurveyAnswerDataByQusetId(idx)
-    //   return answers
-    // },
-    // surveyIndexBySurveyId(routeId){
-    //   // console.log("hi")
-    //   // let routeId = $route.params.surveyId;
-    //   let surveyIndex = this.$store.getters.getsurveyIndexBySurveyId(routeId)
-    //   return surveyIndex
-    // },
     makeitTrue(){
         this.loaded = true;
     },
@@ -345,7 +318,7 @@ export default {
                     content: data[i].content,
                     // answer: null
               });
-              fetch('/api/answer/' + data[i].no).then(response => response.json()).then(
+              fetch('/api/answers/' + data[i].no).then(response => response.json()).then(
                 data =>{
                   for(let i = 0; i < data.length; i++){
                       // console.log(data[i]);
@@ -471,6 +444,7 @@ export default {
            surveyId: this.survey.surveyId,
            questionId: this.questions[i].id,
            answerId: this.questions[i].answer
+          //  content:this.questions
          })
        }
       let request = {
@@ -668,80 +642,66 @@ export default {
     //     .catch(error=>console.log(error));
     },
     async fillChartData(){
-
       let mQuestId = []; // 중복 제거해서 단일로 남기기
+      let mAnswerId = [];
       let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
       let mDatas = [];  // 불러온 데이터들의 결과 값
       let mData;
-      let tempAnswers = [];
 
-      
       await fetch('/api/participants/survey/' + this.$route.params.surveyId)
       .then(response=>response.json())
       .then(data=>{
         mData = data;
         data.forEach(element => {
           mQuestId.push(element["questionId"]);
-          // mLabels.push(element["answerId"]);
+          // mAnswerId.push(element["answerId"]);
           // mDatas.push(element["result"]);
-        });  
-        
-        const set = new Set(mQuestId);
-        const uniqQuestId = [...set];
-        
-for(var i=0; i<uniqQuestId.length; i++){
-  fetch('/api/answer/' + uniqQuestId[i])
-  .then(response=>response.json())
-  .then(data=>{
-    for(let j=0; j<data.length;j++){
-      tempAnswers.push(data[j].content);
-      // tempAnswers.push({content: data[j].content,});
+        });
+      });  
+      // Question ID 중복 제거
+      const set = new Set(mQuestId);
+      const uniqQuestId = [...set];      
 
-    }
-    
-  });
-}
-        // console.log(JSON.parse(JSON.stringify(mData))); //??????????????????????
-        // console.log(tempAnswers); //??????????????????????
-        for(var i=0; i<uniqQuestId.length; i++) {
-          // for(var j=0; j<mData.length; j++) {
-          //   fetch('/api/answer/' + uniqQuestId[i])
-          //   .then(response=>response.json())
-          //   .then(data=>{
-          //     if(uniqQuestId[i] === data[j]["questionId"]){
-          //       // mLabels.push(data[i]["content"]);
-          //       console.log(data[i]["content"]);
-          //     }
-          //   });
-          // }
-          for(var j=0; j<mData.length; j++) {
-            if(uniqQuestId[i] === mData[j]["questionId"]) {
-              // mLabels.push(mData[j]["answerId"]);
-              mLabels.push(tempAnswers[j]);
-              // console.log(tempAnswers[j]);
-              mDatas.push(mData[j]["result"]);
-            }
+      // mAnswer ID에 저장된 ID에 해당하는 Content를
+      // mLabels에 저장
+      for(var i=0; i < mAnswerId.length; i++) {
+        fetch(`/api/answer/${mAnswerId[i]}`, {
+          headers: {
+            'Accept': 'application/json',
           }
-          this.chartData.push(
-            {
-              labels: mLabels,
-              datasets: [
-                {
-                  label: '인원수',
-                  backgroundColor: "#fa9778",
-                  data: mDatas
-                }
-              ],
-              questId: uniqQuestId[i]
-            }
-          );
-          mLabels = [];
-          mDatas = [];
+        })
+        .then(response=>response.json())
+        .then(data=>mLabels.push(data.content));
+      }
+      for(var i=0; i < uniqQuestId.length; i++) {
+        for(var j=0; j < mData.length; j++) {
+          if(uniqQuestId[i] === mData[j].questionId) {
+            mDatas.push(mData[j].result);
+            await fetch(`/api/answer/${mData[j].answerId}`, {
+              headers: {
+                'Accept': 'application/json',
+              }
+            }).then(response=>response.json())
+            .then(data=>mLabels.push(data.content));
+          }
         }
-      });
-      },
-    checkIfMySurvey(){
-      fetch('/api/survey/my/' + this.$route.params.surveyId)
+        await this.chartData.push({
+          labels: mLabels,
+          datasets: [
+            {
+              label: '인원수',
+              backgroundColor: "#fa9774",
+              data: mDatas
+            }
+          ],
+          questId: uniqQuestId[i]
+        });
+        mDatas = [];
+        mLabels = [];
+      }
+    },
+    async checkIfMySurvey(){
+      await fetch('/api/survey/my/' + this.$route.params.surveyId)
                 .then(response=>response.json())
                 .then(data =>{
                   for(let i=0; i<data.length; i++){
@@ -757,6 +717,7 @@ for(var i=0; i<uniqQuestId.length; i++){
                 })
     },
     kakaoShare(){
+        Kakao.init('76b1a1af5fbcdb013e33863339e81def');
         Kakao.Link.sendDefault({
         objectType: 'feed',
         content: {
@@ -791,7 +752,8 @@ for(var i=0; i<uniqQuestId.length; i++){
         //     },
         //   },
         // ],
-      })
+      });
+      Kakao.Link.cleanup();
     }
       
     
@@ -810,15 +772,12 @@ for(var i=0; i<uniqQuestId.length; i++){
     remainAmount(){
       return this.survey.targetAmount - this.survey.currentAmount;
     },
-    
-    
-   
   },
   beforeCreate(){
     
   },
   created(){
-    this.checkIfMySurvey()
+    this.checkIfMySurvey();
     this.updateSurveyInfo();
     this.updateQuestions();
     // this.resultDataLoad();
