@@ -61,17 +61,6 @@ export default {
     MainInfo,
     MainContent,
     MainAbout
-  },
-  methods:{
-    kakaoPay() {
-      const member = {
-        member_id: 1
-      }
-      const survey = {
-        survey_title: "이렇고 저런 문제에 관하여",
-        survey_paid: 10000
-      }
-    }    
   }
 };
 </script>
