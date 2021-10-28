@@ -1,5 +1,6 @@
 module.exports = {
   devServer: {
+    overlay: false,
     // host: 'localhost',
     port: 8081,
     proxy: {
