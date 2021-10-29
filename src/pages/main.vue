@@ -35,18 +35,6 @@
 </template>
 <script>
 import { Parallax } from '@/components';
-import BasicElements from './components/BasicElementsSection';
-import Navigation from './components/Navigation';
-import TabsSection from './components/Tabs';
-import ProgressPagination from './components/ProgressPagination';
-import Notifications from './components/Notifications';
-import Typography from './components/Typography';
-import JavascriptComponents from './components/JavascriptComponents';
-import CarouselSection from './components/CarouselSection';
-import NucleoIconsSection from './components/NucleoIconsSection';
-import SignupForm from './components/SignupForm';
-import ExamplesSection from './components/ExamplesSection';
-import DownloadSection from './components/DownloadSection';
 
 import MainInfo from './mycomponents/MainInfo.vue';
 import MainContent from './mycomponents/MainContent.vue';
@@ -57,7 +45,6 @@ export default {
   bodyClass: 'index-page',
   components: {
     Parallax,
-    // SignupForm,
     MainInfo,
     MainContent,
     MainAbout

@@ -75,7 +75,7 @@ export default {
 }
 
 .my-select .selected.open {
-  border: 1px solid #5fa4ab;
+  border: 1px solid #5a48d0;
   border-bottom: 1px solid #E3E3E3;
   border-radius: 18px 18px 0px 0px;
 }
@@ -95,9 +95,9 @@ export default {
   color: rgb(202, 35, 35);
   border-radius: 0px 0px 18px 18px;
   overflow: hidden;
-  border-right: 1px solid #5fa4ab;
-  border-left: 1px solid #5fa4ab;
-  border-bottom: 1px solid #5fa4ab;
+  border-right: 1px solid #5a48d0;
+  border-left: 1px solid #5a48d0;
+  border-bottom: 1px solid #5a48d0;
   position: absolute;
   background-color: #ffffff;
   left: 0;

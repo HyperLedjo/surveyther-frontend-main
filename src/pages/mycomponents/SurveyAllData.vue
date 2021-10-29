@@ -1,59 +1,8 @@
 <template>
     <div class="">
-      <!-- {{$store.state.surveyAllData}}-- -->
-          <!-- <v-list-tile
-            v-for="(survey) in $store.state.surveyAllData"
-            :key="survey"
-            >
-                <a href="/survey/detail">
-              <card >
-                  <div >
-
-                    <div id="inputs">
-                        <div class="row card-form">
-
-                            <div class="col-sm-6 col-lg-12">
-                              <span class="badge badge-primary mr-1">{{survey.category}}</span>
-                              <span class="badge  mr-1"
-                                    v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
-                                >{{survey.status}}</span>
-                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4}}---{{rewardPerOne(survey.paymAmount)}}</span>
-                                <span><b> {{survey.title}}</b></span> 
-                            </div>
-                            
-                            <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                                <h6> {{survey.subtitle}}</h6>
-                            <hr style="border: solid 1px rgb(200,200,200);">
-                            </div>
-                            <div class="col-sm-6 col-lg-5">
-                              <span class="badge badge-neutral mr-1">#태그</span>
-                              <span class="badge badge-neutral mr-1">#서베이</span>
-                              <span class="badge badge-neutral mr-1">#tag</span>
-                              <span class="badge badge-neutral mr-1">#sample</span>
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-3">
-                                <div  v-if="survey.status == '진행중'">
-                                    <span class="mr-4">남은보상<b>{{survey.targetAmount-survey.currentAmount}}</b></span>
-                                    <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
-                                </div>
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-3">{{survey.regDate}}</span> 
-                            </div>
-                            <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
-                                <span class="ml-4 now-ui-icons ui-2_favourite-28"> {{survey.likeCount}}</span> 
-                            </div>
-                        </div>
-                    </div>
-
-                  </div>
-              </card>
-            </a>
-          </v-list-tile> -->
-          <!-- ------------------------------------------------------------------ -->
-          <v-list-tile
-            v-for="(survey) in $store.state.surveyAllData"
+      
+          <div
+            v-for="survey in $store.state.surveyAllData"
             :key="survey"
             >
              <!-- v-if="survey.category == $route.params.category" -->
@@ -78,7 +27,7 @@
                                     v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
                                 >{{survey.status}}</span>
                               <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
-                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
+                                <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.5/survey.targetAmount}}</span>
                                 <span><b class="black-text"> {{survey.title}}</b></span> 
                             </div>
                             <!-- <div class="col-sm-6 col-lg mt-1">
@@ -100,11 +49,11 @@
                             <div class="surv-disc col-sm-6 col-lg-3">
                                 <div  v-if="survey.status == '진행중'">
                                     <span class="mr-4">남은보상<b>{{survey.targetAmount-survey.currentAmount}}</b></span>
-                                    <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
+                                    <span>마감일 <b>{{survey.closingDate}}</b></span>
                                 </div>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
-                                <span class="ml-3">{{survey.regDate}}</span> 
+                                <span class="ml-3">등록일 {{survey.regDate}}</span> 
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
@@ -120,20 +69,13 @@
 
 
 
-          </v-list-tile>
+          </div>
     </div>
 </template>
 <script>
-// import { Card } from '@/components';
-import {EventBus} from '@/main.js';
 
 import {
-  Button,
-  Checkbox,
-  Radio,
   FormGroupInput,
-  Slider,
-  Switch
 } from '@/components';
 
 export default {
@@ -148,12 +90,7 @@ export default {
 
     }
   },
-  mounted(){
-    
-    
-  },
-  beforeCreate(){
-    },
+  
   methods:{
     selectingBox(val){
       this.selectedBox = val;

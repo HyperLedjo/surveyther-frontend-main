@@ -197,21 +197,18 @@
 </template>
 <script>
 import { Card, Button, FormGroupInput } from '@/components';
-import SurveyAllData from './mycomponents/SurveyAllData.vue';
 
 export default {
-//   name: 'search',
-//   bodyClass: 'search-page',
+  // name: 'search',
+  // bodyClass: 'search-page',
   components: {
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
     Card,
-    // SurveyAllData
 
   },
   data() {
     return {
-        // id: this.$route.params.id,
         keyword: '',
         resultSurvey:[
 

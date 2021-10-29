@@ -8,7 +8,7 @@ const store = new Vuex.Store({
     // strict: true,
     state: {
         //---------------------------유저관련--------------------------
-        isUser: false,
+        isUser: true,
         loginAlert: false,
         userInfo: {
             //유저 기본정보
@@ -240,8 +240,8 @@ const store = new Vuex.Store({
         rewardCalculator(state){
         //리워드계산기
             state.calculate.fee = state.paymAmount * 0.02;
-            state.calculate.firstReward = (state.paymAmount - state.calculate.fee) * 0.4 / state.targetAmount;
-            state.calculate.secReward = (state.paymAmount - state.calculate.fee) * 0.6 / state.targetAmount;
+            state.calculate.firstReward = (state.paymAmount - state.calculate.fee) * 0.5 / state.targetAmount;
+            state.calculate.secReward = (state.paymAmount - state.calculate.fee) * 0.5 / state.targetAmount /2;
         },
         //
         IsfailToPayTrue(state){

@@ -3,7 +3,7 @@
         <div class="page-header page-header-small">
           <parallax
               class="page-header-image"
-              style="background-image: url('img/bg-shop.jpeg')"
+              style="background: linear-gradient(141deg, rgba(81,58,180,1) 1%, rgba(196,29,253,1) 17%, rgba(240,139,112,1) 54%, rgba(255,235,60,1) 94%)"
           >
           </parallax>
           <div class="content-center">

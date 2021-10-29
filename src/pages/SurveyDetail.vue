@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="">
     <div class="page-header page-header-small">
       <parallax
         class="page-header-image"
-        style="background-image: url('img/bg6.jpg')"
+        style="background: linear-gradient(169deg, rgba(35,20,255,1) 0%, rgba(207,15,255,1) 100%)"
       >
       </parallax>
       <div class="content-center">
@@ -16,7 +16,7 @@
     
     <div class="space">
       <div class="question-location ">
-        <div class="container" >
+        <div class="container">
             <detail></detail>    
             <comment-box></comment-box>
         </div>
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { Card, Button, FormGroupInput } from '@/components';
+import { Parallax, Button, FormGroupInput } from '@/components';
 
 import Detail from './mycomponents/Detail.vue';
 import CommentBox from './mycomponents/CommentBox.vue';
@@ -35,7 +35,7 @@ import CommentBox from './mycomponents/CommentBox.vue';
 
 export default {
   components: {
-    // Card,
+    Parallax,
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
     Detail,

@@ -14,17 +14,21 @@
                                 <template v-if="survey.category != '커뮤니티' && survey.status == '진행중'">
                                     <span class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
                                 </template>
-                                <h4 class="mt-2"><b> {{survey.title}}</b></h4> 
+                                <h4 class="mt-2"><b> {{survey.title}}</b></h4>  
                             </div>
                             <div class="col-sm-1 col-lg-5">
-                                <span><b class="mr-3">{{survey.userId}}</b> </span>
-                                <span class="surv-disc">{{survey.regDate}}</span>
+                                
+                                <!-- <small>0xaf9e247e413e86ec0b9dd1037ce8b6861fec93e9446e5c7c19710903d8ceca30 </small> -->
 
                             </div>
                             <div class="col-sm-6 col-lg-10">
+                              <span><b class="mr-3">{{survey.userId}}</b> </span>
                                 <span class="mr-3 surv-disc">참여한 인원 {{survey.currentAmount}}</span> 
-                                <template v-if="survey.category != '커뮤니티' && survey.status == '진행중'">
-                                    <span class="mr-3 surv-disc">마감까지 5일 4시간 27분</span>
+                                <span class="mr-3 surv-disc">등록일 {{survey.regDate}}</span>
+                                <template v-if="survey.category != '커뮤니티'">
+                                    <span class="mr-3 surv-disc">마감일 {{survey.closingDate}}</span>
+                                </template>
+                                <template v-if=" survey.status == '진행중'">
                                     <span class="mr-3 surv-disc">남은보상 <b>{{remainAmount}}</b></span>
                                 </template>
                             </div>
@@ -117,6 +121,7 @@
   <!-- 여기여기 -->
                                     <span class="mr-4 now-ui-icons ui-2_favourite-28"> {{likes}}</span> 
                                     <!-- <a href=""></a> -->
+                                    
                                     <template v-if="!isMySurvey">
                                         <button type="button" class="btn btn-primary btn-round btn-lg pull-right" @click="checkUser">
                                           <template v-if="survey.category == '커뮤니티'">
@@ -131,18 +136,41 @@
                                         </button>
                                     </template>
 
+                                    <template v-if="survey.category != '커뮤니티'">
+
+
+
+                                    <n-button v-popover:popover2 type="default" class="btn btn-primary btn-simple btn-round pull-right btn-lg mx-2">
+                                            <span class=" now-ui-icons design_app"></span> 체인정보
+                                      </n-button>
+                                      <el-popover
+                                                  ref="popover2"
+                                                  popper-class="popover popover-primary"
+                                                  placement="left"
+                                                  width="600"
+                                                  trigger="click"
+                                                >
+                                                  <h3 class="popover-header">Block: 13</h3>
+                                                  <div class="popover-body">
+                                                  0xaf9e247e413e86ec0b9dd1037ce8b6861fec93e9446e5c7c19710903d8ceca30                                                  </div>
+                                      </el-popover>
+
+                                    </template>
                                     <button type="button" 
-                                      class="btn btn-simple btn-round btn-icon pull-right mt-3 mx-3" 
-                                      @click="kakaoShare">
-                                        <span class=" now-ui-icons arrows-1_share-66"></span>
-                                    </button> 
-                                    <button type="button" 
-                                      class="btn btn-danger btn-round btn-icon pull-right mt-3 mx-3" 
+                                      class="btn btn-danger btn-round pull-right btn-lg mx-2" 
                                       v-bind:class="{ '' : islike == true , 'btn-simple' : islike == false}"
                                       @click="like"
                                       >
-                                        <span class="mt-2 now-ui-icons ui-2_favourite-28"></span> 
+                                        <span class=" now-ui-icons ui-2_favourite-28"></span> 좋아요
                                     </button>
+                                    <button type="button" 
+                                      class="btn btn-warning btn-simple btn-round  pull-right btn-lg mx-2" 
+                                      @click="kakaoShare">
+                                        <span class=" now-ui-icons arrows-1_share-66"></span> 카카오로 공유하기
+                                    </button> 
+
+                                    
+                                      
                                 </div>
                             </div>
                             
@@ -158,7 +186,7 @@
     <modal :show.sync="EmptyAnswerAlert" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
       <h5 slot="header" class="title title-up pb-0">알림</h5>
         <h6 class="text-center">
-          선택하지못한 답변이 있습니다!
+          비어있는 답변이 있습니다.
         </h6>
       <template slot="footer">
         <n-button  class="btn btn-round btn-block btn-neutral btn" 
@@ -187,7 +215,7 @@
     <modal :show.sync="ParticipateFailed" headerClasses="justify-content-center pt-0" class="modal-primary" type="mini" >
       <h5 slot="header" class="title title-up pb-0">알림</h5>
         <h6 class="text-center">
-          중복참여는 불가합니다
+          중복참여는 불가합니다.
         </h6>
       <template slot="footer">
         <n-button  class="btn btn-round btn-block btn-neutral btn" 
@@ -201,8 +229,8 @@
 </div>
 </template>
 <script>
-import { Card, Tabs, TabPane, Modal, } from '@/components';
-// import { Popover, Tooltip, DatePicker } from 'element-ui';
+import { Card, Tabs, TabPane, Modal, Button} from '@/components';
+import { Popover} from 'element-ui';
 // import ChartContainer from './ChartContainer.vue';
 import Chart from './Chart.vue'
 
@@ -223,6 +251,8 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
     Modal,
     Chart,
+    [Button.name]: Button,
+    [Popover.name]: Popover,
   },
   data() {
     return {
@@ -257,7 +287,7 @@ export default {
       islike: false,
       likes: 0,
       //내가 보유한 서베이인지 여부
-      isMySurvey: true,
+      isMySurvey: false,
       chartDataLoaded: false,
       //차트 데이터
       chartData:[],
@@ -698,8 +728,8 @@ export default {
           imageUrl:
             'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
+            mobileWebUrl: 'http://localhost:8081/',
+            webUrl: 'http://localhost:8081/',
           },
         },
         social: {
@@ -725,6 +755,26 @@ export default {
         // ],
       });
       Kakao.Link.cleanup();
+    },
+    checkifBoughtSurvey(){
+      let purchaseInfo = {
+          surveyId: this.$route.params.surveyId,
+          memberId: this.$store.state.userInfo.id
+        }
+        let request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(purchaseInfo)
+        };
+        fetch("/api/order/survey/check", request)
+        .then(response=>response.json()).then(
+          data =>{
+            console.log(data)
+            
+          })
+        .catch(error=>console.log(error));
     }
       
     
@@ -751,6 +801,7 @@ export default {
   },
   created(){
     this.checkIfMySurvey();
+    this.checkifBoughtSurvey();
     this.updateSurveyInfo();
     this.updateQuestions();
     // this.resultDataLoad();
@@ -788,7 +839,7 @@ export default {
   height: 1%; 
   border-collapse: collapse; 
   border: 2px solid #e4e4e4;
-    margin:  50px auto;
+    margin:  20px auto;
 
 }
 

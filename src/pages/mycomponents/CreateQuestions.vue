@@ -325,20 +325,20 @@
                                             참여인 보상
                                         </h6>
                                         <h6>
-                                            목표달성 보상
+                                            공유 보상
                                         </h6>
                                         <h6>
-                                            수수료
+                                            수수료 <small><b>(0.2%)</b></small> 
                                         </h6>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-lg-6 ">
                                     <h6>
                                         <h6>
-                                            {{$store.state.calculate.firstReward}}
+                                            {{$store.state.calculate.firstReward}}  <small><b> 1인</b></small> 
                                         </h6> 
                                         <h6>
-                                            {{$store.state.calculate.secReward}}
+                                            {{$store.state.calculate.secReward}} <small><b> x 2</b></small> 
                                         </h6>
                                         <h6>
                                             {{$store.state.calculate.fee}}
@@ -371,7 +371,7 @@
                                 <!-- <button type="button" class="btn btn-simple btn-round btn-primary px-5 mx-3 btn-block" >
                                     결제하기
                                 </button> -->
-                                <button type="button" class="btn btn-round btn-round btn-primary px-5 mx-3 btn-block"
+                                <button type="button" class="btn btn-round btn-lg btn-primary px-5 mx-3 btn-block"
                                 @click="$store.dispatch('postSurvey')">
                                     서베이 등록
                                 </button>
