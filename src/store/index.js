@@ -430,7 +430,7 @@ const store = new Vuex.Store({
                                     }
                                 }
                                 request.body = JSON.stringify(new_answer_list);
-                                await fetch('/api/answer', request);
+                                await fetch('/api/answers', request);
                                 // .then(response => response.json())
                                 // .then(data => {
                                 //     console.log(data);
