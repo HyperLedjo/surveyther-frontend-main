@@ -723,7 +723,6 @@ export default {
         {
           
           templateId: 64384,
-          
         }
       );
       //   Kakao.Link.sendDefault({
@@ -764,23 +763,24 @@ export default {
       // });
       Kakao.Link.cleanup();
     },
-    checkifBoughtSurvey(){
-      let purchaseInfo = {
+    async checkifBoughtSurvey(){
+        let purchaseInfo = {
           surveyId: this.$route.params.surveyId,
           memberId: this.$store.state.userInfo.id
         }
+
         let request = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(purchaseInfo)
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(purchaseInfo)
         };
-        fetch("/api/order/survey/check", request)
-        .then(response=>response.json()).then(
+        await fetch("/api/order/survey/check", request)
+        .then(response=>response.json())
+        .then(
           data =>{
-            console.log(data)
-            
+            console.log(data);
           })
         .catch(error=>console.log(error));
     }
