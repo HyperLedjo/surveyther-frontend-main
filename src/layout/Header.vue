@@ -327,10 +327,15 @@ export default {
   },
   beforeCreate(){
     this.$store.dispatch('allSurvey');
+
     // this.$store.dispatch('allQuestion');
     // this.$store.dispatch('allAnswer');
     // console.log('eeeeeeeeebeforecreate');
         
+    },
+    created(){
+      // this.$store.dispatch('UserWallet');
+
     },
     
   computed: {

@@ -142,7 +142,7 @@ const store = new Vuex.Store({
             state.userInfo.email = data.email;
             state.userInfo.birthday = data.birthDay;
             state.userInfo.gender = data.gender;
-            state.userInfo.wallet = data.wallet;
+            // state.userInfo.wallet = data.wallet;
 
             state.userAddInfo.name = data.name;
             state.userAddInfo.birthYear = data.birthYear;
@@ -255,12 +255,14 @@ const store = new Vuex.Store({
         },
         editCategory(state, val){
             state.category = val;
-        }
+        },
         // SearchSurvey(state){
         //     state.searchKeyword = 'changed!!!';
         //     console.log(state.searchKeyword + " ?");
         // }
-        
+        updateWallet(state, val){
+            state.userInfo.wallet = val.wallet;
+        }
 
         //-----------------------------------------------------------TEST---------------------------------------------------------------
         
@@ -274,6 +276,7 @@ const store = new Vuex.Store({
                         context.commit('logOut');
                     } else {
                         context.commit('logIn', data);
+                        context.dispatch('UserWallet',data);
                         fetch("/api/member/" + data.id)
                             .then(response => response.json())
                             .then(data => { context.commit('getNumOfUser', data); })
@@ -514,7 +517,13 @@ const store = new Vuex.Store({
             // console.log( "paymAmount: " + state.paymAmount );
             // console.log( "closingDate: " + state.closingDate );
         },
-
+        UserWallet(context, val){
+            fetch(`/api/member/` + val.id).then(response => response.json()).then(
+                data => {
+                    context.commit('updateWallet', data);
+                }
+            );
+        }
         
     },
     getters:{

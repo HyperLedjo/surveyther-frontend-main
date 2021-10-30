@@ -361,24 +361,24 @@ export default {
   },
   methods:{
     UserEditInfo(){
-    //   fetch('/api/member/' + this.$store.state.userInfo.id).then(response => response.json()).then(
-    //   data =>{
-    //     console.log(data); //유저 아이디를 못가져오니왜ㅐㅐㅐㅐㅐㅐㅐ
-    //     // name: null,
-    //     //     birthYear: null,
-    //     //     phone1: null,
-    //     //     phone2: null,
-    //     //     phone3: null,
-    //     //     residence: null,
-    //     //     job: null,
-    //     //     married: null,
-    //     //     academic: null,
-    //     //     income: null,
-    //     // this.userAddInfo.name = data.name;
-    //     // this.userAddInfo.birthYear = data.birthYear;
+      fetch('/api/member/' + this.$store.state.userInfo.id).then(response => response.json()).then(
+      data =>{
+        console.log(data); //유저 아이디를 못가져오니왜ㅐㅐㅐㅐㅐㅐㅐ
+        // name: null,
+        //     birthYear: null,
+        //     phone1: null,
+        //     phone2: null,
+        //     phone3: null,
+        //     residence: null,
+        //     job: null,
+        //     married: null,
+        //     academic: null,
+        //     income: null,
+        // this.userAddInfo.name = data.name;
+        // this.userAddInfo.birthYear = data.birthYear;
 
 
-    // })
+    })
     },
     editJob(val){
       this.editData.job = val;
