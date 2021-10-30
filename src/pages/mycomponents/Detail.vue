@@ -522,7 +522,7 @@ export default {
                       * date
                       */
                      const survey_order = {
-                       memberId: state.userInfo.no,
+                       memberId: this.$store.state.userInfo.no,
                        surveyId: _surveyId,
                        paymentId: _paymentId,
                        price: _paymAmount,
@@ -776,7 +776,7 @@ export default {
     async checkifBoughtSurvey(){
         let purchaseInfo = {
           surveyId: this.$route.params.surveyId,
-          memberId: this.$store.state.userInfo.id
+          memberId: this.$store.state.userInfo.no
         }
 
         let request = {
