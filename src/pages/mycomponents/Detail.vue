@@ -554,7 +554,7 @@ export default {
       if(!this.islike){
         // let likeInfo = {
         //   surveyId: this.$route.params.surveyId,
-        //   memberId: this.$store.state.userInfo.id
+        //   memberId: this.$store.state.userInfo.no
         // }
         // let request = {
         // method: "POST",
@@ -573,7 +573,7 @@ export default {
       }else{
         // let dislikeInfo = {
         //   surveyId: this.$route.params.surveyId,
-        //   memberId: this.$store.state.userInfo.id
+        //   memberId: this.$store.state.userInfo.no
         // }
         // let request = {
         // method: "PUT",
@@ -604,7 +604,7 @@ export default {
     checkIfLike(){
     //   let likeInfo = {
     //       surveyId: this.$route.params.surveyId,
-    //       memberId: this.$store.state.userInfo.id
+    //       memberId: this.$store.state.userInfo.no
     //     }
     //     let request = {
     //     method: "POST",
@@ -779,7 +779,7 @@ export default {
     async checkifBoughtSurvey(){
         let purchaseInfo = {
           surveyId: this.$route.params.surveyId,
-          memberId: this.$store.state.userInfo.id
+          memberId: this.$store.state.userInfo.no
         }
 
         let request = {
