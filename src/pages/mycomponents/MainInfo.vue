@@ -23,9 +23,10 @@
                 </div>
                 <div class="card-container" style="width:30%">
                     <img class="info-img" src="img/now-logo.png" alt="" />
-                    <h4>SURVEY</h4>
+                    <h4>REWARD</h4>
                   <p1>
-                    간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요! 간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요!
+                    SURVEYTHER는 단순히 서베이를 등록하고 참여하는 서비스가 아닙니다. 누구나 쉽게 전문적인 서베이를 만들고, 언제 어디서든 참여 및 공유가 가능합니다.
+                    지금 서비스에 존재하는 서베이에 참여하고 보상을 받으세요. 
                   </p1>
                 </div>
                 
@@ -33,7 +34,7 @@
                   <img class="info-img" src="img/now-logo.png" alt="" />
                   <h4>EXCHANGE</h4>
                   <p1>
-                  SURVEYTHER는 여러분이 만든 서베이 데이터도 자산이라고 생각하고 기획, 개발된 플ㄹ
+                  SURVEYTHER는 여러분이 만든 서베이 데이터도 자산이라고 생각하고 기획, 개발된 서비스입니다. SURVEYTHER를 이용해 여러분의 서베이에 진정한 가치를 부여하세요.
                   </p1>
                 </div>
                 
