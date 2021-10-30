@@ -31,9 +31,9 @@
                 
                 <div class="card-container" style="width:30%">
                   <img class="info-img" src="img/now-logo.png" alt="" />
-                  <h4>TRANSACTION</h4>
+                  <h4>EXCHANGE</h4>
                   <p1>
-                  SURVEYTHER는 블록체인 기반 서베이 데이터 
+                  SURVEYTHER는 여러분이 만든 서베이 데이터도 자산이라고 생각하고 기획, 개발된 플ㄹ
                   </p1>
                 </div>
                 
