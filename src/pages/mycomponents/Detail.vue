@@ -306,23 +306,23 @@ export default {
           data => {
                     this.survey.surveyId = data.no;
                     this.survey.userId = data.author;
-                    if(data.category == '1')
+                    if(data.category == '5')
                         this.survey.category = '부동산';
-                    else if(data.category == '2')
-                        this.survey.category = '유통';
-                    else if(data.category == '3')
-                        this.survey.category = '식음료';
-                    else if(data.category == '4')
-                        this.survey.category = '관광';
-                    else if(data.category == '5')
-                        this.survey.category = '금융';
                     else if(data.category == '6')
-                        this.survey.category = '정보통신';
+                        this.survey.category = '유통';
                     else if(data.category == '7')
-                        this.survey.category = '보건의료';
+                        this.survey.category = '식음료';
                     else if(data.category == '8')
-                        this.survey.category = '공공정책';
+                        this.survey.category = '관광';
                     else if(data.category == '9')
+                        this.survey.category = '금융';
+                    else if(data.category == '10')
+                        this.survey.category = '정보통신';
+                    else if(data.category == '11')
+                        this.survey.category = '보건의료';
+                    else if(data.category == '12')
+                        this.survey.category = '공공정책';
+                    else if(data.category == '13')
                         this.survey.category = '커뮤니티';
                     this.survey.title= data.title;
                     this.survey.subtitle= data.content;
@@ -797,7 +797,10 @@ export default {
         .then(response=>response.json())
         .then(
           data =>{
-            console.log(data);
+            if(data){
+                this.isMySurvey = true;
+                console.log("이거는 이제 내꺼내꺼");
+            }
           })
         .catch(error=>console.log(error));
     }

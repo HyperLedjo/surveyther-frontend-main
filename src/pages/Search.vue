@@ -66,7 +66,7 @@
                               <div class="row card-form">
 
                                   <div class="col-sm-6 col-lg-12">
-                          <span class="badge mr-1" style="color:#5a48d0;"><b>{{survey.blockNo}}</b></span>
+                          <!-- <span class="badge mr-1" style="color:#5a48d0;"><b>{{survey.blockNo}}</b></span> -->
 
                                     <span class="badge badge-primary mr-1">{{survey.category}}</span>
                                     <span class="badge  mr-1"
@@ -137,7 +137,7 @@
                     <div class="row card-form">
 
                         <div class="col-sm-6 col-lg-12">
-                          <span class="badge mr-1" style="color:#5a48d0;"><b>{{survey.blockNo}}</b></span>
+                          <!-- <span class="badge mr-1" style="color:#5a48d0;"><b>{{survey.blockNo}}</b></span> -->
                           <span class="badge badge-primary mr-1">{{survey.category}}</span>
 
                           <span class="badge  mr-1"
