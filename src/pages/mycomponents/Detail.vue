@@ -522,7 +522,7 @@ export default {
                       * date
                       */
                      const survey_order = {
-                       memberId: state.userInfo.no,
+                       memberId: this.$store.state.userInfo.no,
                        surveyId: _surveyId,
                        paymentId: _paymentId,
                        price: _paymAmount,
