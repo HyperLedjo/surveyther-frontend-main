@@ -16,14 +16,14 @@
                 
                 <div class="card-container" style="width:30%">
                     <img class="info-img" src="img/now-logo.png" alt="" />
-                    <h4>여기점</h4>
+                    <h4>BLOCKCHAIN</h4>
                     <p1>
-                    간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요! 간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요!mycompononts/MainInfo.vue
+                    SURVEYTHER는 블록체인 기술을 활용해 서베이 조작, 중복참여, 대리 응답 등의 부정 행위를 방지하고, 사용자에게 믿을 수 있는 서베이 데이터를 제공합니다. 
                     </p1>
                 </div>
                 <div class="card-container" style="width:30%">
                     <img class="info-img" src="img/now-logo.png" alt="" />
-                    <h4>채워</h4>
+                    <h4>SURVEY</h4>
                   <p1>
                     간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요! 간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요!
                   </p1>
@@ -31,9 +31,9 @@
                 
                 <div class="card-container" style="width:30%">
                   <img class="info-img" src="img/now-logo.png" alt="" />
-                  <h4>주세유</h4>
+                  <h4>TRANSACTION</h4>
                   <p1>
-                  간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요! 간단한 사이트 소개글 같은거 세가지로 분류해서 넣어주세요!
+                  SURVEYTHER는 블록체인 기반 서베이 데이터 
                   </p1>
                 </div>
                 

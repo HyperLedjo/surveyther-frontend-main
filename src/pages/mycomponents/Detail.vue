@@ -163,7 +163,7 @@
                                       >
                                         <span class=" now-ui-icons ui-2_favourite-28"></span> 좋아요
                                     </button>
-                                    <button type="button" 
+                                    <button type="button" value="Custom"
                                       class="btn btn-warning btn-simple btn-round  pull-right btn-lg mx-2" 
                                       @click="kakaoShare">
                                         <span class=" now-ui-icons arrows-1_share-66"></span> 카카오로 공유하기
@@ -718,42 +718,50 @@ export default {
                 })
     },
     kakaoShare(){
-        Kakao.init('76b1a1af5fbcdb013e33863339e81def');
-        Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: this.survey.title,
-          description: this.survey.subtitle,
-          // description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
-          imageUrl:
-            'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-          link: {
-            mobileWebUrl: 'http://localhost:8081/',
-            webUrl: 'http://localhost:8081/',
-          },
-        },
-        social: {
-          likeCount: 286,
-          commentCount: 45,
-          sharedCount: 845,
-        },
-        // buttons: [
-        //   {
-        //     title: '웹으로 보기',
-        //     link: {
-        //       mobileWebUrl: 'https://developers.kakao.com',
-        //       webUrl: 'https://developers.kakao.com',
-        //     },
-        //   },
-        //   {
-        //     title: '앱으로 보기',
-        //     link: {
-        //       mobileWebUrl: 'https://developers.kakao.com',
-        //       webUrl: 'https://developers.kakao.com',
-        //     },
-        //   },
-        // ],
-      });
+      // Kakao.init('76b1a1af5fbcdb013e33863339e81def');
+      Kakao.Link.sendCustom(
+        {
+          
+          templateId: 64384,
+          
+        }
+      );
+      //   Kakao.Link.sendDefault({
+      //   // templateId:'64384',
+      //   objectType: 'feed',
+      //   content: {
+      //     title: this.survey.title,
+      //     description: this.survey.subtitle,
+      //     // description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
+      //     imageUrl:
+      //       'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      //     link: {
+      //       mobileWebUrl: 'http://localhost:8081/',
+      //       webUrl: 'http://localhost:8081/',
+      //     },
+      //   },
+      //   social: {
+      //     likeCount: 286,
+      //     commentCount: 45,
+      //     sharedCount: 845,
+      //   },
+      //   // buttons: [
+      //   //   {
+      //   //     title: '웹으로 보기',
+      //   //     link: {
+      //   //       mobileWebUrl: 'https://developers.kakao.com',
+      //   //       webUrl: 'https://developers.kakao.com',
+      //   //     },
+      //   //   },
+      //   //   {
+      //   //     title: '앱으로 보기',
+      //   //     link: {
+      //   //       mobileWebUrl: 'https://developers.kakao.com',
+      //   //       webUrl: 'https://developers.kakao.com',
+      //   //     },
+      //   //   },
+      //   // ],
+      // });
       Kakao.Link.cleanup();
     },
     checkifBoughtSurvey(){
