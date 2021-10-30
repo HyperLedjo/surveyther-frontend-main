@@ -726,16 +726,13 @@ export default {
       // Kakao.init('76b1a1af5fbcdb013e33863339e81def');
       Kakao.Link.sendCustom(
         {
-          
           templateId: 64384,
-          // content: {
-          // title: this.survey.title,
-          // description: this.survey.subtitle,
-          // link: {
-          //   mobileWebUrl: 'http://localhost:8081/',
-          //   webUrl: 'http://localhost:8081/',
-          // },
-          // }
+          templateArgs: {
+            title:
+              this.survey.title,
+            description:
+              this.survey.subtitle,
+          },
         }
       );
       //   Kakao.Link.sendDefault({
