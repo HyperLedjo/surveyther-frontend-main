@@ -178,25 +178,28 @@ const store = new Vuex.Store({
                     commentCount: data[i].comments,
                     likeCount: data[i].likes,
                     status: data[i].status,
+                    blockNo: data[i].blockNo,
+                    txHash: data[i].txHash,
 
                 });
-                if(data[i].category == '1')
+                
+                if(data[i].category == '5')
                     state.surveyAllData[i].category = '부동산';
-                else if(data[i].category == '2')
-                    state.surveyAllData[i].category = '유통';
-                else if(data[i].category == '3')
-                    state.surveyAllData[i].category = '식음료';
-                else if(data[i].category == '4')
-                    state.surveyAllData[i].category = '관광';
-                else if(data[i].category == '5')
-                    state.surveyAllData[i].category = '금융';
                 else if(data[i].category == '6')
-                    state.surveyAllData[i].category = '정보통신';
+                    state.surveyAllData[i].category = '유통';
                 else if(data[i].category == '7')
-                    state.surveyAllData[i].category = '보건의료';
+                    state.surveyAllData[i].category = '식음료';
                 else if(data[i].category == '8')
-                    state.surveyAllData[i].category = '공공정책';
+                    state.surveyAllData[i].category = '관광';
                 else if(data[i].category == '9')
+                    state.surveyAllData[i].category = '금융';
+                else if(data[i].category == '10')
+                    state.surveyAllData[i].category = '정보통신';
+                else if(data[i].category == '11')
+                    state.surveyAllData[i].category = '보건의료';
+                else if(data[i].category == '12')
+                    state.surveyAllData[i].category = '공공정책';
+                else if(data[i].category == '13')
                     state.surveyAllData[i].category = '커뮤니티';
                 
                 if(data[i].status == '0')
@@ -370,6 +373,7 @@ const store = new Vuex.Store({
                                 });    
                                 const new_survey = {
                                     memberId: state.userInfo.no, 
+                                    author: state.userInfo.id,
                                     category: category_id,
                                     title: state.title,
                                     content: state.subtitle,

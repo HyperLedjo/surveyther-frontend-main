@@ -66,6 +66,8 @@
                               <div class="row card-form">
 
                                   <div class="col-sm-6 col-lg-12">
+                          <span class="badge mr-1" style="color:#5a48d0;"><b>{{survey.blockNo}}</b></span>
+
                                     <span class="badge badge-primary mr-1">{{survey.category}}</span>
                                     <span class="badge  mr-1"
                                           v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
@@ -73,6 +75,11 @@
                                     <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
                                       <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
                                       <span><b class="black-text"> {{survey.title}}</b></span> 
+                                      <span class="badge pull-right" style="color:#5a48d0;">
+                                        <small>
+                                          <b>{{survey.txHash}}</b>
+                                        </small>
+                                      </span>
                                   </div>
                                   <!-- <div class="col-sm-6 col-lg mt-1">
                                       <b> <h6>서베이 타이틀입니다</h6></b>
@@ -80,9 +87,10 @@
                                   <div class="surv-disc col-sm-6 col-lg-12 mt-1">
                                       <h6> {{survey.subtitle}}</h6>
                                       <!-- style="border: solid 1px rgb(200,200,200);" -->
+                                      
                                   <hr>
                                   </div>
-                                  <div class="col-sm-6 col-lg-5 black-text">
+                                  <div class="col-sm-6 col-lg-8 black-text">
           <!-- 탸그 -->
                                     <span v-for="tag in resultTag" :key="tag" class="badge badge-neutral mr-1">
                                       <template v-if="tag.surveyId == survey.surveyId">
@@ -90,14 +98,11 @@
                                       </template>
                                     </span>
                                   </div>
-                                  <div class="surv-disc col-sm-6 col-lg-3">
+                                  
+                                  <div class="surv-disc col-sm-6 col-lg-2">
                                       <div  v-if="survey.status == '진행중'">
                                           <span class="mr-4">남은보상<b>{{survey.targetAmount-survey.currentAmount}}</b></span>
-                                          <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
                                       </div>
-                                  </div>
-                                  <div class="surv-disc col-sm-6 col-lg-2">
-                                      <span class="ml-3">{{survey.regDate}}</span> 
                                   </div>
                                   <div class="surv-disc col-sm-6 col-lg-2">
                                       <span class="ml-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
@@ -132,24 +137,30 @@
                     <div class="row card-form">
 
                         <div class="col-sm-6 col-lg-12">
+                          <span class="badge mr-1" style="color:#5a48d0;"><b>{{survey.blockNo}}</b></span>
                           <span class="badge badge-primary mr-1">{{survey.category}}</span>
+
                           <span class="badge  mr-1"
                                 v-bind:class="{ 'badge-success' : survey.status == '진행중' , 'badge-default' : survey.status == '마감'}"
                             >{{survey.status}}</span>
                           <!-- <span class="badge badge-success mr-1">{{survey.status}}</span> -->
-                            <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
-                            <span><b class="black-text"> {{survey.title}}</b></span> 
+                          <span  v-if="survey.status == '진행중'" class="badge badge-warning">{{survey.paymAmount*0.98*0.4/survey.targetAmount}}</span>
+                          <span><b class="black-text"> {{survey.title}}</b></span> 
+                          <span class="badge pull-right" style="color:#5a48d0;">
+                            <small>
+                              <b>{{survey.txHash}}</b>
+                            </small>
+                          </span>
+
                         </div>
-                        <!-- <div class="col-sm-6 col-lg mt-1">
-                            <b> <h6>서베이 타이틀입니다</h6></b>
-                        </div> -->
-                        <div class="surv-disc col-sm-6 col-lg-12 mt-1">
-                            <h6> {{survey.subtitle}}</h6>
-                            <!-- style="border: solid 1px rgb(200,200,200);" -->
-                        <hr>
-                        </div>
+                        
+                          <div class="surv-disc col-sm-6 col-lg-12 mt-1">
+                              <h6> {{survey.subtitle}}</h6>
+                              <hr>
+                          </div>
                   <!-- 태그 -->
-                        <div class="col-sm-6 col-lg-5 black-text">
+                        <div class="col-sm-6 col-lg-8 black-text">
+
                                     <span v-for="tag in $store.state.tagData " :key="tag" class="badge badge-neutral mr-1">
                                       <template v-if="tag.surveyId == survey.surveyId">
                                         #{{tag.content}}
@@ -157,14 +168,12 @@
                                       </span>
                           
                         </div>
-                        <div class="surv-disc col-sm-6 col-lg-3">
+                        
+                        <div class="surv-disc col-sm-6 col-lg-2">
                             <div  v-if="survey.status == '진행중'">
                                 <span class="mr-4">남은보상<b>{{survey.targetAmount-survey.currentAmount}}</b></span>
-                                <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
                             </div>
-                        </div>
-                        <div class="surv-disc col-sm-6 col-lg-2">
-                            <span class="ml-3">{{survey.regDate}}</span> 
+
                         </div>
                         <div class="surv-disc col-sm-6 col-lg-2">
                             <span class="ml-4 now-ui-icons ui-2_chat-round"> {{survey.commentCount}}</span> 
@@ -244,24 +253,26 @@ export default {
                     commentCount: data[i].comments,
                     likeCount: data[i].likes,
                     status: data[i].status,
+                    blockNo: data[i].blockNo,
+                    txHash: data[i].txHash,
               });
-              if(data[i].category == '1')
+              if(data[i].category == '5')
                     this.resultSurvey[i].category = '부동산';
-                else if(data[i].category == '2')
-                    this.resultSurvey[i].category = '유통';
-                else if(data[i].category == '3')
-                    this.resultSurvey[i].category = '식음료';
-                else if(data[i].category == '4')
-                    this.resultSurvey[i].category = '관광';
-                else if(data[i].category == '5')
-                    this.resultSurvey[i].category = '금융';
                 else if(data[i].category == '6')
-                    this.resultSurvey[i].category = '정보통신';
+                    this.resultSurvey[i].category = '유통';
                 else if(data[i].category == '7')
-                    this.resultSurvey[i].category = '보건의료';
+                    this.resultSurvey[i].category = '식음료';
                 else if(data[i].category == '8')
-                    this.resultSurvey[i].category = '공공정책';
+                    this.resultSurvey[i].category = '관광';
                 else if(data[i].category == '9')
+                    this.resultSurvey[i].category = '금융';
+                else if(data[i].category == '10')
+                    this.resultSurvey[i].category = '정보통신';
+                else if(data[i].category == '11')
+                    this.resultSurvey[i].category = '보건의료';
+                else if(data[i].category == '12')
+                    this.resultSurvey[i].category = '공공정책';
+                else if(data[i].category == '13')
                     this.resultSurvey[i].category = '커뮤니티';
                 
                 if(data[i].status == '0')

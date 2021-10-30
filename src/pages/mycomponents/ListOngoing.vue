@@ -42,7 +42,6 @@
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
                                 <span class="mr-4">남은보상<b>{{survey.remainRe}}</b></span>
-                                <span>마감 <b>{{survey.tillClose}}</b> 일전</span>
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-3">{{survey.regDate}}</span> 
