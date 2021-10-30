@@ -167,7 +167,7 @@
                                     <button type="button" value="Custom"
                                       class="btn btn-warning btn-simple btn-round  pull-right btn-lg mx-2" 
                                       @click="kakaoShare">
-                                        <span class=" now-ui-icons arrows-1_share-66"></span> 카카오로 공유하기
+                                        <span class=" now-ui-icons arrows-1_share-66"></span> 공유하기
                                     </button> 
 
                                     
@@ -189,8 +189,8 @@
         <h6 class="text-center">
           비어있는 답변이 있습니다.
         </h6>
-      <template slot="footer">
-        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+      <template slot="">
+        <n-button  class="btn btn-round btn-block btn-neutral btn mt-4 mb-0" 
           type="button"
           @click="EmptyAnswerAlert = false" >
           확인
@@ -204,8 +204,8 @@
           성공적으로 참여하여
           보상 {{survey.paymAmount*0.98*0.4/survey.targetAmount}} SVTH 을 받았습니다!
         </h6>
-      <template slot="footer">
-        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+      <template slot="">
+        <n-button  class="btn btn-round btn-block btn-neutral btn mt-4 mb-0" 
           type="button"
           @click="ParticipateSucceed = false" >
           확인
@@ -218,8 +218,8 @@
         <h6 class="text-center">
           중복참여는 불가합니다.
         </h6>
-      <template slot="footer">
-        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+      <template slot="">
+        <n-button  class="btn btn-round btn-block btn-neutral btn  mt-4 mb-0" 
           type="button"
           @click="ParticipateFailed = false" >
           확인

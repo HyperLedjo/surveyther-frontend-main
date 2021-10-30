@@ -13,7 +13,7 @@ const store = new Vuex.Store({
         userInfo: {
             //유저 기본정보
             no: '1',
-            id: '123456',  //완료
+            id: '',  //완료
             birthday: '01/01',   //완료
             gender: 'M/F',  //완료
             email: 'sample@gmail.com',  //완료
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
         userAddInfo: {
             //유저 추가정보
             name: null,
-            birthYear: null,
+            birthYear: '',
             phone1: null,
             phone2: null,
             phone3: null,
