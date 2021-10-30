@@ -232,7 +232,7 @@
       <template slot="">
         <n-button  class="btn btn-round btn-block btn-neutral btn mt-4 mb-0" 
           type="button"
-          @click="refresh">
+          @click="EditSucceed = false; isEditing = false">
           확인
         </n-button>
       </template>
@@ -296,49 +296,51 @@ export default {
   },
   computed:{
     userName(){
-      if(this.userAddInfo.name == null)
+      if(this.editData.name == null)
         return '-';
       else
-        return this.userAddInfo.name;
+        return this.editData.name;
     },
     userBirthYear(){
-      // if(this.userAddInfo.birthYear == null)
-      //   return '-';
-      // else
-        return this.userAddInfo.birthYear;
+      if(this.editData.birthYear == null)
+        return '-';
+      else
+        return this.editData.birthYear;
     },
     userPhone(){
-      if(this.userAddInfo.name === null)
+      if(this.editData.name === null)
         return '-';
       else
-        return this.userAddInfo.phone1 + '-' + this.userAddInfo.phone2 + '-' +this.userAddInfo.phone3;
+        return this.editData.phone1 + '-' + this.editData.phone2 + '-' +this.editData.phone3;
     },
     userResidence(){
-      if(this.userAddInfo.residence === null)
+      if(this.editData.residence === null)
         return '-';
       else
-        return this.userAddInfo.residence;
+        return this.editData.residence;
     },
     userJob(){
-      if(this.userAddInfo.job === null)
+      if(this.editData.job === null)
         return '-';
       else
-        return this.userAddInfo.job;
+        return this.editData.job;
     },
     userMarried(){
-      if(this.userAddInfo.married == false)
+      if(this.editData.married == false)
         return '미혼';
-      else
+      else if(this.editData.married == true)
         return '기혼';
+      else 
+        return '-';
     },
     userAcademic(){
-      if(this.userAddInfo.academic === null)
+      if(this.editData.academic === null)
         return '-';
       else
-        return this.userAddInfo.academic;
+        return this.editData.academic;
     },
     userIncome(){
-      if(this.userAddInfo.income === null)
+      if(this.editData.income === null)
         return '-';
       else
         return this.userAddInfo.income;
