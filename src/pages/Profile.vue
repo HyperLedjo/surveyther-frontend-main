@@ -265,7 +265,7 @@ export default {
     return {
       isEditing: false,
       EditSucceed:false,
-      editData:{
+      editData:{ 
             name: null,
             birthYear: null,
             phone1: null,
@@ -295,7 +295,8 @@ export default {
     }
   },
   computed:{
-    userName(){
+    //// -------------------------------아래로 영상용!!! 고칠거!!!-------------------------------
+    userName(){ 
       if(this.editData.name == null)
         return '-';
       else
@@ -314,13 +315,13 @@ export default {
         return this.editData.phone1 + '-' + this.editData.phone2 + '-' +this.editData.phone3;
     },
     userResidence(){
-      if(this.editData.residence === null)
+      if(this.editData.residence === "지역을 선택해주세요" ||this.editData.residence === null)
         return '-';
       else
         return this.editData.residence;
     },
     userJob(){
-      if(this.editData.job === null)
+      if(this.editData.job == "직업선택" ||this.editData.job === null)
         return '-';
       else
         return this.editData.job;
@@ -334,16 +335,16 @@ export default {
         return '-';
     },
     userAcademic(){
-      if(this.editData.academic === null)
+      if(this.editData.academic == "학력선택" ||this.editData.academic === null)
         return '-';
       else
         return this.editData.academic;
     },
     userIncome(){
-      if(this.editData.income === null)
+      if(this.editData.income === "소득수준" ||this.editData.income === null)
         return '-';
       else
-        return this.userAddInfo.income;
+        return this.editData.income;
     },
 
 
@@ -360,24 +361,24 @@ export default {
   },
   methods:{
     UserEditInfo(){
-      fetch('/api/member/' + this.$store.state.userInfo.id).then(response => response.json()).then(
-      data =>{
-        console.log(data);
-        // name: null,
-        //     birthYear: null,
-        //     phone1: null,
-        //     phone2: null,
-        //     phone3: null,
-        //     residence: null,
-        //     job: null,
-        //     married: null,
-        //     academic: null,
-        //     income: null,
-        // this.userAddInfo.name = data.name;
-        // this.userAddInfo.birthYear = data.birthYear;
+    //   fetch('/api/member/' + this.$store.state.userInfo.id).then(response => response.json()).then(
+    //   data =>{
+    //     console.log(data); //유저 아이디를 못가져오니왜ㅐㅐㅐㅐㅐㅐㅐ
+    //     // name: null,
+    //     //     birthYear: null,
+    //     //     phone1: null,
+    //     //     phone2: null,
+    //     //     phone3: null,
+    //     //     residence: null,
+    //     //     job: null,
+    //     //     married: null,
+    //     //     academic: null,
+    //     //     income: null,
+    //     // this.userAddInfo.name = data.name;
+    //     // this.userAddInfo.birthYear = data.birthYear;
 
 
-    })
+    // })
     },
     editJob(val){
       this.editData.job = val;
