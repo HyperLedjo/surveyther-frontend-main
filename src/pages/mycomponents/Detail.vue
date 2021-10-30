@@ -146,7 +146,7 @@
                                       <el-popover
                                                   ref="popover2"
                                                   popper-class="popover popover-primary"
-                                                  placement="left"
+                                                  placement="top"
                                                   width="600"
                                                   trigger="click"
                                                 >
@@ -710,16 +710,23 @@ export default {
       await fetch('/api/survey/my/' + this.$route.params.surveyId)
                 .then(response=>response.json())
                 .then(data =>{
-                  for(let i=0; i<data.length; i++){
-                    if(data[i].memberId == this.$store.state.userInfo.no){
+                  if(data == this.$store.state.userInfo.no){
                       this.isMySurvey = true;
-                      // console.log("이거내꺼내꺼");
-                      break;
-                    }else{
-                      // console.log("이거안내꺼");
+                    console.log("이거내꺼내꺼");
+                  }else{
                       this.isMySurvey = false;
-                    }
+                      console.log("이거안내꺼");
                   }
+                  // for(let i=0; i<data.length; i++){
+                  //   if(data[i].memberId == this.$store.state.userInfo.no){
+                  //     this.isMySurvey = true;
+                  //     console.log("이거내꺼내꺼");
+                  //     break;
+                  //   }else{
+                  //     console.log("이거안내꺼");
+                  //     this.isMySurvey = false;
+                  //   }
+                  // }
                 })
     },
     kakaoShare(){
