@@ -124,14 +124,14 @@
                   </div>
                   <div class="col-md-9 ml-auto ">
                     <b>
-                      <h6 class="my-3">{{$store.state.userAddInfo.name}}-</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.birthYear}}-</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.phone1}}-{{$store.state.userAddInfo.phone2}}{{$store.state.userAddInfo.phone3}}</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.residence}}-</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.job}}-</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.married}}-</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.academic}}-</h6>
-                      <h6 class="my-3">{{$store.state.userAddInfo.income}}-</h6>
+                      <h6 class="my-3">{{userName}}</h6>
+                      <h6 class="my-3">{{userBirthYear}}</h6>
+                      <h6 class="my-3">{{userPhone}}</h6>
+                      <h6 class="my-3">{{userResidence}}</h6>
+                      <h6 class="my-3">{{userJob}}</h6>
+                      <h6 class="my-3">{{userMarried}}</h6>
+                      <h6 class="my-3">{{userAcademic}}</h6>
+                      <h6 class="my-3">{{userIncome}}</h6>
 
                     </b>
                   </div>
@@ -229,8 +229,8 @@
         <h6 class="text-center">
           성공적으로 수정하였습니다
         </h6>
-      <template slot="footer">
-        <n-button  class="btn btn-round btn-block btn-neutral btn" 
+      <template slot="">
+        <n-button  class="btn btn-round btn-block btn-neutral btn mt-4 mb-0" 
           type="button"
           @click="refresh">
           확인
@@ -277,18 +277,106 @@ export default {
             academic: null,
             income: null,
       },
+      userAddInfo:{
+            name: null,
+            birthYear: null,
+            phone1: null,
+            phone2: null,
+            phone3: null,
+            residence: null,
+            job: null,
+            married: null,
+            academic: null,
+            income: null,
+      }
       
       
       
     }
   },
   computed:{
+    userName(){
+      if(this.userAddInfo.name == null)
+        return '-';
+      else
+        return this.userAddInfo.name;
+    },
+    userBirthYear(){
+      // if(this.userAddInfo.birthYear == null)
+      //   return '-';
+      // else
+        return this.userAddInfo.birthYear;
+    },
+    userPhone(){
+      if(this.userAddInfo.name === null)
+        return '-';
+      else
+        return this.userAddInfo.phone1 + '-' + this.userAddInfo.phone2 + '-' +this.userAddInfo.phone3;
+    },
+    userResidence(){
+      if(this.userAddInfo.residence === null)
+        return '-';
+      else
+        return this.userAddInfo.residence;
+    },
+    userJob(){
+      if(this.userAddInfo.job === null)
+        return '-';
+      else
+        return this.userAddInfo.job;
+    },
+    userMarried(){
+      if(this.userAddInfo.married == false)
+        return '미혼';
+      else
+        return '기혼';
+    },
+    userAcademic(){
+      if(this.userAddInfo.academic === null)
+        return '-';
+      else
+        return this.userAddInfo.academic;
+    },
+    userIncome(){
+      if(this.userAddInfo.income === null)
+        return '-';
+      else
+        return this.userAddInfo.income;
+    },
+
+
     },
   mounted(){
+    // /api/member/
+    this.UserEditInfo();
+  },
+  created(){
+    
+    },
+  beforeCreate(){
 
   },
   methods:{
-    
+    UserEditInfo(){
+      fetch('/api/member/' + this.$store.state.userInfo.id).then(response => response.json()).then(
+      data =>{
+        console.log(data);
+        // name: null,
+        //     birthYear: null,
+        //     phone1: null,
+        //     phone2: null,
+        //     phone3: null,
+        //     residence: null,
+        //     job: null,
+        //     married: null,
+        //     academic: null,
+        //     income: null,
+        // this.userAddInfo.name = data.name;
+        // this.userAddInfo.birthYear = data.birthYear;
+
+
+    })
+    },
     editJob(val){
       this.editData.job = val;
     },
@@ -331,7 +419,7 @@ export default {
           },
           body: JSON.stringify(userAddInfo)
         };
-        console.log(JSON.stringify(userAddInfo));
+        // console.log(JSON.stringify(userAddInfo));
         fetch("/api/member", request)
         .then(response=>response.json())
         .catch(error=>console.log(error));
