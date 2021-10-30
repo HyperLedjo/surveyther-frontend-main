@@ -150,9 +150,10 @@
                                                   width="600"
                                                   trigger="click"
                                                 >
-                                                  <h3 class="popover-header">Block: 13</h3>
+                                                  <h3 class="popover-header">Block: {{survey.blockNo}}</h3>
                                                   <div class="popover-body">
-                                                  0xaf9e247e413e86ec0b9dd1037ce8b6861fec93e9446e5c7c19710903d8ceca30                                                  </div>
+                                                      {{survey.txHash}}                                                  
+                                                  </div>
                                       </el-popover>
 
                                     </template>
@@ -201,7 +202,7 @@
       <h5 slot="header" class="title title-up pb-0">알림</h5>
         <h6 class="text-center">
           성공적으로 참여하여
-          보상 300 SVTH 을 받았습니다!
+          보상 {{survey.paymAmount*0.98*0.4/survey.targetAmount}} SVTH 을 받았습니다!
         </h6>
       <template slot="footer">
         <n-button  class="btn btn-round btn-block btn-neutral btn" 
@@ -273,7 +274,9 @@ export default {
             paymAmount: null,
             commentCount: null,
             likeCount: null,
-            status: null
+            status: null,
+            txHash: null,
+            blockNo: null,
       },
       questions:[
 
@@ -302,7 +305,7 @@ export default {
       fetch('/api/survey/' + this.$route.params.surveyId).then(response => response.json()).then(
           data => {
                     this.survey.surveyId = data.no;
-                    this.survey.userId = data.memberId;
+                    this.survey.userId = data.author;
                     if(data.category == '1')
                         this.survey.category = '부동산';
                     else if(data.category == '2')
@@ -334,6 +337,8 @@ export default {
                         this.survey.status = '진행중';
                     else if(data.status == '1')
                         this.survey.status = '마감';
+                    this.survey.txHash = data.txHash;
+                    this.survey.blockNo = data.blockNo;
           }
         );
         

@@ -35,7 +35,6 @@
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
                                 <span class="mr-4">참여인원<b>2000</b>명</span>
-                                <!-- <span>마감 <b>5</b> 일전</span> -->
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-3">2021.09.06</span> 
@@ -78,7 +77,6 @@
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
                                 <span class="mr-4">참여인원<b>2000</b>명</span>
-                                <!-- <span>마감 <b>5</b> 일전</span> -->
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-3">2021.09.06</span> 
@@ -121,7 +119,6 @@
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-3">
                                 <span class="mr-4">참여인원<b>2000</b>명</span>
-                                <!-- <span>마감 <b>5</b> 일전</span>  -->
                             </div>
                             <div class="surv-disc col-sm-6 col-lg-2">
                                 <span class="ml-3">2021.09.06</span> 
