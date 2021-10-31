@@ -133,7 +133,7 @@
         </a>
       </li>
 
-      <drop-down
+      <!-- <drop-down
               tag="li"
               title="리워드샵"
               icon="now-ui-icons shopping_cart-simple"
@@ -154,8 +154,16 @@
         <nav-link to="/#">
             패스트푸드
         </nav-link>
-      </drop-down>
-
+      </drop-down> -->
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="/rewardshop"
+        >
+        <i class="now-ui-icons shopping_cart-simple"></i>
+          <p>리워드샵</p>
+        </a>
+      </li>
       
 
       <li class="nav-item" v-if="isUser">

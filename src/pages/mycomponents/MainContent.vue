@@ -17,7 +17,7 @@
             <div class="left-box img-info">
                 <h4><b>PURCHASE</b></h4>
                 <p>
-                    회사나 연구에 설문조사가 필요한가요? <i><b>SURVEYTHER</b></i>에 비슷한 설문조사가 이미 있는지 찾아보고 구매하세요!
+                    회사나 연구에 설문조사가 필요한가요? <b>SURVEYTHER</b>에 비슷한 설문조사가 이미 있는지 찾아보고 구매하세요!
                 </p>
                 <a href="/survey/마감/부동산"><button class="btn btn-round btn-primary btn-lg">구매하러 가기</button></a>
 

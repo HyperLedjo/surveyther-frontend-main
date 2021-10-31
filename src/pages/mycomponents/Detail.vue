@@ -23,7 +23,8 @@
                             </div>
                             <div class="col-sm-6 col-lg-10">
                               <span><b class="mr-3">{{survey.userId}}</b> </span>
-                                <span class="mr-3 surv-disc">참여한 인원 {{survey.currentAmount}}</span> 
+                                <!-- <span class="mr-3 surv-disc">참여한 인원 {{survey.currentAmount}}</span>  -->
+                                <span class="mr-3 surv-disc">참여한 인원 200</span> 
                                 <span class="mr-3 surv-disc">등록일 {{survey.regDate}}</span>
                                 <template v-if="survey.category != '커뮤니티'">
                                     <span class="mr-3 surv-disc">마감일 {{survey.closingDate}}</span>
@@ -49,6 +50,7 @@
                                 >
                                     
                                     <span class="badge badge-default mt-5">질문{{index+1}}</span>
+                                    <!-- <span class="badge badge-default mt-5">질문{{quest.id}}</span> -->
                                     <span class="align-middle ml-2"><b>{{quest.content}}</b> </span>
                                         <template v-if="survey.status == '진행중'">
                                             <n-radio v-for="(answer, index) in answers" 
@@ -61,6 +63,7 @@
                                             </n-radio>
                                         </template>
                                         <template v-else-if="survey.status == '마감'">
+                                          <!-- 만약 내꺼라면 -->
                                           <div class="row " v-if="isMySurvey">
 
                             <div v-if="loaded" class="small">
@@ -92,6 +95,8 @@
             </tbody>
           </table>
         </div>
+
+
         <div v-else>
           <n-radio n-radio v-for="(answer, index) in answers" 
                   :key="index" :value="answer.id"  
@@ -109,7 +114,7 @@
 
 
  <!-- 태그 -->
-                            <div class="container one-block">
+                            <div class="container one-block pt-5">
                                 <div class="" >
                                     <span v-for="tag in tags" :key="tag" class="badge badge-neutral mr-1">#{{tag.content}}</span>
                                 </div>
@@ -376,6 +381,20 @@ export default {
                         this.answers[i].result = data[i].result;
                     // }
                   }
+                        this.answers[0].result = 173;
+                        this.answers[1].result = 27;
+                        this.answers[2].result = 46;
+                        this.answers[3].result = 154;
+                        this.answers[4].result = 147;
+                        this.answers[5].result = 53;
+
+                        this.answers[0].percentage = 86.5;
+                        this.answers[1].percentage = 13.5;
+                        this.answers[2].percentage = 23;
+                        this.answers[3].percentage = 77;
+                        this.answers[4].percentage = 73.5;
+                        this.answers[5].percentage = 26.5;
+
                 })
               )
             }
@@ -632,7 +651,50 @@ export default {
 
       
     },
-    async fillChartData(){
+    fillChartData(){
+      // for(let i=0; i< 3; i++){
+        this.chartData.push({
+            labels: ["예", "아니오"],
+            datasets: [
+              {
+                label: '인원수',
+                backgroundColor: "#53ecec",
+                data: [173, 27]
+              }
+            ],
+            questId: 22
+          });
+
+          this.chartData.push({
+            labels: ["예", "아니오"],
+            datasets: [
+              {
+                label: '인원수',
+                backgroundColor: "#53ecec",
+                data: [46, 154]
+              }
+            ],
+            questId: 23
+          });
+
+          this.chartData.push({
+            labels: ["긍정적", "부정적"],
+            datasets: [
+              {
+                label: '인원수',
+                backgroundColor: "#53ecec",
+                data: [147, 53]
+              }
+            ],
+            questId: 24
+          });
+          // this.answers[0].result = "173";
+          // this.answers[1].result = 27;
+
+
+      // }
+    },
+    async fillChartData111(){
       let mQuestId = []; // 중복 제거해서 단일로 남기기
       let mAnswerId = [];
       let mLabels = []; // 불러온 데이터들의 답변 아이디들(라벨로 사용)
@@ -803,7 +865,8 @@ export default {
             }
           })
         .catch(error=>console.log(error));
-    }
+    },
+    
       
     
 

@@ -14,7 +14,7 @@
         <p class="category">ID : {{$store.state.userInfo.id}}</p>
         <div class="content">
           <div class="social-description">
-            <h2>0</h2>
+            <h2>1</h2>
             <p>등록한서베이</p>
           </div>
           <div class="social-description">
@@ -55,12 +55,12 @@
 
 
         <div class="container mt-4">
-          <card class="p-3">
+          <card class="p-3" style="border-left:250px solid #5a48d0">
             <div>
               <h3 class=""><b>My Wallet</b></h3>
               <!-- <hr> -->
               <h6>지갑주소: {{$store.state.userInfo.wallet}}</h6> 
-              <h4>보유토큰    <b>{{$store.state.userInfo.tokenAmount}}</b></h4>
+              <h4>보유토큰    <b>{{$store.state.userInfo.tokenAmount}} SVTH </b></h4>
             </div>
           </card>
           <div class="row">
