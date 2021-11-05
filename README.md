@@ -56,6 +56,24 @@ https://www.youtube.com/watch?v=0sUWx8F_ljY&feature=youtu.be
 - ChartJS
 - BootStrap
 
+```bash
+npm install vue-chartjs chart.js --save
+```
+
+한개의 차트를 만들때 필요한 데이터 형태
+```vue
+chartdata: {
+      labels: ['첫번째 답변내용', '두번째 답변내용'],
+      datasets: [
+        {
+          label: '인원수',
+          backgroundColor: '#f87979',
+          data: [40, 20]
+        }
+      ]
+    }
+```
+
 ## 백엔드
 - Spring Boot
 - Web3J
