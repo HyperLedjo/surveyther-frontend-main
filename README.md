@@ -63,12 +63,12 @@ npm install vue-chartjs chart.js --save
 한개의 차트를 만들때 필요한 데이터 형태
 ```vue
 chartdata: {
-      labels: ['첫번째 답변내용', '두번째 답변내용'],
+      labels: ['첫번째 답변내용', '두번째 답변내용'], //차트의 왼쪽에 뜨는 내용
       datasets: [
         {
           label: '인원수',
-          backgroundColor: '#f87979',
-          data: [40, 20]
+          backgroundColor: '#f87979', //차트바의 색
+          data: [40, 20] //labels와 같은 index값으로 들어가는 데이터 수치
         }
       ]
     }
